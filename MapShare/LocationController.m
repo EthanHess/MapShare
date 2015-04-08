@@ -34,8 +34,20 @@
 
 - (void)addLocationWithLatitude:(NSString *)latitude longitude:(NSString *)longitude {
     
+    Location *location = [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     
+    location.latitude = latitude;
+    location.longitude = longitude;
     
+    [[LocationController sharedInstance].locations arrayByAddingObject:location];
+    
+    [self synchronize];
+    
+}
+
+- (void)synchronize {
+    
+    [[Stack sharedInstance].managedObjectContext save:NULL];
 }
 
 @end

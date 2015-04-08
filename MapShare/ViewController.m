@@ -37,6 +37,9 @@
     [self.mapView setMapType:MKMapTypeHybrid];
     [self.view addSubview:self.mapView];
     
+    UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressGesture:)];
+    [self.mapView addGestureRecognizer:pressRecognizer];
+    
 }
 
 - (void)setUpToolBar {
@@ -89,6 +92,10 @@
 
 - (void)shareButtonPressed:(id)sender {
     
+    NSString *string = @"";
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:@[string] applicationActivities:nil];
+    [self presentViewController:activityViewController animated:YES completion:nil];
     
 }
 
@@ -111,7 +118,6 @@
         
         [self.mapView addAnnotation:dropPin];
         
-        [self.mapView reloadInputViews];
     }
     
 }
