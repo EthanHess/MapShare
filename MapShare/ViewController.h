@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SearchBarView.h"
 @import MapKit;
+#import "Location.h"
 
 @interface ViewController : UIViewController <MKMapViewDelegate>
 

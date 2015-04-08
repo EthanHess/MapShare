@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Location.h"
 
 @interface LocationController : NSObject
 

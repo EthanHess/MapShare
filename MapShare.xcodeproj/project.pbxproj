@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6381AD5E4FF007B67C4 /* Model.xcdatamodeld */; };
+		27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC63C1AD5E53E007B67C4 /* Location.m */; };
 		27CEF9571AD5BB6E00890179 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF9561AD5BB6E00890179 /* main.m */; };
 		27CEF95A1AD5BB6E00890179 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF9591AD5BB6E00890179 /* AppDelegate.m */; };
 		27CEF95D1AD5BB6E00890179 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF95C1AD5BB6E00890179 /* ViewController.m */; };
@@ -33,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27CAC6391AD5E4FF007B67C4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		27CAC63B1AD5E53E007B67C4 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		27CAC63C1AD5E53E007B67C4 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		27CEF9511AD5BB6E00890179 /* MapShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CEF9551AD5BB6E00890179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27CEF9561AD5BB6E00890179 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -108,10 +113,13 @@
 				27CEF9851AD5CBA000890179 /* SearchButton.h */,
 				27CEF9861AD5CBA000890179 /* SearchButton.m */,
 				27CEF98B1AD5CBE700890179 /* Location */,
+				27CAC6381AD5E4FF007B67C4 /* Model.xcdatamodeld */,
 				27CEF98C1AD5D2BF00890179 /* MapAnnotation.h */,
 				27CEF98D1AD5D2BF00890179 /* MapAnnotation.m */,
 				27CEF9881AD5CBDA00890179 /* LocationController.h */,
 				27CEF9891AD5CBDA00890179 /* LocationController.m */,
+				27CAC63B1AD5E53E007B67C4 /* Location.h */,
+				27CAC63C1AD5E53E007B67C4 /* Location.m */,
 				27CEF97D1AD5BBF600890179 /* Core Data */,
 				27CEF9811AD5C17A00890179 /* Colors */,
 				27CEF95E1AD5BB6E00890179 /* Main.storyboard */,
@@ -277,9 +285,11 @@
 				27CEF95D1AD5BB6E00890179 /* ViewController.m in Sources */,
 				27CEF98E1AD5D2BF00890179 /* MapAnnotation.m in Sources */,
 				27CEF9841AD5CACB00890179 /* SearchBarView.m in Sources */,
+				27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */,
 				27CEF95A1AD5BB6E00890179 /* AppDelegate.m in Sources */,
 				27CEF98A1AD5CBDA00890179 /* LocationController.m in Sources */,
 				27CEF9571AD5BB6E00890179 /* main.m in Sources */,
+				27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */,
 				27CEF9871AD5CBA000890179 /* SearchButton.m in Sources */,
 				27CEF9801AD5C16C00890179 /* UIColor+UIColorCategory.m in Sources */,
 			);
@@ -472,6 +482,7 @@
 				27CEF9761AD5BB6E00890179 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		27CEF9771AD5BB6E00890179 /* Build configuration list for PBXNativeTarget "MapShareTests" */ = {
 			isa = XCConfigurationList;
@@ -480,8 +491,22 @@
 				27CEF9791AD5BB6E00890179 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		27CAC6381AD5E4FF007B67C4 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				27CAC6391AD5E4FF007B67C4 /* Model.xcdatamodel */,
+			);
+			currentVersion = 27CAC6391AD5E4FF007B67C4 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 27CEF9491AD5BB6E00890179 /* Project object */;
 }

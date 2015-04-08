@@ -26,6 +26,8 @@
     
     [self setUpSearchBar];
     
+    [self settingAnnotations];
+    
 }
 
 - (void)setUpMapView {
@@ -112,6 +114,22 @@
         [self.mapView reloadInputViews];
     }
     
+}
+
+- (void)settingAnnotations {
+    
+    NSArray *locations = [LocationController sharedInstance].locations;
+    
+    for (Location *location in locations) {
+        double latitudeDouble = [location.latitude doubleValue];
+        double longitudeDouble = [location.longitude doubleValue];
+        
+        CLLocationCoordinate2D locCoord = CLLocationCoordinate2DMake(latitudeDouble, longitudeDouble);
+        
+        MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
+        [self.mapView addAnnotation:dropPin];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
