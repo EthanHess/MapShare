@@ -19,12 +19,24 @@
         
         self.backgroundColor = [UIColor backgroundColor];
         
-        self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(20, 15, self.frame.size.width - 70, self.frame.size.height - 50)];
+        self.searchBar = [UISearchBar new];
+        self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;
         self.searchBar.delegate = self;
         self.searchBar.placeholder = @" Search Location ";
         [self addSubview:self.searchBar];
         
+        self.button = [SearchButton new];
+        self.button.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:self.button];
         
+        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_searchBar, _button);
+        
+        NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_searchBar(==60)]-[_button(==60)]-10-|" options:0 metrics:nil views:viewsDictionary];
+        
+        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_searchBar(==250)]-25-[_button(==60)]-|" options:0 metrics:nil views:viewsDictionary];
+        
+        [self addConstraints:constraints];
+        [self addConstraints:horizontalConstraints];
     }
         
     return self;

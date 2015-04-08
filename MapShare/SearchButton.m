@@ -15,6 +15,7 @@
     self =[super initWithFrame:frame];
     if(self)
     {
+        self.backgroundColor = [UIColor whiteColor];
         [self.layer setCornerRadius:frame.size.width/2.0];
     }
     return self;
