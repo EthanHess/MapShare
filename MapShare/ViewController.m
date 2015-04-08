@@ -67,9 +67,20 @@
     
 }
 
-- (void)popSearchBar:(id)sender {
+-(void)popSearchBar:(id)sender {
     
+    [self popSearchBar:self.searchBar distance:self.searchBar.frame.size.height withDuration:1.0];
+    [self.searchBar resignFirstResponder];
     
+}
+
+- (void)popSearchBar:(UIView *)view distance:(float)distance withDuration:(float)duration {
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        
+        view.center = CGPointMake(view.center.x, view.center.y + distance);
+        
+    }];
 
 }
 

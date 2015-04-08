@@ -10,5 +10,14 @@
 
 @implementation SearchButton
 
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    self =[super initWithFrame:frame];
+    if(self)
+    {
+        [self.layer setCornerRadius:frame.size.width/2.0];
+    }
+    return self;
+}
 
 @end
