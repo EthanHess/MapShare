@@ -14,6 +14,8 @@
 
 @interface ViewController () <UISearchBarDelegate>
 
+@property (nonatomic, strong) id <MKAnnotation> selectedAnnotation;
+
 @end
 
 @implementation ViewController
@@ -49,10 +51,17 @@
     self.toolBar.backgroundColor = [UIColor backgroundColor];
     [self.view addSubview:self.toolBar];
     
+    UIImage *boom = [UIImage imageNamed:@"boom"];
     UIImage *photo = [UIImage imageNamed:@"search"];
     UIImage *share = [UIImage imageNamed:@"share"];
     
     NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:3];
+    
+    UIBarButtonItem *flexItem0 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [buttons addObject:flexItem0];
+    
+    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc]initWithImage:boom style:UIBarButtonItemStylePlain target:self action:@selector(clearAll)];
+    [buttons addObject:clearButton];
     
     UIBarButtonItem *flexItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem1];
@@ -83,13 +92,13 @@
     
     if (self.searchBarView.frame.origin.y < 64) {
     
-    [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 64 withDuration:1.0];
+    [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 64 withDuration:0.5];
     [self.searchBarView resignFirstResponder];
         
     }
     else {
     
-    [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 64 withDuration:1.0];
+    [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 64 withDuration:0.5];
     [self.searchBarView resignFirstResponder];
         
     }
@@ -100,7 +109,7 @@
 
 - (void)popSearchBar:(UIView *)view distance:(float)distance withDuration:(float)duration {
     
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         
         view.center = CGPointMake(view.center.x, view.center.y + distance);
         
@@ -110,7 +119,7 @@
 
 - (void)popSearchBarBack:(UIView *)view distance:(float)distance withDuration:(float)duration {
     
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         
         view.center = CGPointMake(view.center.x, view.center.y - distance);
         
@@ -130,11 +139,11 @@
 
 - (void)handleLongPressGesture:(UIGestureRecognizer *)sender {
     
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        [self.mapView removeGestureRecognizer:sender];
-    }
-    else {
-        
+//    if (sender.state == UIGestureRecognizerStateEnded) {
+//        [self.mapView removeGestureRecognizer:sender];
+//    }
+//    else {
+    
         CGPoint point = [sender locationInView:self.mapView];
         CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
         
@@ -147,7 +156,7 @@
         
         [self.mapView addAnnotation:dropPin];
         
-    }
+//    }
     
 }
 
@@ -169,28 +178,23 @@
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     
+    self.calloutView.annotation = view.annotation;
 
     self.calloutView = [[CalloutView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - self.calloutView.frame.size.width/2, self.view.frame.size.height/2 - self.calloutView.frame.size.height/2, 80, 100)];
+    
+    [self.calloutView.removeButton addTarget:self action:@selector(removeLocation) forControlEvents:UIControlEventTouchUpInside];
     
     [self.calloutView setHidden:NO];
     [self.mapView addSubview:self.calloutView];
     
 }
 
-//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-//    
-//    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"MyPin"];
-//    if (!annotationView) {
-//        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPin"];
-//        annotationView.canShowCallout = YES;
-//        annotationView.animatesDrop = YES;
-//    }
-//    
-//    annotationView.annotation = annotation;
-//    
-//    return annotationView;
-//    
-//}
+- (void)removeLocation {
+    
+    
+    
+}
+
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
@@ -200,7 +204,27 @@
     
 }
 
+- (void)clearAll {
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Delete" message:@"Delete All Annotations?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+    [alert show];
+    
+}
 
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+//
+//    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"MyPin"];
+//    if (!annotationView) {
+//        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPin"];
+//        annotationView.canShowCallout = YES;
+//        annotationView.animatesDrop = YES;
+//    }
+//
+//    annotationView.annotation = annotation;
+//
+//    return annotationView;
+//
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

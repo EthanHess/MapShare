@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Location.h"
+#import "MapAnnotation.h"
 
 @interface CalloutView : UIView
 
 @property (nonatomic, strong) UIButton *removeButton;
 @property (nonatomic, strong) UIButton *cancelButton;
+@property (nonatomic, strong) id <MKAnnotation> annotation;
 @property (nonatomic, strong) Location *location;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @import MapKit;
+#import "Location.h"
 
 @interface MapAnnotation : MKAnnotationView <MKAnnotation>
 {
@@ -16,6 +17,7 @@
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) NSString *locationName;
+@property (nonatomic, strong) Location *currentLocation;
 
 - (id)initWithLocation:(CLLocationCoordinate2D)coord;
 
