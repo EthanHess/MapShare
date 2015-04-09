@@ -81,8 +81,20 @@
 
 -(void)popSearchBar:(id)sender {
     
+    if (self.searchBarView.frame.origin.y < 64) {
+    
     [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 64 withDuration:1.0];
     [self.searchBarView resignFirstResponder];
+        
+    }
+    else {
+    
+    [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 64 withDuration:1.0];
+    [self.searchBarView resignFirstResponder];
+        
+    }
+    
+    
     
 }
 
@@ -94,6 +106,16 @@
         
     }];
 
+}
+
+- (void)popSearchBarBack:(UIView *)view distance:(float)distance withDuration:(float)duration {
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        
+        view.center = CGPointMake(view.center.x, view.center.y - distance);
+        
+    }];
+    
 }
 
 
