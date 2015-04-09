@@ -12,6 +12,7 @@
 @interface CalloutView : UIView
 
 @property (nonatomic, strong) UIButton *removeButton;
+@property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) Location *location;
 
 @end

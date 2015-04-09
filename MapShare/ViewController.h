@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UIToolbar *toolBar;
-@property (nonatomic, strong) SearchBarView *searchBar;
+@property (nonatomic, strong) SearchBarView *searchBarView;
 @property (nonatomic, strong) CalloutView *calloutView;
 
 @end

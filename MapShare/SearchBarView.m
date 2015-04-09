@@ -31,12 +31,15 @@
         
         NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_searchBar, _button);
         
-        NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_searchBar(==60)]-[_button(==60)]-10-|" options:0 metrics:nil views:viewsDictionary];
+        NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_searchBar(==60)]-10-|" options:0 metrics:nil views:viewsDictionary];
         
-        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_searchBar(==250)]-25-[_button(==60)]-|" options:0 metrics:nil views:viewsDictionary];
+        NSLayoutConstraint *equalConstraint = [NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.searchBar attribute:NSLayoutAttributeHeight multiplier:1 constant:0.0];
+        
+        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_searchBar(==250)]-25-[_button(==60)]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
         
         [self addConstraints:constraints];
         [self addConstraints:horizontalConstraints];
+        [self addConstraint:equalConstraint]; 
     }
         
     return self;

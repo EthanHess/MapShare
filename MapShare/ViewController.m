@@ -12,7 +12,7 @@
 #import "LocationController.h"
 
 
-@interface ViewController () 
+@interface ViewController () <UISearchBarDelegate>
 
 @end
 
@@ -54,29 +54,35 @@
     
     NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:3];
     
+    UIBarButtonItem *flexItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [buttons addObject:flexItem1];
+    
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:photo style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar:)];
     [buttons addObject:searchButton];
     
-    UIBarButtonItem *flexItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [buttons addObject:flexItem];
+    UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [buttons addObject:flexItem2];
     
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:share style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonPressed:)];
     [buttons addObject:shareButton];
+    
+    UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [buttons addObject:flexItem3];
     
     [self.toolBar setItems:buttons];
 }
 
 - (void)setUpSearchBar {
     
-    self.searchBar = [[SearchBarView alloc] initWithFrame:CGRectMake(0, -80, self.view.frame.size.width, 80)];
-    [self.view addSubview:self.searchBar];
+    self.searchBarView = [[SearchBarView alloc] initWithFrame:CGRectMake(0, -80, self.view.frame.size.width, 80)];
+    [self.view addSubview:self.searchBarView];
     
 }
 
 -(void)popSearchBar:(id)sender {
     
-    [self popSearchBar:self.searchBar distance:self.searchBar.frame.size.height withDuration:1.0];
-    [self.searchBar resignFirstResponder];
+    [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 64 withDuration:1.0];
+    [self.searchBarView resignFirstResponder];
     
 }
 
@@ -142,12 +148,36 @@
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     
 
-    self.calloutView = [[CalloutView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - self.calloutView.frame.size.width/2, self.view.frame.size.height/2 - self.calloutView.frame.size.height/2, 70, 50)];
+    self.calloutView = [[CalloutView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - self.calloutView.frame.size.width/2, self.view.frame.size.height/2 - self.calloutView.frame.size.height/2, 80, 100)];
     
     [self.calloutView setHidden:NO];
     [self.mapView addSubview:self.calloutView];
     
 }
+
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+//    
+//    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"MyPin"];
+//    if (!annotationView) {
+//        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPin"];
+//        annotationView.canShowCallout = YES;
+//        annotationView.animatesDrop = YES;
+//    }
+//    
+//    annotationView.annotation = annotation;
+//    
+//    return annotationView;
+//    
+//}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    
+    
+    
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning {
