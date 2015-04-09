@@ -17,4 +17,6 @@
 
 - (void)addLocationWithLatitude:(NSString *)latitude longitude:(NSString *)longitude;
 
+- (void)removeLocation:(Location *)location;
+
 @end

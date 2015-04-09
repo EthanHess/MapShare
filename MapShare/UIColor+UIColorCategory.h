@@ -12,4 +12,6 @@
 
 + (UIColor *)backgroundColor;
 
++ (UIColor *)awesome;
+
 @end

@@ -10,13 +10,14 @@
 #import "SearchBarView.h"
 @import MapKit;
 #import "Location.h"
+#import "CalloutView.h"
 
 @interface ViewController : UIViewController <MKMapViewDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UIToolbar *toolBar;
 @property (nonatomic, strong) SearchBarView *searchBar;
-
+@property (nonatomic, strong) CalloutView *calloutView;
 
 @end
 

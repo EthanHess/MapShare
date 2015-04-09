@@ -11,6 +11,7 @@
 #import "MapAnnotation.h"
 #import "LocationController.h"
 
+
 @interface ViewController () 
 
 @end
@@ -137,6 +138,17 @@
         
     }
 }
+
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    
+
+    self.calloutView = [[CalloutView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - self.calloutView.frame.size.width/2, self.view.frame.size.height/2 - self.calloutView.frame.size.height/2, 70, 50)];
+    
+    [self.calloutView setHidden:NO];
+    [self.mapView addSubview:self.calloutView];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

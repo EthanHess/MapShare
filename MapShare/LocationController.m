@@ -45,6 +45,14 @@
     
 }
 
+- (void)removeLocation:(Location *)location {
+    
+    [location.managedObjectContext deleteObject:location];
+    
+    [self synchronize]; 
+    
+}
+
 - (void)synchronize {
     
     [[Stack sharedInstance].managedObjectContext save:NULL];
