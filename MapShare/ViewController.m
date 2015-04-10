@@ -33,6 +33,7 @@
     
 }
 
+
 - (void)setUpMapView {
     
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 75)];
@@ -85,6 +86,8 @@
     
     self.searchBarView = [[SearchBarView alloc] initWithFrame:CGRectMake(0, -80, self.view.frame.size.width, 80)];
     [self.view addSubview:self.searchBarView];
+    
+    [self.searchBarView.button addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -146,7 +149,7 @@
     
         CGPoint point = [sender locationInView:self.mapView];
         CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-        
+    
         MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
         
         NSString *latitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.latitude];
@@ -171,6 +174,7 @@
         CLLocationCoordinate2D locCoord = CLLocationCoordinate2DMake(latitudeDouble, longitudeDouble);
         
         MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
+        
         [self.mapView addAnnotation:dropPin];
         
     }
@@ -183,15 +187,56 @@
     self.calloutView = [[CalloutView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - self.calloutView.frame.size.width/2, self.view.frame.size.height/2 - self.calloutView.frame.size.height/2, 80, 100)];
     
     [self.calloutView.removeButton addTarget:self action:@selector(removeLocation) forControlEvents:UIControlEventTouchUpInside];
-    
+    self.selectedAnnotation = view.annotation;
     [self.calloutView setHidden:NO];
     [self.mapView addSubview:self.calloutView];
     
 }
 
+- (void)search {
+    
+    NSString *searchText = self.searchBarView.searchBar.text;
+    
+    MKLocalSearchRequest *searchRequest = [[MKLocalSearchRequest alloc] init];
+    [searchRequest setNaturalLanguageQuery:[NSString stringWithFormat:@"%@", searchText]];
+    
+    MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:searchRequest];
+    [localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
+        if (!error) {
+            for (MKMapItem *mapItem in [response mapItems]) {
+                NSLog(@"Name: %@, Placemark title: %@", [mapItem name], [[mapItem placemark] title]);
+            }
+        } else {
+            NSLog(@"Search Request Error: %@", [error localizedDescription]);
+        }
+    }];
+
+
+}
+
+
 - (void)removeLocation {
     
+    NSString *lat = [NSString stringWithFormat:@"%f", [self.selectedAnnotation coordinate].latitude];
+    NSString *lon = [NSString stringWithFormat:@"%f", [self.selectedAnnotation coordinate].longitude];
     
+    
+    for (Location *location in [LocationController sharedInstance].locations) {
+        
+        if ([location.latitude isEqualToString:lat] && [location.longitude isEqualToString:lon]) {
+            
+            [[LocationController sharedInstance]removeLocation:location];
+            
+            [self.mapView removeAnnotation:self.selectedAnnotation];
+            
+            [self.mapView reloadInputViews];
+            
+        }
+        
+    }
+
+    
+    [self.calloutView setHidden:YES];
     
 }
 
@@ -203,6 +248,7 @@
     
     
 }
+
 
 - (void)clearAll {
     

@@ -21,5 +21,20 @@
     return self;
 }
 
+//- (id)initWithLocation:(Location *)location {
+//    
+//    self = [super init];
+//    if (self) {
+//        
+//        float lat = [location.latitude floatValue];
+//        float lon = [location.longitude floatValue];
+//        
+//        coordinate = CLLocationCoordinate2DMake(lat,lon);
+//        
+//    }
+//    
+//    return self;
+//}
+
 
 @end

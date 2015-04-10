@@ -19,5 +19,6 @@
 @property (nonatomic, strong) SearchBarView *searchBarView;
 @property (nonatomic, strong) CalloutView *calloutView;
 
+
 @end
 
