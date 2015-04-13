@@ -14,4 +14,6 @@
 
 + (UIColor *)awesome;
 
++ (UIColor *)toolbarBackground;
+
 @end

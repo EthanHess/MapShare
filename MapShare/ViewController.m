@@ -40,7 +40,8 @@
     self.mapView.delegate = self;
     [self.mapView setMapType:MKMapTypeHybrid];
     [self.view addSubview:self.mapView];
-    
+
+
     UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
     
@@ -49,7 +50,7 @@
 - (void)setUpToolBar {
     
     self.toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
-    self.toolBar.backgroundColor = [UIColor backgroundColor];
+    self.toolBar.backgroundColor = [UIColor toolbarBackground];
     [self.view addSubview:self.toolBar];
     
     UIImage *boom = [UIImage imageNamed:@"boom"];
@@ -95,13 +96,13 @@
     
     if (self.searchBarView.frame.origin.y < 64) {
     
-    [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 64 withDuration:0.5];
+    [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 64];
     [self.searchBarView resignFirstResponder];
         
     }
     else {
     
-    [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 64 withDuration:0.5];
+    [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 64];
     [self.searchBarView resignFirstResponder];
         
     }
@@ -110,7 +111,7 @@
     
 }
 
-- (void)popSearchBar:(UIView *)view distance:(float)distance withDuration:(float)duration {
+- (void)popSearchBar:(UIView *)view distance:(float)distance {
     
     [UIView animateWithDuration:0.5 animations:^{
         
@@ -120,7 +121,7 @@
 
 }
 
-- (void)popSearchBarBack:(UIView *)view distance:(float)distance withDuration:(float)duration {
+- (void)popSearchBarBack:(UIView *)view distance:(float)distance {
     
     [UIView animateWithDuration:0.5 animations:^{
         
@@ -228,8 +229,6 @@
             [[LocationController sharedInstance]removeLocation:location];
             
             [self.mapView removeAnnotation:self.selectedAnnotation];
-            
-            [self.mapView reloadInputViews];
             
         }
         
