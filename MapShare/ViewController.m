@@ -43,9 +43,8 @@
     self.mapView.delegate = self;
     [self.mapView setMapType:MKMapTypeHybrid];
     [self.view addSubview:self.mapView];
-
-
-    UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressGesture:)];
+    
+    UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
     
 }
@@ -110,6 +109,10 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Standard" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self.mapView setMapType:MKMapTypeStandard];
         
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:alertController completion:nil];
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -177,16 +180,13 @@
 
 - (void)handleLongPressGesture:(UIGestureRecognizer *)sender {
     
-//    if (sender.state == UIGestureRecognizerStateEnded) {
-//        [self.mapView removeGestureRecognizer:sender];
-//    }
-//    else {
     
         CGPoint point = [sender locationInView:self.mapView];
         CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     
         MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
-        
+    
+        NSLog(@"drop pin added: %@", dropPin);
         NSString *latitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.latitude];
         NSString *longitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.longitude];
         
@@ -196,8 +196,8 @@
     
 //        [SoundController playSoundWithName:@""];
     
-//    }
-    
+
+
 }
 
 - (void)settingAnnotations {
@@ -264,6 +264,8 @@
             
             [[LocationController sharedInstance]removeLocation:location];
             
+            NSLog(@"self.selectedAnnotation: %@", self.selectedAnnotation);
+            
             [self.mapView removeAnnotation:self.selectedAnnotation];
             
         }
@@ -299,21 +301,6 @@
 }
 
 
-
-//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-//
-//    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"MyPin"];
-//    if (!annotationView) {
-//        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MyPin"];
-//        annotationView.canShowCallout = YES;
-//        annotationView.animatesDrop = YES;
-//    }
-//
-//    annotationView.annotation = annotation;
-//
-//    return annotationView;
-//
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
