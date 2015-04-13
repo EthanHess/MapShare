@@ -241,12 +241,16 @@
     [localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         if (!error) {
             for (MKMapItem *mapItem in [response mapItems]) {
+                
                 NSLog(@"Name: %@, Placemark title: %@", [mapItem name], [[mapItem placemark] title]);
             }
         } else {
             NSLog(@"Search Request Error: %@", [error localizedDescription]);
         }
     }];
+    
+    self.tableView = [[TableView alloc]initWithFrame:CGRectMake(80, 150, self.view.frame.size.width - 160, self.view.frame.size.height - 300)];
+    [self.view addSubview:self.tableView]; 
 
 
 }
