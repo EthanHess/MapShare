@@ -10,4 +10,8 @@
 
 @interface ResultsController : NSObject
 
+@property (nonatomic, strong, readonly) NSArray *places;
+
++ (ResultsController *)sharedInstance;
+
 @end

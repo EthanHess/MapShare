@@ -16,4 +16,6 @@
 
 + (UIColor *)toolbarBackground;
 
++ (UIColor *)lightBlueColor;
+
 @end

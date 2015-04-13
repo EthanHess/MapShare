@@ -11,6 +11,16 @@
 
 @implementation ResultsController
 
++ (ResultsController *)sharedInstance {
+    static ResultsController *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [ResultsController new];
+    });
+    
+    return sharedInstance;
+    
+}
 
 - (void)getLocations {
     

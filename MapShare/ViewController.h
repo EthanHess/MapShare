@@ -12,7 +12,6 @@
 #import "Location.h"
 #import "CalloutView.h"
 #import <AVFoundation/AVFoundation.h>
-#import "TableView.h"
 
 @interface ViewController : UIViewController <MKMapViewDelegate>
 
@@ -20,7 +19,6 @@
 @property (nonatomic, strong) UIToolbar *toolBar;
 @property (nonatomic, strong) SearchBarView *searchBarView;
 @property (nonatomic, strong) CalloutView *calloutView;
-@property (nonatomic, strong) TableView *tableView; 
 
 
 @end

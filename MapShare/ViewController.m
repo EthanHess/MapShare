@@ -11,12 +11,14 @@
 #import "MapAnnotation.h"
 #import "LocationController.h"
 #import "SoundController.h"
+#import "ResultsController.h"
 
 
-@interface ViewController () <UISearchBarDelegate,UIAlertViewDelegate>
+@interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) id <MKAnnotation> selectedAnnotation;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) UITableView *tableView; 
 @property (nonatomic, strong) SoundController *soundController;
 
 @end
@@ -33,6 +35,7 @@
     [self setUpSearchBar];
     
     [self settingAnnotations];
+    
     
 }
 
@@ -249,12 +252,53 @@
         }
     }];
     
-    self.tableView = [[TableView alloc]initWithFrame:CGRectMake(80, 150, self.view.frame.size.width - 160, self.view.frame.size.height - 300)];
-    [self.view addSubview:self.tableView]; 
+    [self setUpTableView];
 
 
 }
 
+- (void)setUpTableView {
+    
+    
+    self.tableView.backgroundColor = [UIColor lightGrayColor];
+    
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 190, self.view.frame.size.width - 160, self.view.frame.size.height - 300)];
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self registerTableView:self.tableView];
+    [self.view addSubview:self.tableView];
+    
+}
+
+- (void)registerTableView:(UITableView *)tableView {
+    
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"]; 
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    cell.backgroundColor = [UIColor lightBlueColor];
+    
+    return cell;
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+//    return [ResultsController sharedInstance].places.count;
+    
+    return 3;
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 80; 
+}
 
 - (void)removeLocation {
     

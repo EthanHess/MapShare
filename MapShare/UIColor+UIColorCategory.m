@@ -28,5 +28,11 @@
     
 }
 
++ (UIColor *)lightBlueColor {
+    
+    return [UIColor colorWithRed:(0/255.0) green:(35/255.0) blue:(95/255.0) alpha:1.0];
+    
+}
+
 
 @end
