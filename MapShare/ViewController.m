@@ -10,11 +10,14 @@
 #import "UIColor+UIColorCategory.h"
 #import "MapAnnotation.h"
 #import "LocationController.h"
+#import "SoundController.h"
 
 
-@interface ViewController () <UISearchBarDelegate>
+@interface ViewController () <UISearchBarDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) id <MKAnnotation> selectedAnnotation;
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) SoundController *soundController;
 
 @end
 
@@ -159,7 +162,9 @@
         [[LocationController sharedInstance] addLocationWithLatitude:latitude longitude:longitude];
         
         [self.mapView addAnnotation:dropPin];
-        
+    
+//        [SoundController playSoundWithName:@""];
+    
 //    }
     
 }
@@ -234,19 +239,10 @@
         
     }
 
-    
     [self.calloutView setHidden:YES];
     
 }
 
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
-    
-    
-    
-    
-}
 
 
 - (void)clearAll {
@@ -255,6 +251,23 @@
     [alert show];
     
 }
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        
+        for (Location *location in [LocationController sharedInstance].locations) {
+            
+            [[LocationController sharedInstance] removeLocation:location];
+            
+        }
+        
+        [self.mapView removeAnnotations:self.mapView.annotations];
+        
+    }
+}
+
+
 
 //- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
 //
