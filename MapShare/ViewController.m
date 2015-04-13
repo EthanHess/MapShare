@@ -56,6 +56,7 @@
     self.toolBar.backgroundColor = [UIColor toolbarBackground];
     [self.view addSubview:self.toolBar];
     
+    UIImage *map = [UIImage imageNamed:@"map"];
     UIImage *boom = [UIImage imageNamed:@"boom"];
     UIImage *photo = [UIImage imageNamed:@"search"];
     UIImage *share = [UIImage imageNamed:@"share"];
@@ -65,25 +66,55 @@
     UIBarButtonItem *flexItem0 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem0];
     
-    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc]initWithImage:boom style:UIBarButtonItemStylePlain target:self action:@selector(clearAll)];
-    [buttons addObject:clearButton];
+    UIBarButtonItem *mapType = [[UIBarButtonItem alloc]initWithImage:map style:UIBarButtonItemStylePlain target:self action:@selector(mapType)];
+    [buttons addObject:mapType];
     
     UIBarButtonItem *flexItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem1];
     
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:photo style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar:)];
-    [buttons addObject:searchButton];
+    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc]initWithImage:boom style:UIBarButtonItemStylePlain target:self action:@selector(clearAll)];
+    [buttons addObject:clearButton];
     
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem2];
     
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:share style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonPressed:)];
-    [buttons addObject:shareButton];
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:photo style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar:)];
+    [buttons addObject:searchButton];
     
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem3];
     
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:share style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonPressed:)];
+    [buttons addObject:shareButton];
+    
+    UIBarButtonItem *flexItem4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [buttons addObject:flexItem4];
+    
     [self.toolBar setItems:buttons];
+}
+
+- (void)mapType {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Map Type" message:@"Choose Style" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Hybrid" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.mapView setMapType:MKMapTypeHybrid];
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Satellite" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.mapView setMapType:MKMapTypeSatellite];
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Standard" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.mapView setMapType:MKMapTypeStandard];
+        
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+    
 }
 
 - (void)setUpSearchBar {
