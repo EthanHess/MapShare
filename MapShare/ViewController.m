@@ -11,7 +11,8 @@
 #import "MapAnnotation.h"
 #import "LocationController.h"
 #import "SoundController.h"
-#import "ResultsController.h"
+#import "DismissView.h"
+
 
 
 @interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) UITableView *tableView; 
 @property (nonatomic, strong) SoundController *soundController;
+@property (nonatomic, strong) DismissView *dismissView;
 
 @end
 
@@ -233,9 +235,29 @@
     
 }
 
+- (void)setUpDismissView {
+    
+    self.dismissView = [[DismissView alloc]initWithFrame:CGRectMake(80, 170, self.view.frame.size.width - 160, 70)];
+    [self.dismissView.dismissButton addTarget:self action:@selector(dismissTableView) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.dismissView]; 
+    
+}
+
+- (void)dismissTableView {
+    
+    [self.tableView setHidden:YES];
+    [self.dismissView setHidden:YES];
+}
+
 - (void)search {
     
     NSString *searchText = self.searchBarView.searchBar.text;
+    
+    if ([searchText isEqual: @""]) {
+        return;
+    }
+    
+    else {
     
     MKLocalSearchRequest *searchRequest = [[MKLocalSearchRequest alloc] init];
     [searchRequest setNaturalLanguageQuery:[NSString stringWithFormat:@"%@", searchText]];
@@ -251,7 +273,9 @@
     }];
     
     [self setUpTableView];
-
+    [self setUpDismissView];
+    
+    }
 
 }
 
@@ -260,7 +284,7 @@
     
     self.tableView.backgroundColor = [UIColor lightGrayColor];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 190, self.view.frame.size.width - 160, self.view.frame.size.height - 300)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, 240)];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -284,6 +308,8 @@
     MKMapItem *item = self.resultPlaces[indexPath.row];
     
     cell.textLabel.text = item.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", item.placemark];
+    cell.textLabel.textColor = [UIColor whiteColor];
     
     return cell;
     

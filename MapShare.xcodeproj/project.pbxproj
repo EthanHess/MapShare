@@ -11,8 +11,7 @@
 		27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC63C1AD5E53E007B67C4 /* Location.m */; };
 		27CAC6751AD6E179007B67C4 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6741AD6E179007B67C4 /* CalloutView.m */; };
 		27CAC6E21ADC4E26007B67C4 /* SoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6E11ADC4E26007B67C4 /* SoundController.m */; };
-		27CAC6E91ADC7318007B67C4 /* ResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6E81ADC7318007B67C4 /* ResultsController.m */; };
-		27CAC6EC1ADC8408007B67C4 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6EB1ADC8408007B67C4 /* Place.m */; };
+		27CAC6EF1ADD8F47007B67C4 /* DismissView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6EE1ADD8F47007B67C4 /* DismissView.m */; };
 		27CEF9571AD5BB6E00890179 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF9561AD5BB6E00890179 /* main.m */; };
 		27CEF95A1AD5BB6E00890179 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF9591AD5BB6E00890179 /* AppDelegate.m */; };
 		27CEF95D1AD5BB6E00890179 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF95C1AD5BB6E00890179 /* ViewController.m */; };
@@ -46,10 +45,8 @@
 		27CAC6741AD6E179007B67C4 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		27CAC6E01ADC4E26007B67C4 /* SoundController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundController.h; sourceTree = "<group>"; };
 		27CAC6E11ADC4E26007B67C4 /* SoundController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundController.m; sourceTree = "<group>"; };
-		27CAC6E71ADC7318007B67C4 /* ResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsController.h; sourceTree = "<group>"; };
-		27CAC6E81ADC7318007B67C4 /* ResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsController.m; sourceTree = "<group>"; };
-		27CAC6EA1ADC8408007B67C4 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
-		27CAC6EB1ADC8408007B67C4 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		27CAC6ED1ADD8F47007B67C4 /* DismissView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissView.h; sourceTree = "<group>"; };
+		27CAC6EE1ADD8F47007B67C4 /* DismissView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissView.m; sourceTree = "<group>"; };
 		27CEF9511AD5BB6E00890179 /* MapShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CEF9551AD5BB6E00890179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27CEF9561AD5BB6E00890179 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -129,15 +126,13 @@
 				27CEF95C1AD5BB6E00890179 /* ViewController.m */,
 				27CEF9821AD5CACB00890179 /* SearchBarView.h */,
 				27CEF9831AD5CACB00890179 /* SearchBarView.m */,
+				27CAC6ED1ADD8F47007B67C4 /* DismissView.h */,
+				27CAC6EE1ADD8F47007B67C4 /* DismissView.m */,
 				27CEF9851AD5CBA000890179 /* SearchButton.h */,
 				27CEF9861AD5CBA000890179 /* SearchButton.m */,
 				27CAC6731AD6E179007B67C4 /* CalloutView.h */,
 				27CAC6741AD6E179007B67C4 /* CalloutView.m */,
 				27CAC6E31ADC6EF5007B67C4 /* Controllers  */,
-				27CAC6EA1ADC8408007B67C4 /* Place.h */,
-				27CAC6EB1ADC8408007B67C4 /* Place.m */,
-				27CAC6E71ADC7318007B67C4 /* ResultsController.h */,
-				27CAC6E81ADC7318007B67C4 /* ResultsController.m */,
 				27CAC6E01ADC4E26007B67C4 /* SoundController.h */,
 				27CAC6E11ADC4E26007B67C4 /* SoundController.m */,
 				27CEF98B1AD5CBE700890179 /* Location */,
@@ -309,7 +304,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27CAC6EC1ADC8408007B67C4 /* Place.m in Sources */,
 				27CEF97C1AD5BBE400890179 /* Stack.m in Sources */,
 				27CAC6E21ADC4E26007B67C4 /* SoundController.m in Sources */,
 				27CEF95D1AD5BB6E00890179 /* ViewController.m in Sources */,
@@ -321,9 +315,9 @@
 				27CEF98A1AD5CBDA00890179 /* LocationController.m in Sources */,
 				27CEF9571AD5BB6E00890179 /* main.m in Sources */,
 				27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */,
+				27CAC6EF1ADD8F47007B67C4 /* DismissView.m in Sources */,
 				27CEF9871AD5CBA000890179 /* SearchButton.m in Sources */,
 				27CEF9801AD5C16C00890179 /* UIColor+UIColorCategory.m in Sources */,
-				27CAC6E91ADC7318007B67C4 /* ResultsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
