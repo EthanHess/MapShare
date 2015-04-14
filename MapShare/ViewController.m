@@ -189,7 +189,7 @@
     
         MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
     
-        NSLog(@"drop pin added: %@", dropPin);
+//        NSLog(@"drop pin added: %@", dropPin);
         NSString *latitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.latitude];
         NSString *longitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.longitude];
         
@@ -243,10 +243,8 @@
     MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:searchRequest];
     [localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         if (!error) {
-            for (MKMapItem *mapItem in [response mapItems]) {
-                
-                NSLog(@"Name: %@, Placemark title: %@", [mapItem name], [[mapItem placemark] title]);
-            }
+            self.resultPlaces = [response mapItems];
+            [self.tableView reloadData];
         } else {
             NSLog(@"Search Request Error: %@", [error localizedDescription]);
         }
@@ -283,15 +281,18 @@
     
     cell.backgroundColor = [UIColor lightBlueColor];
     
+    MKMapItem *item = self.resultPlaces[indexPath.row];
+    
+    cell.textLabel.text = item.name;
+    
     return cell;
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-//    return [ResultsController sharedInstance].places.count;
-    
-    return 3;
+    return self.resultPlaces.count;
+
     
 }
 
