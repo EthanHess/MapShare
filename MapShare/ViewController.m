@@ -13,7 +13,7 @@
 #import "SoundController.h"
 #import "DismissView.h"
 
-
+#define METERS_PER_MILE 23609.344
 
 @interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -38,8 +38,8 @@
     
     [self settingAnnotations];
     
-    
     [self setUpDismissView];
+    
     [self setUpTableView];
 
 }
@@ -288,17 +288,31 @@
 
 }
 
+
+
 - (void)setUpTableView {
+    
     [self.tableView removeFromSuperview];
     
-    NSInteger tableViewHeight = 80 *self.resultPlaces.count;
+    CGFloat tableViewHeight;
+    
+    if (self.resultPlaces.count < 5) {
+        tableViewHeight = 80 * self.resultPlaces.count;
+    }
+    else
+    {
+        tableViewHeight = 80 * 4;
+    }
+    
     
     self.tableView.backgroundColor = [UIColor lightGrayColor];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, tableViewHeight)];
+
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self registerTableView:self.tableView];
+    
 
     [self.view addSubview:self.tableView];
     
@@ -319,7 +333,7 @@
     
     MKMapItem *item = self.resultPlaces[indexPath.row];
     
-    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"water"]];
+    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"stoneGray"]];
     cell.textLabel.text = item.name;
     cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
     cell.textLabel.textColor = [UIColor whiteColor];
@@ -336,7 +350,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    MKMapItem *zoomItem = self.resultPlaces[indexPath.row];
     
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance([zoomItem placemark].coordinate, 0.1*METERS_PER_MILE, 0.1*METERS_PER_MILE);
+    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+    [self.mapView setRegion:adjustedRegion animated:YES];
+
     
 }
 
@@ -379,6 +398,7 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+
 {
     if (buttonIndex == 1) {
         
@@ -389,6 +409,7 @@
         }
         
         [self.mapView removeAnnotations:self.mapView.annotations];
+        
         
     }
 }
