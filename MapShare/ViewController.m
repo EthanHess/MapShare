@@ -198,7 +198,6 @@
     
         MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
     
-//        NSLog(@"drop pin added: %@", dropPin);
         NSString *latitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.latitude];
         NSString *longitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.longitude];
         
@@ -335,6 +334,8 @@
     
     cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"stoneGray"]];
     cell.textLabel.text = item.name;
+    cell.detailTextLabel.text = item.placemark.title;
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
     cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
     cell.textLabel.textColor = [UIColor whiteColor];
     
@@ -375,8 +376,6 @@
         if ([location.latitude isEqualToString:lat] && [location.longitude isEqualToString:lon]) {
             
             [[LocationController sharedInstance]removeLocation:location];
-            
-            NSLog(@"self.selectedAnnotation: %@", self.selectedAnnotation);
             
             [self.mapView removeAnnotation:self.selectedAnnotation];
             

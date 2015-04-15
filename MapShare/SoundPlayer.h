@@ -10,5 +10,8 @@
 
 @interface SoundPlayer : NSObject
 
++ (void)playSoundWithName:(NSString *)soundName;
++ (void)playSoundWithFile:(NSString *)fileName type:(NSString *)fileType alert:(BOOL)alert;
+
 @end
 
