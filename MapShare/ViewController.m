@@ -18,10 +18,10 @@
 @interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) id <MKAnnotation> selectedAnnotation;
-@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
-@property (nonatomic, strong) UITableView *tableView; 
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) SoundController *soundController;
 @property (nonatomic, strong) DismissView *dismissView;
+@property (nonatomic, strong) UIImage *shareImage;
 
 @end
 
@@ -29,6 +29,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.soundController = [SoundController new];
     
     [self setUpMapView];
     
@@ -52,7 +54,7 @@
     [self.mapView setMapType:MKMapTypeHybrid];
     [self.view addSubview:self.mapView];
     
-    UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressGesture:)];
+    UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
 
 
@@ -181,16 +183,8 @@
 }
 
 
-- (void)shareButtonPressed:(id)sender {
-    
-    NSString *string = @"";
-    
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:@[string] applicationActivities:nil];
-    [self presentViewController:activityViewController animated:YES completion:nil];
-    
-}
 
-- (void)handleLongPressGesture:(UIGestureRecognizer *)sender {
+- (void)handleTapPressGesture:(UIGestureRecognizer *)sender {
     
     
         CGPoint point = [sender locationInView:self.mapView];
@@ -204,11 +198,19 @@
         [[LocationController sharedInstance] addLocationWithLatitude:latitude longitude:longitude];
         
         [self.mapView addAnnotation:dropPin];
+        [self playClongSound];
     
 //        [SoundController playSoundWithName:@""];
     
 
+}
 
+- (void)playClongSound {
+    
+    NSURL *urlForClong = [[NSBundle mainBundle] URLForResource:@"clong-1" withExtension:@"mp3"];
+    
+    [self.soundController playAudioFileAtURL:urlForClong];
+    
 }
 
 - (void)settingAnnotations {
@@ -334,10 +336,12 @@
     
     cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"stoneGray"]];
     cell.textLabel.text = item.name;
-    cell.detailTextLabel.text = item.placemark.title;
-    cell.detailTextLabel.textColor = [UIColor whiteColor];
     cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
     cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.text = item.placemark.title;
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Chalkduster" size:14];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    
     
     return cell;
     
@@ -360,7 +364,7 @@
     
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 80; 
 }
@@ -384,6 +388,7 @@
     }
 
     [self.calloutView setHidden:YES];
+    [self playWaterSplashSound];
     
 }
 
@@ -395,6 +400,7 @@
     [alert show];
     
 }
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 
@@ -408,9 +414,40 @@
         }
         
         [self.mapView removeAnnotations:self.mapView.annotations];
-        
+        [self playWaterSplashSound];
         
     }
+}
+
+- (void)playWaterSplashSound {
+    
+    NSURL *urlForWater = [[NSBundle mainBundle] URLForResource:@"water-splash-3" withExtension:@"mp3"];
+    
+    [self.soundController playAudioFileAtURL:urlForWater];
+    
+}
+
+- (void)snapshotMapImage:(void (^)(UIImage *image))completion {
+    
+    MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
+    options.region = self.mapView.region;
+    options.scale = [UIScreen mainScreen].scale;
+    options.size = self.mapView.frame.size;
+    
+    MKMapSnapshotter *snapshotter = [[MKMapSnapshotter alloc] initWithOptions:options];
+    [snapshotter startWithCompletionHandler:^(MKMapSnapshot *snapshot, NSError *error) {
+        completion(snapshot.image);
+    }];
+
+}
+
+- (void)shareButtonPressed:(id)sender {
+    
+    [self snapshotMapImage:^(UIImage *image) {
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:nil];
+        [self presentViewController:activityViewController animated:YES completion:nil];
+
+    }];
 }
 
 

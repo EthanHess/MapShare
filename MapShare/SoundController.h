@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface SoundController : NSObject
 
+- (void)playAudioFileAtURL:(NSURL *)url;
 
 @end
