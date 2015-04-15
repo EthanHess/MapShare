@@ -39,6 +39,9 @@
     [self settingAnnotations];
     
     
+    [self setUpDismissView];
+    [self setUpTableView];
+
 }
 
 
@@ -51,6 +54,8 @@
     
     UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
+
+
     
 }
 
@@ -241,15 +246,15 @@
     
     self.dismissView = [[DismissView alloc]initWithFrame:CGRectMake(80, 170, self.view.frame.size.width - 160, 70)];
     [self.dismissView.dismissButton addTarget:self action:@selector(dismissTableView) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.dismissView]; 
+    [self.dismissView setHidden:YES];
+    [self.view addSubview:self.dismissView];
     
 }
 
 - (void)dismissTableView {
     
-    //DOESN'T DISMISS IF GO BUTTON TAPPED MORE THAN ONCE! Fix bug
-    
-    [self.tableView setHidden:YES];
+
+    [self.tableView removeFromSuperview];
     [self.dismissView setHidden:YES];
 }
 
@@ -270,30 +275,31 @@
     [localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         if (!error) {
             self.resultPlaces = [response mapItems];
+            [self setUpTableView];
+            [self.dismissView setHidden:NO];
             [self.tableView reloadData];
         } else {
             NSLog(@"Search Request Error: %@", [error localizedDescription]);
         }
     }];
     
-    [self setUpTableView];
-    [self setUpDismissView];
     
     }
 
 }
 
 - (void)setUpTableView {
+    [self.tableView removeFromSuperview];
     
     NSInteger tableViewHeight = 80 *self.resultPlaces.count;
     
     self.tableView.backgroundColor = [UIColor lightGrayColor];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, tableViewHeight)];
-    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self registerTableView:self.tableView];
+
     [self.view addSubview:self.tableView];
     
 }
