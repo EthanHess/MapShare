@@ -12,6 +12,9 @@
 		27CAC6751AD6E179007B67C4 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6741AD6E179007B67C4 /* CalloutView.m */; };
 		27CAC6E21ADC4E26007B67C4 /* SoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6E11ADC4E26007B67C4 /* SoundController.m */; };
 		27CAC6EF1ADD8F47007B67C4 /* DismissView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6EE1ADD8F47007B67C4 /* DismissView.m */; };
+		27CAC6F21ADDC52D007B67C4 /* SoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6F11ADDC52D007B67C4 /* SoundPlayer.m */; };
+		27CAC6F41ADEBED5007B67C4 /* water-splash-3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 27CAC6F31ADEBED5007B67C4 /* water-splash-3.mp3 */; };
+		27CAC6F61ADEBEE1007B67C4 /* clong-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 27CAC6F51ADEBEE1007B67C4 /* clong-1.mp3 */; };
 		27CEF9571AD5BB6E00890179 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF9561AD5BB6E00890179 /* main.m */; };
 		27CEF95A1AD5BB6E00890179 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF9591AD5BB6E00890179 /* AppDelegate.m */; };
 		27CEF95D1AD5BB6E00890179 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF95C1AD5BB6E00890179 /* ViewController.m */; };
@@ -47,6 +50,10 @@
 		27CAC6E11ADC4E26007B67C4 /* SoundController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundController.m; sourceTree = "<group>"; };
 		27CAC6ED1ADD8F47007B67C4 /* DismissView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissView.h; sourceTree = "<group>"; };
 		27CAC6EE1ADD8F47007B67C4 /* DismissView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissView.m; sourceTree = "<group>"; };
+		27CAC6F01ADDC52D007B67C4 /* SoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundPlayer.h; sourceTree = "<group>"; };
+		27CAC6F11ADDC52D007B67C4 /* SoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundPlayer.m; sourceTree = "<group>"; };
+		27CAC6F31ADEBED5007B67C4 /* water-splash-3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "water-splash-3.mp3"; sourceTree = "<group>"; };
+		27CAC6F51ADEBEE1007B67C4 /* clong-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "clong-1.mp3"; sourceTree = "<group>"; };
 		27CEF9511AD5BB6E00890179 /* MapShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CEF9551AD5BB6E00890179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27CEF9561AD5BB6E00890179 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -133,6 +140,8 @@
 				27CAC6731AD6E179007B67C4 /* CalloutView.h */,
 				27CAC6741AD6E179007B67C4 /* CalloutView.m */,
 				27CAC6E31ADC6EF5007B67C4 /* Controllers  */,
+				27CAC6F01ADDC52D007B67C4 /* SoundPlayer.h */,
+				27CAC6F11ADDC52D007B67C4 /* SoundPlayer.m */,
 				27CAC6E01ADC4E26007B67C4 /* SoundController.h */,
 				27CAC6E11ADC4E26007B67C4 /* SoundController.m */,
 				27CEF98B1AD5CBE700890179 /* Location */,
@@ -156,6 +165,8 @@
 		27CEF9541AD5BB6E00890179 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				27CAC6F51ADEBEE1007B67C4 /* clong-1.mp3 */,
+				27CAC6F31ADEBED5007B67C4 /* water-splash-3.mp3 */,
 				27CEF9551AD5BB6E00890179 /* Info.plist */,
 				27CEF9561AD5BB6E00890179 /* main.m */,
 			);
@@ -284,9 +295,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27CAC6F61ADEBEE1007B67C4 /* clong-1.mp3 in Resources */,
 				27CEF9601AD5BB6E00890179 /* Main.storyboard in Resources */,
 				27CEF9651AD5BB6E00890179 /* LaunchScreen.xib in Resources */,
 				27CEF9621AD5BB6E00890179 /* Images.xcassets in Resources */,
+				27CAC6F41ADEBED5007B67C4 /* water-splash-3.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +330,7 @@
 				27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */,
 				27CAC6EF1ADD8F47007B67C4 /* DismissView.m in Sources */,
 				27CEF9871AD5CBA000890179 /* SearchButton.m in Sources */,
+				27CAC6F21ADDC52D007B67C4 /* SoundPlayer.m in Sources */,
 				27CEF9801AD5C16C00890179 /* UIColor+UIColorCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

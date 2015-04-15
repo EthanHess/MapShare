@@ -19,7 +19,6 @@
 @property (nonatomic, strong) UIToolbar *toolBar;
 @property (nonatomic, strong) SearchBarView *searchBarView;
 @property (nonatomic, strong) CalloutView *calloutView;
-@property (nonatomic, strong) NSString *placeMark;
 @property (nonatomic, strong) NSString *placeName;
 @property (nonatomic, strong) NSArray *resultPlaces;
 

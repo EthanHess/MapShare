@@ -17,7 +17,8 @@
     
     if (self) {
         
-        self.backgroundColor = [UIColor backgroundColor];
+//        self.backgroundColor = [UIColor backgroundColor];
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dirt"]];
         
         self.searchBar = [UISearchBar new];
         self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;

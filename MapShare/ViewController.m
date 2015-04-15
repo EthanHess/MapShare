@@ -57,7 +57,9 @@
 - (void)setUpToolBar {
     
     self.toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
-    self.toolBar.backgroundColor = [UIColor toolbarBackground];
+//    self.toolBar.backgroundColor = [UIColor toolbarBackground];
+    [self.toolBar setBackgroundImage:[UIImage imageNamed:@"yellow"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+//    self.toolBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dirt"]];
     [self.view addSubview:self.toolBar];
     
     UIImage *map = [UIImage imageNamed:@"map"];
@@ -245,6 +247,8 @@
 
 - (void)dismissTableView {
     
+    //DOESN'T DISMISS IF GO BUTTON TAPPED MORE THAN ONCE! Fix bug
+    
     [self.tableView setHidden:YES];
     [self.dismissView setHidden:YES];
 }
@@ -281,10 +285,11 @@
 
 - (void)setUpTableView {
     
+    NSInteger tableViewHeight = 80 *self.resultPlaces.count;
     
     self.tableView.backgroundColor = [UIColor lightGrayColor];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, 240)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, tableViewHeight)];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -302,13 +307,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     
     cell.backgroundColor = [UIColor lightBlueColor];
     
     MKMapItem *item = self.resultPlaces[indexPath.row];
     
+    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"water"]];
     cell.textLabel.text = item.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", item.placemark];
+    cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
     cell.textLabel.textColor = [UIColor whiteColor];
     
     return cell;
@@ -318,7 +325,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return self.resultPlaces.count;
+    
+}
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     
 }
 

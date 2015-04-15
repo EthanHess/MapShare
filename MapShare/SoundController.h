@@ -11,8 +11,6 @@
 @interface SoundController : NSObject
 
 + (void)playSoundWithName:(NSString *)soundName;
-+ (void)playAlertWithName:(NSString *)alertName;
 + (void)playSoundWithFile:(NSString *)fileName type:(NSString *)fileType alert:(BOOL)alert;
-
 
 @end
