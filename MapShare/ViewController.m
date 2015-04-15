@@ -22,6 +22,7 @@
 @property (nonatomic, strong) SoundController *soundController;
 @property (nonatomic, strong) DismissView *dismissView;
 @property (nonatomic, strong) UIImage *shareImage;
+@property (nonatomic, readonly) MKMapType *currentMapType;
 
 @end
 
@@ -200,7 +201,7 @@
         [self.mapView addAnnotation:dropPin];
         [self playClongSound];
     
-//        [SoundController playSoundWithName:@""];
+
     
 
 }
@@ -334,13 +335,15 @@
     
     MKMapItem *item = self.resultPlaces[indexPath.row];
     
-    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"stoneGray"]];
+    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bluePool"]];
     cell.textLabel.text = item.name;
     cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
     cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.backgroundColor = [UIColor clearColor]; 
     cell.detailTextLabel.text = item.placemark.title;
     cell.detailTextLabel.font = [UIFont fontWithName:@"Chalkduster" size:14];
     cell.detailTextLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.backgroundColor = [UIColor clearColor];
     
     
     return cell;
@@ -414,7 +417,7 @@
         }
         
         [self.mapView removeAnnotations:self.mapView.annotations];
-        [self playWaterSplashSound];
+        [self playBombSound];
         
     }
 }
@@ -427,12 +430,22 @@
     
 }
 
+- (void)playBombSound {
+    
+    NSURL *urlForBomb = [[NSBundle mainBundle] URLForResource:@"bomb" withExtension:@"mp3"];
+    
+    [self.soundController playAudioFileAtURL:urlForBomb];
+    
+}
+
 - (void)snapshotMapImage:(void (^)(UIImage *image))completion {
     
     MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
     options.region = self.mapView.region;
     options.scale = [UIScreen mainScreen].scale;
     options.size = self.mapView.frame.size;
+    options.mapType = MKMapTypeHybrid;
+    options.showsPointsOfInterest = YES;
     
     MKMapSnapshotter *snapshotter = [[MKMapSnapshotter alloc] initWithOptions:options];
     [snapshotter startWithCompletionHandler:^(MKMapSnapshot *snapshot, NSError *error) {

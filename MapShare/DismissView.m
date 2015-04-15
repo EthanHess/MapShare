@@ -19,7 +19,7 @@
     if (self) {
         
 //        self.backgroundColor = [UIColor backgroundColor];
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bluePool"]];
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"stoneGray"]];
         
         self.dismissButton = [UIButton new];
         self.dismissButton.translatesAutoresizingMaskIntoConstraints = NO;
