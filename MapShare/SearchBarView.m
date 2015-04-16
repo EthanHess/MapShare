@@ -17,7 +17,7 @@
     
     if (self) {
         
-//        self.backgroundColor = [UIColor backgroundColor];
+
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dirt"]];
         
         self.searchBar = [UISearchBar new];
@@ -44,6 +44,16 @@
     }
         
     return self;
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    
+    [searchBar becomeFirstResponder];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    
+    [searchBar resignFirstResponder];
 }
 
 @end

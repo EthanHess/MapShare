@@ -20,6 +20,7 @@
 @property (nonatomic, strong) CalloutView *calloutView;
 @property (nonatomic, strong) NSString *placeName;
 @property (nonatomic, strong) NSArray *resultPlaces;
+@property (nonatomic, strong) UIToolbar *navToolBar;
 
 
 @end

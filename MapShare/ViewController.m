@@ -12,6 +12,7 @@
 #import "LocationController.h"
 #import "SoundController.h"
 #import "DismissView.h"
+#import "OnBoardMainView.h"
 
 #define METERS_PER_MILE 23609.344
 
@@ -23,10 +24,16 @@
 @property (nonatomic, strong) DismissView *dismissView;
 @property (nonatomic, strong) UIImage *shareImage;
 @property (nonatomic, readonly) MKMapType *currentMapType;
+@property (nonatomic, strong) MKPinAnnotationView *pinAnnotation;
 
 @end
 
 @implementation ViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [[self navigationController] setNavigationBarHidden:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,6 +43,8 @@
     [self setUpMapView];
     
     [self setUpToolBar];
+    
+    [self setUpNavigationToolBar];
     
     [self setUpSearchBar];
     
@@ -62,12 +71,41 @@
     
 }
 
+- (void)setUpNavigationToolBar {
+    
+    self.navToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
+    [self.navToolBar setBackgroundImage:[UIImage imageNamed:@"blackstone"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.view addSubview:self.navToolBar];
+    
+    UIImage *pencil = [UIImage imageNamed:@"pencil"];
+    UIImage *question = [UIImage imageNamed:@"question"];
+    
+    NSMutableArray *navItems = [[NSMutableArray alloc] initWithCapacity:3];
+    
+    UIBarButtonItem *flexItem0 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [navItems addObject:flexItem0];
+    
+    UIBarButtonItem *pinColor = [[UIBarButtonItem alloc]initWithImage:pencil style:UIBarButtonItemStylePlain target:self action:@selector(changePinColor)];
+    [navItems addObject:pinColor];
+    
+    UIBarButtonItem *flexItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [navItems addObject:flexItem1];
+    
+    UIBarButtonItem *questionButton = [[UIBarButtonItem alloc]initWithImage:question style:UIBarButtonItemStylePlain target:self action:@selector(onboarding)];
+    [navItems addObject:questionButton];
+    
+    UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [navItems addObject:flexItem2];
+
+    [self.navToolBar setItems:navItems];
+    
+    
+}
+
 - (void)setUpToolBar {
     
     self.toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
-//    self.toolBar.backgroundColor = [UIColor toolbarBackground];
     [self.toolBar setBackgroundImage:[UIImage imageNamed:@"yellow"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-//    self.toolBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dirt"]];
     [self.view addSubview:self.toolBar];
     
     UIImage *map = [UIImage imageNamed:@"map"];
@@ -105,6 +143,55 @@
     [buttons addObject:flexItem4];
     
     [self.toolBar setItems:buttons];
+}
+
+- (void)changePinColor {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Pin Color" message:@"Pick a color!" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Red" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        self.pinAnnotation.pinColor = MKPinAnnotationColorRed;
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Green" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        self.pinAnnotation.pinColor = MKPinAnnotationColorGreen;
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Purple" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        self.pinAnnotation.pinColor = MKPinAnnotationColorPurple;
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:alertController completion:nil];
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+- (void)onboarding {
+    
+    OnBoardMainView *onboardMainView = [OnBoardMainView new];
+    
+    [self.navigationController pushViewController:onboardMainView animated:YES];
+    
+    
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    
+    [searchBar becomeFirstResponder];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    
+    [searchBar resignFirstResponder];
 }
 
 - (void)mapType {
@@ -146,16 +233,16 @@
 
 -(void)popSearchBar:(id)sender {
     
-    if (self.searchBarView.frame.origin.y < 64) {
+    if (self.searchBarView.frame.origin.y < 75) {
     
-    [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 64];
-    [self.searchBarView resignFirstResponder];
+    [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
+//    [self.searchBarView resignFirstResponder];
         
     }
     else {
     
-    [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 64];
-    [self.searchBarView resignFirstResponder];
+    [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
+//    [self.searchBarView resignFirstResponder];
         
     }
     
@@ -225,6 +312,7 @@
         CLLocationCoordinate2D locCoord = CLLocationCoordinate2DMake(latitudeDouble, longitudeDouble);
         
         MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
+        
         
         [self.mapView addAnnotation:dropPin];
         
@@ -330,8 +418,6 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-    
-    cell.backgroundColor = [UIColor lightBlueColor];
     
     MKMapItem *item = self.resultPlaces[indexPath.row];
     
@@ -461,6 +547,17 @@
         [self presentViewController:activityViewController animated:YES completion:nil];
 
     }];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    
+    self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"personAnnotation"];
+    
+    self.pinAnnotation.pinColor = MKPinAnnotationColorPurple;
+    self.pinAnnotation.animatesDrop = YES;
+    
+    return self.pinAnnotation;
+    
 }
 
 
