@@ -14,5 +14,6 @@
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) Snapshot *snapshot;
+@property (nonatomic, strong) UIButton *shareButton;
 
 @end

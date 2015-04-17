@@ -29,16 +29,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor backgroundColor];
+    
     [self setUpToolBar];
     
     [self setUpImageView];
+    
+    [self setUpButton];
 
+}
+
+- (void)setUpButton {
+    
+    self.shareButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 50, 500, 100, 60)];
+    self.shareButton.backgroundColor = [UIColor lightBlueColor];
+    [self.shareButton setTitle:@" Share " forState:UIControlStateNormal];
+    self.shareButton.titleLabel.font = [UIFont fontWithName:@"Chalkduster" size:24];
+    [self.shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.shareButton];
+    
 }
 
 - (void)setUpToolBar {
     
     self.toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
-    [self.toolbar setBackgroundImage:[UIImage imageNamed:@"cloud"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.toolbar setBackgroundImage:[UIImage imageNamed:@"lava2"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [self.view addSubview:self.toolbar];
     
     UIImage *arrow = [UIImage imageNamed:@"leftArrow"];
@@ -68,13 +84,20 @@
 
 - (void)setUpImageView {
     
-    self.view.backgroundColor = [UIColor backgroundColor];
-    
-    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(50, 100, self.view.frame.size.width - 100, self.view.frame.size.height - 150)];
+    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 100, self.view.frame.size.width - 30, self.view.frame.size.width - 30)];
     self.imageView.backgroundColor = [UIColor awesome];
     [self.view addSubview:self.imageView];
     
     [self updateWithSnapshot:self.snapshot];
+    
+}
+
+- (void)share {
+    
+    UIImage *image = self.imageView.image;
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:nil];
+    [self presentViewController:activityViewController animated:YES completion:nil];
     
 }
 
