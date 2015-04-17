@@ -129,8 +129,8 @@
     
     UIImage *map = [UIImage imageNamed:@"map"];
     UIImage *boom = [UIImage imageNamed:@"boom"];
-    UIImage *photo = [UIImage imageNamed:@"search"];
-    UIImage *share = [UIImage imageNamed:@"share"];
+    UIImage *search = [UIImage imageNamed:@"search"];
+    UIImage *photo = [UIImage imageNamed:@"Photo"];
     
     NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:3];
     
@@ -149,13 +149,13 @@
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem2];
     
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:photo style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar:)];
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:search style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar:)];
     [buttons addObject:searchButton];
     
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem3];
     
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:share style:UIBarButtonItemStylePlain target:self action:@selector(saveSnapshot)];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:photo style:UIBarButtonItemStylePlain target:self action:@selector(saveSnapshot)];
     [buttons addObject:shareButton];
     
     UIBarButtonItem *flexItem4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -392,6 +392,7 @@
     MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:searchRequest];
     [localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         if (!error) {
+            [self.searchBarView resignFirstResponder];
             self.resultPlaces = [response mapItems];
             [self setUpTableView];
             [self.dismissView setHidden:NO];
@@ -597,11 +598,17 @@
 - (void)saveSnapshot {
     
     [self snapshotMapImage:^(UIImage *image) {
+        [self alertView];
         [[SnapshotController sharedInstance] addSnapshotWithImage:image];
     }];
     
 }
 
+- (void)alertView {
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Snapshot saved!" message:nil delegate:self cancelButtonTitle:@"Okay!" otherButtonTitles:nil, nil];
+    [alertView show];
+}
 
 - (void)shareButtonPressed:(id)sender {
     

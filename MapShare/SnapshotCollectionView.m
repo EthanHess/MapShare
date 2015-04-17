@@ -57,7 +57,7 @@
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:layout];
     self.collectionView.backgroundColor = [UIColor backgroundColor];
     
-//    layout.sectionInset = UIEdgeInsetsMake(2.0, 2.0, 2.0, 2.0);
+    layout.sectionInset = UIEdgeInsetsMake(2.0, 2.0, 2.0, 2.0);
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
