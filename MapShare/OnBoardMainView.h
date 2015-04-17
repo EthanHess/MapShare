@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *clearAllLabel;
 @property (nonatomic, strong) UILabel *shareLabel;
 @property (nonatomic, strong) UIToolbar *toolbar;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) SoundController *soundController;
 
 @end

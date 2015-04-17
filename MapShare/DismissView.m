@@ -18,13 +18,12 @@
     
     if (self) {
         
-//        self.backgroundColor = [UIColor backgroundColor];
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"stoneGray"]];
         
         self.dismissButton = [UIButton new];
         self.dismissButton.translatesAutoresizingMaskIntoConstraints = NO;
         [self.dismissButton setTitle:@" Dismiss " forState:UIControlStateNormal];
-        self.dismissButton.titleLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
+        self.dismissButton.titleLabel.font = [UIFont fontWithName:@"Chalkduster" size:22];
         [self.dismissButton setBackgroundColor:[UIColor awesome]];
         [self.dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:self.dismissButton];

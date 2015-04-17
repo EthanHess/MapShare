@@ -13,6 +13,8 @@
 #import "SoundController.h"
 #import "DismissView.h"
 #import "OnBoardMainView.h"
+#import "SnapshotController.h"
+#import "SnapshotCollectionView.h"
 
 #define METERS_PER_MILE 23609.344
 
@@ -25,6 +27,7 @@
 @property (nonatomic, strong) UIImage *shareImage;
 @property (nonatomic, readonly) MKMapType *currentMapType;
 @property (nonatomic, strong) MKPinAnnotationView *pinAnnotation;
+
 
 @end
 
@@ -53,6 +56,8 @@
     [self setUpDismissView];
     
     [self setUpTableView];
+    
+    [self.view bringSubviewToFront:self.navToolBar]; 
 
 }
 
@@ -79,6 +84,8 @@
     
     UIImage *pencil = [UIImage imageNamed:@"pencil"];
     UIImage *question = [UIImage imageNamed:@"question"];
+    UIImage *zoom = [UIImage imageNamed:@"zoomOut"];
+    UIImage *archives = [UIImage imageNamed:@"archives"];
     
     NSMutableArray *navItems = [[NSMutableArray alloc] initWithCapacity:3];
     
@@ -96,6 +103,18 @@
     
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem2];
+    
+    UIBarButtonItem *zoomOut = [[UIBarButtonItem alloc]initWithImage:zoom style:UIBarButtonItemStylePlain target:self action:@selector(zoomOut)];
+    [navItems addObject:zoomOut];
+    
+    UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [navItems addObject:flexItem3];
+    
+    UIBarButtonItem *archiveButton = [[UIBarButtonItem alloc]initWithImage:archives style:UIBarButtonItemStylePlain target:self action:@selector(archivesController)];
+    [navItems addObject:archiveButton];
+    
+    UIBarButtonItem *flexItem4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    [navItems addObject:flexItem4];
 
     [self.navToolBar setItems:navItems];
     
@@ -136,7 +155,7 @@
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem3];
     
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:share style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonPressed:)];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:share style:UIBarButtonItemStylePlain target:self action:@selector(saveSnapshot)];
     [buttons addObject:shareButton];
     
     UIBarButtonItem *flexItem4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -172,6 +191,14 @@
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+- (void)archivesController {
+    
+    SnapshotCollectionView *snapshotView = [SnapshotCollectionView new];
+    
+    [self.navigationController pushViewController:snapshotView animated:YES];
     
 }
 
@@ -236,13 +263,13 @@
     if (self.searchBarView.frame.origin.y < 75) {
     
     [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
-//    [self.searchBarView resignFirstResponder];
+    [self.searchBarView becomeFirstResponder];
         
     }
     else {
     
     [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
-//    [self.searchBarView resignFirstResponder];
+    [self.searchBarView resignFirstResponder];
         
     }
     
@@ -346,6 +373,7 @@
 
     [self.tableView removeFromSuperview];
     [self.dismissView setHidden:YES];
+    
 }
 
 - (void)search {
@@ -526,10 +554,18 @@
 
 - (void)snapshotMapImage:(void (^)(UIImage *image))completion {
     
+  
+//    MKCoordinateRegion wholeWorld = MKCoordinateRegionForMapRect(MKMapRectWorld);
+
     MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
+    
+//    options.region = wholeWorld;
+    
     options.region = self.mapView.region;
-    options.scale = [UIScreen mainScreen].scale;
-    options.size = self.mapView.frame.size;
+    
+//    options.scale = [UIScreen mainScreen].scale;
+//    options.size = self.mapView.frame.size;
+    
     options.mapType = MKMapTypeHybrid;
     options.showsPointsOfInterest = YES;
     
@@ -539,6 +575,33 @@
     }];
 
 }
+
+- (void)zoomOut {
+    
+    MKMapRect zoomRect = MKMapRectNull;
+    
+    for (MapAnnotation *annotation in self.mapView.annotations) {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
+        if (MKMapRectIsNull(zoomRect)) {
+            zoomRect = pointRect;
+        } else {
+            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+        }
+    }
+    
+    [self.mapView setVisibleMapRect:zoomRect animated:YES];
+    
+}
+
+- (void)saveSnapshot {
+    
+    [self snapshotMapImage:^(UIImage *image) {
+        [[SnapshotController sharedInstance] addSnapshotWithImage:image];
+    }];
+    
+}
+
 
 - (void)shareButtonPressed:(id)sender {
     
@@ -554,6 +617,7 @@
     self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"personAnnotation"];
     
     self.pinAnnotation.pinColor = MKPinAnnotationColorPurple;
+
     self.pinAnnotation.animatesDrop = YES;
     
     return self.pinAnnotation;
