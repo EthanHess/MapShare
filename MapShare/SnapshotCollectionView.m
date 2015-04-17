@@ -9,10 +9,12 @@
 #import "SnapshotCollectionView.h"
 #import "ViewController.h"
 #import "UIColor+UIColorCategory.h"
+#import "SnapshotViewController.h"
 #import "SnapshotController.h"
 #import "Snapshot.h"
 
 @interface SnapshotCollectionView () <UICollectionViewDataSource, UICollectionViewDelegate>
+
 
 @end
 
@@ -89,6 +91,33 @@
     
     
     
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Options" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"View Large" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        SnapshotViewController *snapshotViewController = [SnapshotViewController new];
+        snapshotViewController.snapshot = [SnapshotController sharedInstance].snapshots[indexPath.item];
+        [self.navigationController pushViewController:snapshotViewController animated:YES];
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        Snapshot *snapshot = [[SnapshotController sharedInstance].snapshots objectAtIndex:indexPath.item];
+        
+        [[SnapshotController sharedInstance]removeSnapshots:snapshot];
+        
+        [self refreshData]; 
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [self dismissViewControllerAnimated:alertController completion:nil];
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+
+    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -114,10 +143,14 @@
     
     imageView.frame = cell.bounds;
     [cell addSubview:imageView];
-//    cell.backgroundColor = [UIColor backgroundColor];
-    
+
     return cell;
     
+}
+
+- (void)refreshData {
+    
+    [self.collectionView reloadData];
 }
 
 
