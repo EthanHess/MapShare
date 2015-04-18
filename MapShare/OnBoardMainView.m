@@ -81,7 +81,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.welcomeLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 90, self.view.frame.size.width - 50, 60)];
     self.welcomeLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"water"]];
     self.welcomeLabel.textColor = [UIColor whiteColor];
-    self.welcomeLabel.text = @" Welcome To My World ";
+    self.welcomeLabel.text = @" Welcome To MapShot! ";
     self.welcomeLabel.font = [UIFont fontWithName:@"Chalkduster" size:24];
     [self.scrollView addSubview:self.welcomeLabel];
     
