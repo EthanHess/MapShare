@@ -218,12 +218,12 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     
-    [searchBar becomeFirstResponder];
+    [self.searchBarView.searchBar becomeFirstResponder];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     
-    [searchBar resignFirstResponder];
+    [self.searchBarView.searchBar resignFirstResponder];
 }
 
 - (void)mapType {
@@ -271,13 +271,13 @@
     if (self.searchBarView.frame.origin.y < 75) {
     
     [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
-    [self.searchBarView becomeFirstResponder];
+    [self.searchBarView.searchBar becomeFirstResponder];
         
     }
     else {
     
     [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
-    [self.searchBarView resignFirstResponder];
+    [self.searchBarView.searchBar resignFirstResponder];
         
     }
     
@@ -669,7 +669,7 @@
     
     self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"personAnnotation"];
     
-//    self.pinAnnotation.pinColor = MKPinAnnotationColorRed;
+    self.pinAnnotation.pinColor = MKPinAnnotationColorPurple;
 
     self.pinAnnotation.animatesDrop = YES;
     
