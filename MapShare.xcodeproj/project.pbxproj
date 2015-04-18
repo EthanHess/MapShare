@@ -21,6 +21,7 @@
 		27CAC73C1AE1834D007B67C4 /* SnapshotCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC73B1AE1834D007B67C4 /* SnapshotCollectionView.m */; };
 		27CAC73F1AE190D0007B67C4 /* Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC73E1AE190D0007B67C4 /* Snapshot.m */; };
 		27CAC7421AE19F0C007B67C4 /* SnapshotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC7411AE19F0C007B67C4 /* SnapshotViewController.m */; };
+		27CAC7451AE21048007B67C4 /* ShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC7441AE21048007B67C4 /* ShareButton.m */; };
 		27CEF9571AD5BB6E00890179 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF9561AD5BB6E00890179 /* main.m */; };
 		27CEF95A1AD5BB6E00890179 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF9591AD5BB6E00890179 /* AppDelegate.m */; };
 		27CEF95D1AD5BB6E00890179 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CEF95C1AD5BB6E00890179 /* ViewController.m */; };
@@ -70,6 +71,8 @@
 		27CAC73E1AE190D0007B67C4 /* Snapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snapshot.m; sourceTree = "<group>"; };
 		27CAC7401AE19F0C007B67C4 /* SnapshotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnapshotViewController.h; sourceTree = "<group>"; };
 		27CAC7411AE19F0C007B67C4 /* SnapshotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnapshotViewController.m; sourceTree = "<group>"; };
+		27CAC7431AE21048007B67C4 /* ShareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareButton.h; sourceTree = "<group>"; };
+		27CAC7441AE21048007B67C4 /* ShareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareButton.m; sourceTree = "<group>"; };
 		27CEF9511AD5BB6E00890179 /* MapShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CEF9551AD5BB6E00890179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27CEF9561AD5BB6E00890179 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 				27CAC6E01ADC4E26007B67C4 /* SoundController.h */,
 				27CAC6E11ADC4E26007B67C4 /* SoundController.m */,
 				27CAC7361AE1815F007B67C4 /* Snapshot */,
+				27CAC7431AE21048007B67C4 /* ShareButton.h */,
+				27CAC7441AE21048007B67C4 /* ShareButton.m */,
 				27CAC73D1AE190D0007B67C4 /* Snapshot.h */,
 				27CAC73E1AE190D0007B67C4 /* Snapshot.m */,
 				27CAC7401AE19F0C007B67C4 /* SnapshotViewController.h */,
@@ -364,6 +369,7 @@
 				27CEF97C1AD5BBE400890179 /* Stack.m in Sources */,
 				27CAC7011ADF31D2007B67C4 /* OnBoardMainView.m in Sources */,
 				27CAC6E21ADC4E26007B67C4 /* SoundController.m in Sources */,
+				27CAC7451AE21048007B67C4 /* ShareButton.m in Sources */,
 				27CAC73C1AE1834D007B67C4 /* SnapshotCollectionView.m in Sources */,
 				27CAC7391AE1818E007B67C4 /* SnapshotController.m in Sources */,
 				27CEF95D1AD5BB6E00890179 /* ViewController.m in Sources */,

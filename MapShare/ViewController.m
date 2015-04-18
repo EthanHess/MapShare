@@ -27,7 +27,8 @@
 @property (nonatomic, strong) UIImage *shareImage;
 @property (nonatomic, readonly) MKMapType *currentMapType;
 @property (nonatomic, strong) MKPinAnnotationView *pinAnnotation;
-
+@property (nonatomic, assign) MKPinAnnotationColor *pinColor;
+@property (nonatomic, strong) NSArray *arrayOfPins;
 
 @end
 
@@ -40,6 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.arrayOfPins =[NSArray new];
     
     self.soundController = [SoundController new];
     
@@ -72,7 +74,6 @@
     UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
 
-
     
 }
 
@@ -84,7 +85,7 @@
     
     UIImage *pencil = [UIImage imageNamed:@"pencil"];
     UIImage *question = [UIImage imageNamed:@"question"];
-    UIImage *zoom = [UIImage imageNamed:@"zoomOut"];
+    UIImage *search = [UIImage imageNamed:@"search"];
     UIImage *archives = [UIImage imageNamed:@"archives"];
     
     NSMutableArray *navItems = [[NSMutableArray alloc] initWithCapacity:3];
@@ -104,8 +105,8 @@
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem2];
     
-    UIBarButtonItem *zoomOut = [[UIBarButtonItem alloc]initWithImage:zoom style:UIBarButtonItemStylePlain target:self action:@selector(zoomOut)];
-    [navItems addObject:zoomOut];
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:search style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar:)];
+    [navItems addObject:searchButton];
     
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem3];
@@ -129,7 +130,7 @@
     
     UIImage *map = [UIImage imageNamed:@"map"];
     UIImage *boom = [UIImage imageNamed:@"boom"];
-    UIImage *search = [UIImage imageNamed:@"search"];
+    UIImage *zoom = [UIImage imageNamed:@"zoomOut"];
     UIImage *photo = [UIImage imageNamed:@"Photo"];
     
     NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:3];
@@ -149,8 +150,8 @@
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem2];
     
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:search style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar:)];
-    [buttons addObject:searchButton];
+    UIBarButtonItem *zoomOut = [[UIBarButtonItem alloc]initWithImage:zoom style:UIBarButtonItemStylePlain target:self action:@selector(zoomOut)];
+    [buttons addObject:zoomOut];
     
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem3];
@@ -170,20 +171,24 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Red" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        self.pinAnnotation.pinColor = MKPinAnnotationColorRed;
+        for (MKPinAnnotationView * pin in self.arrayOfPins) {
+            pin.pinColor = MKPinAnnotationColorRed;
+        }
         
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Green" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        self.pinAnnotation.pinColor = MKPinAnnotationColorGreen;
-        
+        for (MKPinAnnotationView * pin in self.arrayOfPins) {
+            pin.pinColor = MKPinAnnotationColorGreen;
+        }
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Purple" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        self.pinAnnotation.pinColor = MKPinAnnotationColorPurple;
-        
+        for (MKPinAnnotationView * pin in self.arrayOfPins) {
+            pin.pinColor = MKPinAnnotationColorPurple;
+        }
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -339,7 +344,8 @@
         CLLocationCoordinate2D locCoord = CLLocationCoordinate2DMake(latitudeDouble, longitudeDouble);
         
         MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
-        
+        MKPinAnnotationView *pin = [[MKPinAnnotationView alloc]initWithAnnotation:dropPin reuseIdentifier:[NSString stringWithFormat:@"pin %lu",(unsigned long)self.arrayOfPins.count]];
+        self.arrayOfPins =[self.arrayOfPins arrayByAddingObject:pin];
         
         [self.mapView addAnnotation:dropPin];
         
@@ -392,7 +398,7 @@
     MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:searchRequest];
     [localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         if (!error) {
-            [self.searchBarView resignFirstResponder];
+            [self.searchBarView.searchBar resignFirstResponder];
             self.resultPlaces = [response mapItems];
             [self setUpTableView];
             [self.dismissView setHidden:NO];
@@ -621,9 +627,10 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     
+    
     self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"personAnnotation"];
     
-    self.pinAnnotation.pinColor = MKPinAnnotationColorPurple;
+//    self.pinAnnotation.pinColor = MKPinAnnotationColorRed;
 
     self.pinAnnotation.animatesDrop = YES;
     

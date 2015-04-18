@@ -46,14 +46,4 @@
     return self;
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    
-    [searchBar becomeFirstResponder];
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    
-    [searchBar resignFirstResponder];
-}
-
 @end

@@ -41,11 +41,7 @@
 
 - (void)setUpButton {
     
-    self.shareButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 50, 500, 100, 60)];
-    self.shareButton.backgroundColor = [UIColor lightBlueColor];
-    [self.shareButton setTitle:@" Share " forState:UIControlStateNormal];
-    self.shareButton.titleLabel.font = [UIFont fontWithName:@"Chalkduster" size:24];
-    [self.shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.shareButton = [[ShareButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 50, 500, 120, 120)];
     [self.shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.shareButton];
     

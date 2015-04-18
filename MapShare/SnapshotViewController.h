@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Snapshot.h"
+#import "ShareButton.h"
 
 @interface SnapshotViewController : UIViewController
 
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) Snapshot *snapshot;
-@property (nonatomic, strong) UIButton *shareButton;
+@property (nonatomic, strong) ShareButton *shareButton;
 
 @end
