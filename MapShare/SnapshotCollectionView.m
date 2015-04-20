@@ -155,7 +155,11 @@
     imageView.frame = cell.bounds;
     [cell addSubview:imageView];
     
-    cell.footerLabel.text = [[SnapshotController sharedInstance].snapshots[indexPath.row]caption];
+    cell.footerLabel.text = snapshot.caption;
+    cell.footerLabel.font = [UIFont fontWithName:@"Chalkduster" size:20];
+    cell.footerLabel.textColor = [UIColor backgroundColor];
+    cell.footerLabel.backgroundColor = [UIColor lightBlueColor];
+    [cell bringSubviewToFront:cell.footerLabel];
 
     return cell;
     
