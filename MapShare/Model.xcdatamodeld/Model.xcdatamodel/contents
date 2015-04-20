@@ -5,10 +5,11 @@
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Snapshot" representedClassName="Snapshot" syncable="YES">
+        <attribute name="caption" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="snapshot" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
     <elements>
         <element name="Location" positionX="-63" positionY="-18" width="128" height="30"/>
-        <element name="Snapshot" positionX="-54" positionY="-18" width="128" height="58"/>
+        <element name="Snapshot" positionX="-54" positionY="-18" width="128" height="75"/>
     </elements>
 </model>

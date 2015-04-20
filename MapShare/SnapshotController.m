@@ -32,13 +32,14 @@
     
 }
 
-- (void)addSnapshotWithImage:(UIImage *)image {
+- (void)addSnapshotWithImage:(UIImage *)image caption:(NSString *)caption {
     
     NSData *data = [NSData dataWithData:UIImageJPEGRepresentation(image, 100)];
     
     Snapshot *snapshot = [NSEntityDescription insertNewObjectForEntityForName:@"Snapshot" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
     
     snapshot.snapshot = data;
+    snapshot.caption = caption;
     
     [self synchronize];
     

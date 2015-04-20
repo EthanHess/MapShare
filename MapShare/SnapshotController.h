@@ -16,7 +16,7 @@
 
 + (SnapshotController *)sharedInstance;
 
-- (void)addSnapshotWithImage:(UIImage *)image;
+- (void)addSnapshotWithImage:(UIImage *)image caption:(NSString *)caption;
 
 - (void)removeSnapshots:(Snapshot *)snapshot;
 

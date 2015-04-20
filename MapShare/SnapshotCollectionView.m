@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "UIColor+UIColorCategory.h"
 #import "SnapshotViewController.h"
+#import "SnapshotCollectionViewCell.h"
 #import "SnapshotController.h"
 #import "Snapshot.h"
 
@@ -19,6 +20,16 @@
 @end
 
 @implementation SnapshotCollectionView
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [SnapshotCollectionViewCell new];
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,7 +95,7 @@
 
 - (void)registerCollectionView:(UICollectionView *)collectionView {
     
-    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CellID"];
+    [collectionView registerClass:[SnapshotCollectionViewCell class] forCellWithReuseIdentifier:@"CellID"];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -126,9 +137,9 @@
     
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (SnapshotCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellID" forIndexPath:indexPath];
+    SnapshotCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellID" forIndexPath:indexPath];
     
     NSArray *subviews = [cell.contentView subviews];
     
@@ -143,6 +154,8 @@
     
     imageView.frame = cell.bounds;
     [cell addSubview:imageView];
+    
+    cell.footerLabel.text = [[SnapshotController sharedInstance].snapshots[indexPath.row]caption];
 
     return cell;
     

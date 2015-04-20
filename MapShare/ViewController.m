@@ -18,6 +18,7 @@
 
 #define METERS_PER_MILE 23609.344
 
+
 @interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) id <MKAnnotation> selectedAnnotation;
@@ -30,6 +31,7 @@
 @property (nonatomic, assign) MKPinAnnotationColor *pinColor;
 @property (nonatomic, strong) NSArray *arrayOfPins;
 
+
 @end
 
 @implementation ViewController
@@ -41,6 +43,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.arrayOfPins =[NSArray new];
     
     self.soundController = [SoundController new];
@@ -532,6 +535,7 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 
 {
+        
     if (buttonIndex == 1) {
         
         for (Location *location in [LocationController sharedInstance].locations) {
@@ -544,7 +548,8 @@
         [self playBombSound];
         
     }
-}
+  }
+
 
 - (void)playWaterSplashSound {
     
@@ -642,27 +647,37 @@
 
 - (void)saveSnapshot {
     
-    [self snapshotMapImage:^(UIImage *image) {
-        [self alertView];
-        [[SnapshotController sharedInstance] addSnapshotWithImage:image];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Spapshot saved!" message:@"Now add a catpion" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Add caption";
     }];
     
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Save caption" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+    [self snapshotMapImage:^(UIImage *image) {
+    [[SnapshotController sharedInstance] addSnapshotWithImage:image caption:((UITextField*)alertController.textFields[0]).text];
+    }];
+        
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+
 }
 
 - (void)alertView {
     
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Snapshot saved!" message:nil delegate:self cancelButtonTitle:@"Okay!" otherButtonTitles:nil, nil];
-    [alertView show];
-}
-
-- (void)shareButtonPressed:(id)sender {
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Snapshot saved!" message:nil delegate:self cancelButtonTitle:@"Okay!" otherButtonTitles:nil, nil];
+//    [alertView show];
     
-    [self snapshotMapImage:^(UIImage *image) {
-        UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:nil];
-        [self presentViewController:activityViewController animated:YES completion:nil];
+    //-------------------------------------------------------
+    //First chunk of code works ^^, the ones below are tests!!
 
-    }];
+
+    
 }
+
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     
@@ -677,6 +692,14 @@
     
 }
 
+//- (void)shareButtonPressed:(id)sender {
+//
+//    [self snapshotMapImage:^(UIImage *image) {
+//        UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:nil];
+//        [self presentViewController:activityViewController animated:YES completion:nil];
+//
+//    }];
+//}
 
 
 - (void)didReceiveMemoryWarning {

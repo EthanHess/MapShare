@@ -41,7 +41,7 @@
 
 - (void)setUpButton {
     
-    self.shareButton = [[ShareButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 50, 500, 120, 120)];
+    self.shareButton = [[ShareButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 60, 500, 120, 120)];
     [self.shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.shareButton];
     
