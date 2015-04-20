@@ -157,8 +157,8 @@
     
     cell.footerLabel.text = snapshot.caption;
     cell.footerLabel.font = [UIFont fontWithName:@"Chalkduster" size:20];
-    cell.footerLabel.textColor = [UIColor backgroundColor];
-    cell.footerLabel.backgroundColor = [UIColor lightBlueColor];
+    cell.footerLabel.textColor = [UIColor brownColor];
+    cell.footerLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"parchment"]];
     [cell bringSubviewToFront:cell.footerLabel];
 
     return cell;

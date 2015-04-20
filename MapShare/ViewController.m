@@ -666,17 +666,6 @@
 
 }
 
-- (void)alertView {
-    
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Snapshot saved!" message:nil delegate:self cancelButtonTitle:@"Okay!" otherButtonTitles:nil, nil];
-//    [alertView show];
-    
-    //-------------------------------------------------------
-    //First chunk of code works ^^, the ones below are tests!!
-
-
-    
-}
 
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -692,14 +681,6 @@
     
 }
 
-//- (void)shareButtonPressed:(id)sender {
-//
-//    [self snapshotMapImage:^(UIImage *image) {
-//        UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:nil];
-//        [self presentViewController:activityViewController animated:YES completion:nil];
-//
-//    }];
-//}
 
 
 - (void)didReceiveMemoryWarning {
