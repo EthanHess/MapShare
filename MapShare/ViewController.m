@@ -83,7 +83,7 @@
 - (void)setUpNavigationToolBar {
     
     self.navToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
-    [self.navToolBar setBackgroundImage:[UIImage imageNamed:@"blackstone"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.navToolBar setBackgroundImage:[UIImage imageNamed:@"soil"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [self.view addSubview:self.navToolBar];
     
     UIImage *pencil = [UIImage imageNamed:@"pencil"];
@@ -128,7 +128,7 @@
 - (void)setUpToolBar {
     
     self.toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
-    [self.toolBar setBackgroundImage:[UIImage imageNamed:@"yellow"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.toolBar setBackgroundImage:[UIImage imageNamed:@"limeGreen"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [self.view addSubview:self.toolBar];
     
     UIImage *map = [UIImage imageNamed:@"map"];
@@ -665,8 +665,6 @@
     
 
 }
-
-
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     
