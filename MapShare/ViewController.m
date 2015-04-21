@@ -362,12 +362,12 @@
     
     self.calloutView.annotation = view.annotation;
 
-    self.calloutView = [[CalloutView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - self.calloutView.frame.size.width/2, self.view.frame.size.height/2 - self.calloutView.frame.size.height/2, 80, 100)];
+    self.calloutView = [[CalloutView alloc] initWithFrame:CGRectMake(view.center.x, view.center.y, 80, 100)];
     
     [self.calloutView.removeButton addTarget:self action:@selector(removeLocation) forControlEvents:UIControlEventTouchUpInside];
     self.selectedAnnotation = view.annotation;
     [self.calloutView setHidden:NO];
-    [self.mapView addSubview:self.calloutView];
+    [self.view addSubview:self.calloutView];
     
 }
 
@@ -671,7 +671,7 @@
     
     self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"personAnnotation"];
     
-    self.pinAnnotation.pinColor = MKPinAnnotationColorPurple;
+    self.pinAnnotation.pinColor = MKPinAnnotationColorRed;
 
     self.pinAnnotation.animatesDrop = YES;
     
