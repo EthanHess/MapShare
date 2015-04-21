@@ -22,12 +22,12 @@
         
         [self setBackgroundColor:[UIColor greenColor]];
         
-        [self setBackgroundImage:[UIImage imageNamed:@"CustomButton"] forState:UIControlStateNormal];
+        [self setBackgroundImage:[UIImage imageNamed:@"CustomButton-1"] forState:UIControlStateNormal];
         
         self.layer.masksToBounds = YES;
         
         _circleLayer = [CAShapeLayer layer];
-        _circleLayer.strokeColor = [UIColor blueColor].CGColor;
+        _circleLayer.strokeColor = [UIColor brownColor].CGColor;
         _circleLayer.lineWidth = 3.0;
         _circleLayer.fillColor = [UIColor clearColor].CGColor;
         

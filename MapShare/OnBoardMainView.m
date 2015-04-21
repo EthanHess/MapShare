@@ -138,7 +138,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (void)animateLabel:(UIView *)view duration:(float)duration {
     
-    CGAffineTransform bigger = CGAffineTransformMakeScale(10, 10);
+    CGAffineTransform bigger = CGAffineTransformMakeScale(10, 5);
     CGAffineTransform smaller = CGAffineTransformMakeScale(1, 1);
     CGAffineTransform rotate = CGAffineTransformMakeRotation(radians(180));
     [UIView animateWithDuration:duration animations:^{

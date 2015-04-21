@@ -21,6 +21,5 @@
 
 - (id)initWithLocation:(CLLocationCoordinate2D)coord;
 
-//- (id)initWithLocation:(Location *)location;
 
 @end

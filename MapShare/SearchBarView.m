@@ -18,7 +18,7 @@
     if (self) {
         
 
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dirt"]];
+        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"parchmentTwo"]];
         
         self.searchBar = [UISearchBar new];
         self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;
@@ -36,7 +36,7 @@
         
         NSLayoutConstraint *equalConstraint = [NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.searchBar attribute:NSLayoutAttributeHeight multiplier:1 constant:0.0];
         
-        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-35-[_searchBar(==250)]-20-[_button(==60)]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
+        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_searchBar(==225)]-20-[_button(==60)]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
         
         [self addConstraints:constraints];
         [self addConstraints:horizontalConstraints];
