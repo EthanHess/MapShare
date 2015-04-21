@@ -44,6 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.calloutView = [[CalloutView alloc] init];
+
     self.arrayOfPins =[NSArray new];
     
     self.soundController = [SoundController new];
@@ -62,9 +64,15 @@
     
     [self setUpTableView];
     
-    [self.view bringSubviewToFront:self.navToolBar]; 
+    [self.view bringSubviewToFront:self.navToolBar];
+    
+    [self.calloutView setHidden:YES];
+    
+    [self.view addSubview:self.calloutView];
+    
 
 }
+
 
 
 - (void)setUpMapView {
@@ -72,6 +80,7 @@
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 75)];
     self.mapView.delegate = self;
     [self.mapView setMapType:MKMapTypeHybrid];
+    self.currentMapType = MKMapTypeHybrid;
     [self.view addSubview:self.mapView];
     
     UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapPressGesture:)];
@@ -362,12 +371,11 @@
     
     self.calloutView.annotation = view.annotation;
 
-    self.calloutView = [[CalloutView alloc] initWithFrame:CGRectMake(view.center.x, view.center.y, 80, 100)];
+    [self.calloutView setFrame:CGRectMake(view.center.x, view.center.y, 80, 100)];
     
     [self.calloutView.removeButton addTarget:self action:@selector(removeLocation) forControlEvents:UIControlEventTouchUpInside];
     self.selectedAnnotation = view.annotation;
     [self.calloutView setHidden:NO];
-    [self.view addSubview:self.calloutView];
     
 }
 
