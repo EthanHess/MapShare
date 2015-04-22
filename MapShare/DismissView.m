@@ -27,15 +27,30 @@
         [self.dismissButton setBackgroundColor:[UIColor awesome]];
         [self.dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:self.dismissButton];
+      
+//        NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_dismissButton);
         
-        NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_dismissButton);
+//        NSArray *layoutConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_dismissButton(==50)]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewDictionary];
+//        
+//        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_dismissButton(<=150)]" options:NSLayoutFormatAlignAllCenterX metrics:nil views:viewDictionary];
         
-        NSArray *layoutConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_dismissButton(==50)]" options:NSLayoutFormatAlignAllCenterX metrics:nil views:viewDictionary];
+        NSLayoutConstraint *vertical = [NSLayoutConstraint constraintWithItem:self.dismissButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
         
-        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-32-[_dismissButton(==150)]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewDictionary];
+        NSLayoutConstraint *horizontal = [NSLayoutConstraint constraintWithItem:self.dismissButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+        
+        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.dismissButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:50];
+        
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.dismissButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:150.0];
+        
+        [self addConstraint:vertical];
+        [self addConstraint:horizontal];
+        [self addConstraint:height];
+        [self addConstraint:width];
 
-        [self addConstraints:layoutConstraints];
-        [self addConstraints:horizontalConstraints];
+//        [self addConstraints:layoutConstraints];
+//        [self addConstraints:horizontalConstraints];
+        
+        
         
         
     }

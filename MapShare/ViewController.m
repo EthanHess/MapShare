@@ -294,7 +294,6 @@
     }
     
     
-    
 }
 
 - (void)popSearchBar:(UIView *)view distance:(float)distance {
@@ -418,7 +417,8 @@
             [self.dismissView setHidden:NO];
             [self.tableView reloadData];
         } else {
-            NSLog(@"Search Request Error: %@", [error localizedDescription]);
+//            NSLog(@"Search Request Error: %@", [error localizedDescription]);
+            [self errorMessage];
         }
     }];
     
@@ -427,6 +427,11 @@
 
 }
 
+- (void)errorMessage {
+    
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"No Results" message:@"Search Again" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    [errorAlert show];
+}
 
 
 - (void)setUpTableView {
@@ -487,7 +492,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.resultPlaces.count;
+    
+        return self.resultPlaces.count;
     
 }
 
