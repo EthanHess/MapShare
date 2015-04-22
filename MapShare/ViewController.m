@@ -186,8 +186,8 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Red" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
-            self.pinColor = MKPinAnnotationColorRed;
             [self.mapView removeAnnotation:pin.annotation];
+            self.pinColor = MKPinAnnotationColorRed;
             [self.mapView addAnnotation:pin.annotation];
             
         }
@@ -197,8 +197,8 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Green" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
-            self.pinColor = MKPinAnnotationColorGreen;
             [self.mapView removeAnnotation:pin.annotation];
+            self.pinColor = MKPinAnnotationColorGreen;
             [self.mapView addAnnotation:pin.annotation];
             
         }
@@ -207,8 +207,8 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Purple" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
-            self.pinColor = MKPinAnnotationColorPurple;
             [self.mapView removeAnnotation:pin.annotation];
+            self.pinColor = MKPinAnnotationColorPurple;
             [self.mapView addAnnotation:pin.annotation];
             
         }
