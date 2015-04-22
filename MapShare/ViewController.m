@@ -28,7 +28,7 @@
 @property (nonatomic, strong) UIImage *shareImage;
 @property (nonatomic, assign) MKMapType currentMapType;
 @property (nonatomic, strong) MKPinAnnotationView *pinAnnotation;
-@property (nonatomic, assign) MKPinAnnotationColor *pinColor;
+@property (nonatomic, assign) MKPinAnnotationColor pinColor;
 @property (nonatomic, strong) NSArray *arrayOfPins;
 
 
@@ -47,6 +47,8 @@
     self.calloutView = [[CalloutView alloc] init];
 
     self.arrayOfPins =[NSArray new];
+    
+    self.pinColor = MKPinAnnotationColorGreen;
     
     self.soundController = [SoundController new];
     
@@ -184,7 +186,10 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Red" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
-            pin.pinColor = MKPinAnnotationColorRed;
+            self.pinColor = MKPinAnnotationColorRed;
+            [self.mapView removeAnnotation:pin.annotation];
+            [self.mapView addAnnotation:pin.annotation];
+            
         }
         
     }]];
@@ -192,19 +197,25 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Green" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
-            pin.pinColor = MKPinAnnotationColorGreen;
+            self.pinColor = MKPinAnnotationColorGreen;
+            [self.mapView removeAnnotation:pin.annotation];
+            [self.mapView addAnnotation:pin.annotation];
+            
         }
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Purple" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
-            pin.pinColor = MKPinAnnotationColorPurple;
+            self.pinColor = MKPinAnnotationColorPurple;
+            [self.mapView removeAnnotation:pin.annotation];
+            [self.mapView addAnnotation:pin.annotation];
+            
         }
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self dismissViewControllerAnimated:alertController completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -261,7 +272,7 @@
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self dismissViewControllerAnimated:alertController completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -417,7 +428,6 @@
             [self.dismissView setHidden:NO];
             [self.tableView reloadData];
         } else {
-//            NSLog(@"Search Request Error: %@", [error localizedDescription]);
             [self errorMessage];
         }
     }];
@@ -603,7 +613,8 @@
         
         // Get a standard annotation view pin. Clearly, Apple assumes that we'll only want to draw standard annotation pins!
         
-        MKAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
+        MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
+        pin.pinColor = self.pinColor;
         UIImage *pinImage = pin.image;
         
         // ok, let's start to create our final image
@@ -685,7 +696,7 @@
     
     self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"personAnnotation"];
     
-    self.pinAnnotation.pinColor = MKPinAnnotationColorRed;
+    self.pinAnnotation.pinColor = self.pinColor;
 
     self.pinAnnotation.animatesDrop = YES;
     

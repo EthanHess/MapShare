@@ -123,7 +123,7 @@
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self dismissViewControllerAnimated:alertController completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
