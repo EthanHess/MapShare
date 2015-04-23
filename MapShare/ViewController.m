@@ -531,6 +531,7 @@
     return 80;
 }
 
+
 - (void)removeLocation {
     
     NSString *lat = [NSString stringWithFormat:@"%f", [self.selectedAnnotation coordinate].latitude];
@@ -544,6 +545,7 @@
             [[LocationController sharedInstance]removeLocation:location];
             
             [self.mapView removeAnnotation:self.selectedAnnotation];
+            
             
         }
         
@@ -563,6 +565,7 @@
     
 }
 
+#pragma mark - clears all
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 
@@ -575,6 +578,9 @@
             [[LocationController sharedInstance] removeLocation:location];
             
         }
+        
+        self.arrayOfPins = @[];
+        
         
         [self.mapView removeAnnotations:self.mapView.annotations];
         [self playBombSound];
