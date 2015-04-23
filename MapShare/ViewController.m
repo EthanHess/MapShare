@@ -45,10 +45,10 @@
     [super viewDidLoad];
     
     self.calloutView = [[CalloutView alloc] init];
-
+    
     self.arrayOfPins =[NSArray new];
     
-    self.pinColor = MKPinAnnotationColorGreen;
+    self.pinColor = MKPinAnnotationColorRed;
     
     self.soundController = [SoundController new];
     
@@ -72,7 +72,7 @@
     
     [self.view addSubview:self.calloutView];
     
-
+    
 }
 
 
@@ -87,7 +87,7 @@
     
     UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
-
+    
     
 }
 
@@ -130,7 +130,7 @@
     
     UIBarButtonItem *flexItem4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem4];
-
+    
     [self.navToolBar setItems:navItems];
     
     
@@ -185,9 +185,10 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Red" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
+        self.pinColor = MKPinAnnotationColorRed;
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
-            self.pinColor = MKPinAnnotationColorRed;
+            pin.pinColor = MKPinAnnotationColorRed;
             [self.mapView addAnnotation:pin.annotation];
             
         }
@@ -196,9 +197,10 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Green" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
+        self.pinColor = MKPinAnnotationColorGreen;
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
-            self.pinColor = MKPinAnnotationColorGreen;
+            pin.pinColor = MKPinAnnotationColorGreen;
             [self.mapView addAnnotation:pin.annotation];
             
         }
@@ -206,9 +208,10 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Purple" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
+        self.pinColor = MKPinAnnotationColorPurple;
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
-            self.pinColor = MKPinAnnotationColorPurple;
+            pin.pinColor = MKPinAnnotationColorPurple;
             [self.mapView addAnnotation:pin.annotation];
             
         }
@@ -292,15 +295,15 @@
 -(void)popSearchBar:(id)sender {
     
     if (self.searchBarView.frame.origin.y < 75) {
-    
-    [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
-    [self.searchBarView.searchBar becomeFirstResponder];
+        
+        [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
+        [self.searchBarView.searchBar becomeFirstResponder];
         
     }
     else {
-    
-    [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
-    [self.searchBarView.searchBar resignFirstResponder];
+        
+        [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
+        [self.searchBarView.searchBar resignFirstResponder];
         
     }
     
@@ -314,7 +317,7 @@
         view.center = CGPointMake(view.center.x, view.center.y + distance);
         
     }];
-
+    
 }
 
 - (void)popSearchBarBack:(UIView *)view distance:(float)distance {
@@ -332,22 +335,25 @@
 - (void)handleTapPressGesture:(UIGestureRecognizer *)sender {
     
     
-        CGPoint point = [sender locationInView:self.mapView];
-        CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    CGPoint point = [sender locationInView:self.mapView];
+    CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     
-        MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
+    MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
     
-        NSString *latitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.latitude];
-        NSString *longitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.longitude];
-        
-        [[LocationController sharedInstance] addLocationWithLatitude:latitude longitude:longitude];
-        
-        [self.mapView addAnnotation:dropPin];
-        [self playClongSound];
+    NSString *latitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f", dropPin.coordinate.longitude];
     
-
+    [[LocationController sharedInstance] addLocationWithLatitude:latitude longitude:longitude];
     
-
+    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc]initWithAnnotation:dropPin reuseIdentifier:[NSString stringWithFormat:@"pin %lu",(unsigned long)self.arrayOfPins.count]];
+    self.arrayOfPins = [self.arrayOfPins arrayByAddingObject:pin];
+    
+    [self.mapView addAnnotation:dropPin];
+    [self playClongSound];
+    
+    
+    
+    
 }
 
 - (void)playClongSound {
@@ -357,6 +363,8 @@
     [self.soundController playAudioFileAtURL:urlForClong];
     
 }
+
+#pragma mark - adding annotations
 
 - (void)settingAnnotations {
     
@@ -370,7 +378,7 @@
         
         MapAnnotation *dropPin = [[MapAnnotation alloc] initWithLocation:locCoord];
         MKPinAnnotationView *pin = [[MKPinAnnotationView alloc]initWithAnnotation:dropPin reuseIdentifier:[NSString stringWithFormat:@"pin %lu",(unsigned long)self.arrayOfPins.count]];
-        self.arrayOfPins =[self.arrayOfPins arrayByAddingObject:pin];
+        self.arrayOfPins = [self.arrayOfPins arrayByAddingObject:pin];
         
         [self.mapView addAnnotation:dropPin];
         
@@ -380,7 +388,7 @@
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     
     self.calloutView.annotation = view.annotation;
-
+    
     [self.calloutView setFrame:CGRectMake(view.center.x, view.center.y, 80, 100)];
     
     [self.calloutView.removeButton addTarget:self action:@selector(removeLocation) forControlEvents:UIControlEventTouchUpInside];
@@ -400,7 +408,7 @@
 
 - (void)dismissTableView {
     
-
+    
     [self.tableView removeFromSuperview];
     [self.dismissView setHidden:YES];
     
@@ -415,26 +423,26 @@
     }
     
     else {
-    
-    MKLocalSearchRequest *searchRequest = [[MKLocalSearchRequest alloc] init];
-    [searchRequest setNaturalLanguageQuery:[NSString stringWithFormat:@"%@", searchText]];
-    
-    MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:searchRequest];
-    [localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
-        if (!error) {
-            [self.searchBarView.searchBar resignFirstResponder];
-            self.resultPlaces = [response mapItems];
-            [self setUpTableView];
-            [self.dismissView setHidden:NO];
-            [self.tableView reloadData];
-        } else {
-            [self errorMessage];
-        }
-    }];
-    
-    
+        
+        MKLocalSearchRequest *searchRequest = [[MKLocalSearchRequest alloc] init];
+        [searchRequest setNaturalLanguageQuery:[NSString stringWithFormat:@"%@", searchText]];
+        
+        MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:searchRequest];
+        [localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
+            if (!error) {
+                [self.searchBarView.searchBar resignFirstResponder];
+                self.resultPlaces = [response mapItems];
+                [self setUpTableView];
+                [self.dismissView setHidden:NO];
+                [self.tableView reloadData];
+            } else {
+                [self errorMessage];
+            }
+        }];
+        
+        
     }
-
+    
 }
 
 - (void)errorMessage {
@@ -462,19 +470,19 @@
     self.tableView.backgroundColor = [UIColor lightGrayColor];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, tableViewHeight)];
-
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self registerTableView:self.tableView];
     
-
+    
     [self.view addSubview:self.tableView];
     
 }
 
 - (void)registerTableView:(UITableView *)tableView {
     
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"]; 
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
 }
 
@@ -489,7 +497,7 @@
     cell.textLabel.text = item.name;
     cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.backgroundColor = [UIColor clearColor]; 
+    cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.detailTextLabel.text = item.placemark.title;
     cell.detailTextLabel.font = [UIFont fontWithName:@"Chalkduster" size:14];
     cell.detailTextLabel.textColor = [UIColor whiteColor];
@@ -503,7 +511,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     
-        return self.resultPlaces.count;
+    return self.resultPlaces.count;
     
 }
 
@@ -514,13 +522,13 @@
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance([zoomItem placemark].coordinate, 0.1*METERS_PER_MILE, 0.1*METERS_PER_MILE);
     MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
     [self.mapView setRegion:adjustedRegion animated:YES];
-
+    
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 80; 
+    return 80;
 }
 
 - (void)removeLocation {
@@ -540,7 +548,7 @@
         }
         
     }
-
+    
     [self.calloutView setHidden:YES];
     [self playWaterSplashSound];
     
@@ -559,7 +567,7 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 
 {
-        
+    
     if (buttonIndex == 1) {
         
         for (Location *location in [LocationController sharedInstance].locations) {
@@ -572,7 +580,7 @@
         [self playBombSound];
         
     }
-  }
+}
 
 
 - (void)playWaterSplashSound {
@@ -593,7 +601,7 @@
 
 - (void)snapshotMapImage:(void (^)(UIImage *image))completion {
     
-
+    
     MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
     
     options.region = self.mapView.region;
@@ -646,10 +654,10 @@
         
         UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-
+        
         completion(finalImage);
     }];
-
+    
 }
 
 - (void)zoomOut {
@@ -680,15 +688,15 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Save caption" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-    [self snapshotMapImage:^(UIImage *image) {
-    [[SnapshotController sharedInstance] addSnapshotWithImage:image caption:((UITextField*)alertController.textFields[0]).text];
-    }];
+        [self snapshotMapImage:^(UIImage *image) {
+            [[SnapshotController sharedInstance] addSnapshotWithImage:image caption:((UITextField*)alertController.textFields[0]).text];
+        }];
         
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
     
-
+    
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -697,7 +705,7 @@
     self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"personAnnotation"];
     
     self.pinAnnotation.pinColor = self.pinColor;
-
+    
     self.pinAnnotation.animatesDrop = YES;
     
     return self.pinAnnotation;
