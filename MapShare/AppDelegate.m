@@ -15,6 +15,7 @@
 
 @implementation AppDelegate
 
+//Adding a test in AD
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
