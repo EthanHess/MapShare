@@ -112,7 +112,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 570, self.view.frame.size.width - 50, 80)];
     self.shareLabel.backgroundColor = [UIColor backgroundColor];
     self.shareLabel.textColor = [UIColor whiteColor];
-    self.shareLabel.text = @" Click the far right button on the bottom toolbar to share your map with your friends! ";
+    self.shareLabel.text = @" Click the camera to take a snapshot then share with your friends! ";
     self.shareLabel.numberOfLines = 0;
     self.shareLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
     [self.scrollView addSubview:self.shareLabel];
