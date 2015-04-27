@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270406A51AEECD8000EA670A /* sniperShot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 270406A41AEECD8000EA670A /* sniperShot.mp3 */; };
 		27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6381AD5E4FF007B67C4 /* Model.xcdatamodeld */; };
 		27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC63C1AD5E53E007B67C4 /* Location.m */; };
 		27CAC6751AD6E179007B67C4 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6741AD6E179007B67C4 /* CalloutView.m */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		270406A41AEECD8000EA670A /* sniperShot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sniperShot.mp3; sourceTree = "<group>"; };
 		27CAC6391AD5E4FF007B67C4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		27CAC63B1AD5E53E007B67C4 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		27CAC63C1AD5E53E007B67C4 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				27CAC6F51ADEBEE1007B67C4 /* clong-1.mp3 */,
+				270406A41AEECD8000EA670A /* sniperShot.mp3 */,
 				27CAC7021AE04970007B67C4 /* dreamHarp.mp3 */,
 				27CAC6F31ADEBED5007B67C4 /* water-splash-3.mp3 */,
 				27CAC6FD1ADF28B0007B67C4 /* bomb.mp3 */,
@@ -351,6 +354,7 @@
 				27CAC6F61ADEBEE1007B67C4 /* clong-1.mp3 in Resources */,
 				27CEF9601AD5BB6E00890179 /* Main.storyboard in Resources */,
 				27CAC7031AE04970007B67C4 /* dreamHarp.mp3 in Resources */,
+				270406A51AEECD8000EA670A /* sniperShot.mp3 in Resources */,
 				27CAC6FE1ADF28B0007B67C4 /* bomb.mp3 in Resources */,
 				27CEF9651AD5BB6E00890179 /* LaunchScreen.xib in Resources */,
 				27CEF9621AD5BB6E00890179 /* Images.xcassets in Resources */,
