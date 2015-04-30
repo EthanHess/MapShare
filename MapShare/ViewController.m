@@ -701,16 +701,16 @@
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
-    [self playSniperSound];
+    [self playSnapSound];
     
     
 }
 
-- (void)playSniperSound {
+- (void)playSnapSound {
     
-    NSURL *urlForSniper = [[NSBundle mainBundle] URLForResource:@"sniperShot" withExtension:@"mp3"];
+    NSURL *urlForSnap = [[NSBundle mainBundle] URLForResource:@"snapSound" withExtension:@"mp3"];
     
-    [self.soundController playAudioFileAtURL:urlForSniper];
+    [self.soundController playAudioFileAtURL:urlForSnap];
     
     
 }

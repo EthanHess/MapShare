@@ -96,7 +96,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 365, self.view.frame.size.width - 50, 80)];
     self.searchLabel.backgroundColor = [UIColor backgroundColor];
     self.searchLabel.textColor = [UIColor whiteColor];
-    self.searchLabel.text = @" Click the magnifying glass to dispay the search bar then select a location and zoom to it. ";
+    self.searchLabel.text = @" Click the magnifying glass to display the search bar then select a location and zoom to it. ";
     self.searchLabel.numberOfLines = 0;
     self.searchLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
     [self.scrollView addSubview:self.searchLabel];
