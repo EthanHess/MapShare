@@ -18,6 +18,8 @@
 
 #define METERS_PER_MILE 23609.344
 
+#define IS_IPHONE_4 ([UIScreen mainScreen].bounds.size.height == 480.0)
+
 
 @interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -464,6 +466,16 @@
     else
     {
         tableViewHeight = 80 * 4;
+    }
+    
+    if (IS_IPHONE_4) {
+        
+        if (self.resultPlaces.count < 3) {
+            tableViewHeight = 80 * self.resultPlaces.count;
+        }
+        else {
+            tableViewHeight = 80 * 2;
+        }
     }
     
     
