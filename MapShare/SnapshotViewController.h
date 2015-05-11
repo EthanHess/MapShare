@@ -16,5 +16,6 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) Snapshot *snapshot;
 @property (nonatomic, strong) ShareButton *shareButton;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end

@@ -141,14 +141,12 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     CGAffineTransform bigger = CGAffineTransformMakeScale(10, 2);
     CGAffineTransform smaller = CGAffineTransformMakeScale(1, 1);
     CGAffineTransform rotate = CGAffineTransformMakeRotation(radians(180));
-//    CGAffineTransform move = CGAffineTransformMakeTranslation(0, +300);
-//    CGAffineTransform moveBack = CGAffineTransformMakeTranslation(0, -300);
+
     [UIView animateWithDuration:duration animations:^{
         view.transform = bigger;
         view.transform = rotate;
         view.transform = smaller;
-//        view.transform = move;
-//        view.transform = moveBack;
+
     }];
     
 }

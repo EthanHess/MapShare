@@ -31,19 +31,33 @@
     
     self.view.backgroundColor = [UIColor backgroundColor];
     
+    [self setUpScrollView];
+    
     [self setUpToolBar];
     
     [self setUpImageView];
     
     [self setUpButton];
+    
 
+}
+
+- (void)setUpScrollView {
+    
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + 500);
+    
+    [self.view sendSubviewToBack:self.scrollView];
+    
+    [self.view addSubview:self.scrollView];
+    
 }
 
 - (void)setUpButton {
     
     self.shareButton = [[ShareButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 60, 500, 120, 120)];
     [self.shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.shareButton];
+    [self.scrollView addSubview:self.shareButton];
     
 }
 
@@ -82,7 +96,7 @@
     
     self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 100, self.view.frame.size.width - 30, self.view.frame.size.width - 30)];
     self.imageView.backgroundColor = [UIColor awesome];
-    [self.view addSubview:self.imageView];
+    [self.scrollView addSubview:self.imageView];
     
     [self updateWithSnapshot:self.snapshot];
     
