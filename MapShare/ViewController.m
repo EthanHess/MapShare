@@ -698,7 +698,7 @@
 
 - (void)saveSnapshot {
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Spapshot saved!" message:@"Now add a catpion" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Snapshot saved!" message:@"Now add a caption" preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = @"Add caption";

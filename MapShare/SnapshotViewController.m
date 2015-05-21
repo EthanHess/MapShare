@@ -45,7 +45,7 @@
 - (void)setUpScrollView {
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + 500);
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + 250);
     
     [self.view sendSubviewToBack:self.scrollView];
     
