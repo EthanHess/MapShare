@@ -22,8 +22,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor awesome];
-    
     self.soundController = [SoundController new];
 
     [self setUpScrollView];
@@ -33,6 +31,10 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     [self setUpLabels];
     
     [self.scrollView bringSubviewToFront:self.welcomeLabel];
+    [self.scrollView bringSubviewToFront:self.mapTypeLabel];
+    [self.scrollView bringSubviewToFront:self.clearAllLabel];
+    [self.scrollView bringSubviewToFront:self.searchLabel];
+    [self.scrollView bringSubviewToFront:self.shareLabel];
     
     [self animateLabel:self.welcomeLabel duration:2.0];
     
@@ -81,7 +83,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.welcomeLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 90, self.view.frame.size.width - 50, 60)];
     self.welcomeLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"water"]];
     self.welcomeLabel.textColor = [UIColor whiteColor];
-    self.welcomeLabel.text = @" Welcome To MapShot! ";
+    self.welcomeLabel.text = @" Welcome To Maptacular! ";
     self.welcomeLabel.font = [UIFont fontWithName:@"Chalkduster" size:24];
     [self.scrollView addSubview:self.welcomeLabel];
     
@@ -116,6 +118,11 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.shareLabel.numberOfLines = 0;
     self.shareLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
     [self.scrollView addSubview:self.shareLabel];
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.scrollView.bounds];
+    imageView.image = [UIImage imageNamed:@"SnapBack"];
+    [self.scrollView sendSubviewToBack:imageView];
+    [self.scrollView addSubview:imageView];
     
     
 }

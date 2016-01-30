@@ -34,5 +34,14 @@
     
 }
 
++ (UIColor *)borderColor {
+    
+    return [UIColor colorWithRed:(25/255.0) green:(45/255.0) blue:(10/255.0) alpha:1.0];
+}
+
++ (UIColor *)goldColor {
+    
+    return [UIColor colorWithRed:234.0f/255.0f green:234.0f/255.0f blue:32.0f/255.0f alpha:1.0];
+}
 
 @end

@@ -17,8 +17,10 @@
     
     if (self) {
         
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.bounds];
+        imageView.image = [UIImage imageNamed:@"searchBarBackground"];
+        [self addSubview:imageView]; 
 
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"parchmentTwo"]];
         
         self.searchBar = [UISearchBar new];
         self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;

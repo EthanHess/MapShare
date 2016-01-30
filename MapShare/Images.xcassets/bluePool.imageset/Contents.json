@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "bluePool.jpg"
+      "filename" : "bluePool.jpg",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

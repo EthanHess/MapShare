@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "limeGreen.jpg"
+      "filename" : "limeGreen.jpg",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

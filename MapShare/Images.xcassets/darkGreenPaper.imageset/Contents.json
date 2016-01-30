@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "darkGreenPaper.jpg"
+      "filename" : "darkGreenPaper.jpg",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

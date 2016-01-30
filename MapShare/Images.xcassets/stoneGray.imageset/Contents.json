@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "stoneGray.jpg"
+      "filename" : "stoneGray.jpg",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

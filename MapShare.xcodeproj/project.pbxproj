@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		276EA5FC1AF261FD00598EB1 /* snapSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 276EA5FB1AF261FD00598EB1 /* snapSound.mp3 */; };
+		278DFF7C1C548BDD00E4F18D /* searchBarBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 278DFF7B1C548BDD00E4F18D /* searchBarBackground.jpg */; settings = {ASSET_TAGS = (); }; };
 		27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6381AD5E4FF007B67C4 /* Model.xcdatamodeld */; };
 		27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC63C1AD5E53E007B67C4 /* Location.m */; };
 		27CAC6751AD6E179007B67C4 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6741AD6E179007B67C4 /* CalloutView.m */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		276EA5FB1AF261FD00598EB1 /* snapSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = snapSound.mp3; sourceTree = "<group>"; };
+		278DFF7B1C548BDD00E4F18D /* searchBarBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = searchBarBackground.jpg; sourceTree = "<group>"; };
 		27CAC6391AD5E4FF007B67C4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		27CAC63B1AD5E53E007B67C4 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		27CAC63C1AD5E53E007B67C4 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				27CAC6F51ADEBEE1007B67C4 /* clong-1.mp3 */,
 				27CAC7021AE04970007B67C4 /* dreamHarp.mp3 */,
 				27CAC6F31ADEBED5007B67C4 /* water-splash-3.mp3 */,
+				278DFF7B1C548BDD00E4F18D /* searchBarBackground.jpg */,
 				27CAC6FD1ADF28B0007B67C4 /* bomb.mp3 */,
 				27CEF9551AD5BB6E00890179 /* Info.plist */,
 				27CEF9561AD5BB6E00890179 /* main.m */,
@@ -314,7 +317,7 @@
 		27CEF9491AD5BB6E00890179 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Ethan Hess";
 				TargetAttributes = {
 					27CEF9501AD5BB6E00890179 = {
@@ -357,6 +360,7 @@
 				276EA5FC1AF261FD00598EB1 /* snapSound.mp3 in Resources */,
 				27CAC6FE1ADF28B0007B67C4 /* bomb.mp3 in Resources */,
 				27CEF9651AD5BB6E00890179 /* LaunchScreen.xib in Resources */,
+				278DFF7C1C548BDD00E4F18D /* searchBarBackground.jpg in Resources */,
 				27CEF9621AD5BB6E00890179 /* Images.xcassets in Resources */,
 				27CAC6F41ADEBED5007B67C4 /* water-splash-3.mp3 in Resources */,
 			);
@@ -458,6 +462,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -522,6 +527,7 @@
 				INFOPLIST_FILE = MapShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devmtn.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -534,6 +540,7 @@
 				INFOPLIST_FILE = MapShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devmtn.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -552,6 +559,7 @@
 				);
 				INFOPLIST_FILE = MapShareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devmtn.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MapShare.app/MapShare";
 			};
@@ -567,6 +575,7 @@
 				);
 				INFOPLIST_FILE = MapShareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devmtn.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MapShare.app/MapShare";
 			};

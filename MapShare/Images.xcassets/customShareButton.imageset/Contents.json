@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "customShareButton.png"
+      "filename" : "customShareButton.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

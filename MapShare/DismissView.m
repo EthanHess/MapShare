@@ -18,21 +18,26 @@
     
     if (self) {
         
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"stoneGray"]];
+        self.layer.cornerRadius = 10;
+        self.layer.borderColor = [[UIColor whiteColor]CGColor];
+        self.layer.masksToBounds = YES;
+        self.layer.borderWidth = 2;
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.bounds];
+        imageView.image = [UIImage imageNamed:@"stoneGray"];
+        [self addSubview:imageView];
         
         self.dismissButton = [UIButton new];
         self.dismissButton.translatesAutoresizingMaskIntoConstraints = NO;
+        self.dismissButton.layer.cornerRadius = 10;
         [self.dismissButton setTitle:@" Dismiss " forState:UIControlStateNormal];
         self.dismissButton.titleLabel.font = [UIFont fontWithName:@"Chalkduster" size:22];
-        [self.dismissButton setBackgroundColor:[UIColor awesome]];
+        [self.dismissButton setBackgroundColor:[UIColor darkGrayColor]];
         [self.dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.dismissButton.layer.cornerRadius = 10;
+        self.dismissButton.layer.borderColor = [[UIColor grayColor]CGColor];
+        self.dismissButton.layer.borderWidth = 2;
         [self addSubview:self.dismissButton];
-      
-//        NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_dismissButton);
-        
-//        NSArray *layoutConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_dismissButton(==50)]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewDictionary];
-//        
-//        NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_dismissButton(<=150)]" options:NSLayoutFormatAlignAllCenterX metrics:nil views:viewDictionary];
         
         NSLayoutConstraint *vertical = [NSLayoutConstraint constraintWithItem:self.dismissButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
         
@@ -47,9 +52,6 @@
         [self addConstraint:height];
         [self addConstraint:width];
 
-//        [self addConstraints:layoutConstraints];
-//        [self addConstraints:horizontalConstraints];
-        
         
         
         

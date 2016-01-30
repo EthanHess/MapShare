@@ -68,9 +68,12 @@
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:layout];
-    self.collectionView.backgroundColor = [UIColor backgroundColor];
     
-    layout.sectionInset = UIEdgeInsetsMake(2.0, 2.0, 2.0, 2.0);
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    imageView.image = [UIImage imageNamed:@"SnapBack"];
+    self.collectionView.backgroundView = imageView;
+    
+    layout.sectionInset = UIEdgeInsetsMake(80, 50, 80, 50);
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -82,7 +85,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return CGSizeMake((self.view.frame.size.width / 2) - 8,180);
+    return CGSizeMake((self.view.frame.size.width - 100) ,self.view.frame.size.width - 100);
 }
 
 - (void)home {
@@ -159,6 +162,10 @@
     cell.footerLabel.font = [UIFont fontWithName:@"Chalkduster" size:20];
     cell.footerLabel.textColor = [UIColor brownColor];
     cell.footerLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"parchment"]];
+    cell.layer.cornerRadius = 10;
+    cell.layer.borderColor = [[UIColor goldColor]CGColor];
+    cell.layer.borderWidth = 3;
+    cell.layer.masksToBounds = YES; 
     [cell bringSubviewToFront:cell.footerLabel];
 
     return cell;

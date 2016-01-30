@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "soil.jpg"
+      "filename" : "soil.jpg",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

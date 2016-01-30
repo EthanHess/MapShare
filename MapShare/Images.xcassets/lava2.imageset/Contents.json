@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "lava2.jpg"
+      "filename" : "lava2.jpg",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

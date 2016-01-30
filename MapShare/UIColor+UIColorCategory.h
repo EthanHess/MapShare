@@ -18,4 +18,8 @@
 
 + (UIColor *)lightBlueColor;
 
++ (UIColor *)borderColor; 
+
++ (UIColor *)goldColor;
+
 @end

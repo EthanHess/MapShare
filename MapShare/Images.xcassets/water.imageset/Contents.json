@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "water.jpg"
+      "filename" : "water.jpg",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

@@ -96,7 +96,7 @@
 - (void)setUpNavigationToolBar {
     
     self.navToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
-    [self.navToolBar setBackgroundImage:[UIImage imageNamed:@"soil"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.navToolBar setBackgroundImage:[UIImage imageNamed:@"toolbarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [self.view addSubview:self.navToolBar];
     
     UIImage *pencil = [UIImage imageNamed:@"pencil"];
@@ -121,7 +121,7 @@
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem2];
     
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:search style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar:)];
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:search style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar)];
     [navItems addObject:searchButton];
     
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -141,7 +141,7 @@
 - (void)setUpToolBar {
     
     self.toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
-    [self.toolBar setBackgroundImage:[UIImage imageNamed:@"limeGreen"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [self.view addSubview:self.toolBar];
     
     UIImage *map = [UIImage imageNamed:@"map"];
@@ -294,7 +294,7 @@
     
 }
 
--(void)popSearchBar:(id)sender {
+-(void)popSearchBar {
     
     if (self.searchBarView.frame.origin.y < 75) {
         
@@ -352,9 +352,6 @@
     
     [self.mapView addAnnotation:dropPin];
     [self playClongSound];
-    
-    
-    
     
 }
 
@@ -482,7 +479,9 @@
     self.tableView.backgroundColor = [UIColor lightGrayColor];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, tableViewHeight)];
-    
+    self.tableView.layer.cornerRadius = 10;
+    self.tableView.layer.borderColor = [[UIColor darkGrayColor]CGColor];
+    self.tableView.layer.borderWidth = 2;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self registerTableView:self.tableView];
@@ -508,11 +507,12 @@
     cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bluePool"]];
     cell.textLabel.text = item.name;
     cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
-    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.textColor = [UIColor blackColor];
     cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.detailTextLabel.text = item.placemark.title;
     cell.detailTextLabel.font = [UIFont fontWithName:@"Chalkduster" size:14];
-    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor blackColor];
+    cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.backgroundColor = [UIColor clearColor];
     
     
@@ -629,29 +629,23 @@
     MKMapSnapshotter *snapshotter = [[MKMapSnapshotter alloc] initWithOptions:options];
     [snapshotter startWithCompletionHandler:^(MKMapSnapshot *snapshot, NSError *error) {
         
-        // get the image associated with the snapshot
-        
         UIImage *image = snapshot.image;
         
         // Get the size of the final image
         
         CGRect finalImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
         
-        // Get a standard annotation view pin. Clearly, Apple assumes that we'll only want to draw standard annotation pins!
-        
         MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
         pin.pinColor = self.pinColor;
         UIImage *pinImage = pin.image;
         
-        // ok, let's start to create our final image
+        //create final image
         
         UIGraphicsBeginImageContextWithOptions(image.size, YES, image.scale);
         
-        // first, draw the image from the snapshotter
-        
         [image drawAtPoint:CGPointMake(0, 0)];
         
-        // now, let's iterate through the annotations and draw them, too
+        //iterate through annotations
         
         for (id<MKAnnotation>annotation in self.mapView.annotations)
         {
@@ -730,7 +724,7 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     
     
-    self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"personAnnotation"];
+    self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinAnnotation"];
     
     self.pinAnnotation.pinColor = self.pinColor;
     

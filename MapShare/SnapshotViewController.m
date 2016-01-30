@@ -29,7 +29,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor backgroundColor];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    imageView.image = [UIImage imageNamed:@"SnapBack"];
+    [self.view addSubview:imageView];
     
     [self setUpScrollView];
     
@@ -95,6 +97,10 @@
 - (void)setUpImageView {
     
     self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 100, self.view.frame.size.width - 30, self.view.frame.size.width - 30)];
+    self.imageView.layer.masksToBounds = YES; 
+    self.imageView.layer.cornerRadius = 10;
+    self.imageView.layer.borderColor = [[UIColor goldColor]CGColor];
+    self.imageView.layer.borderWidth = 2;
     self.imageView.backgroundColor = [UIColor awesome];
     [self.scrollView addSubview:self.imageView];
     
