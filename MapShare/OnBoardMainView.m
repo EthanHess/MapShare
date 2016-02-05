@@ -58,7 +58,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 - (void)setUpToolbar {
     
     self.toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
-    [self.toolbar setBackgroundImage:[UIImage imageNamed:@"grass"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.toolbar setBackgroundImage:[UIImage imageNamed:@"abstractBlue"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [self.view addSubview:self.toolbar];
     
     UIImage *arrow = [UIImage imageNamed:@"leftArrow"];
@@ -85,6 +85,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.welcomeLabel.textColor = [UIColor whiteColor];
     self.welcomeLabel.text = @" Welcome To Maptacular! ";
     self.welcomeLabel.font = [UIFont fontWithName:@"Chalkduster" size:24];
+    self.welcomeLabel.layer.cornerRadius = 10;
+    self.welcomeLabel.layer.masksToBounds = YES;
     [self.scrollView addSubview:self.welcomeLabel];
     
     self.mapTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 165, self.view.frame.size.width - 50, 185)];
@@ -93,6 +95,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.mapTypeLabel.text = @" Use the left button of the botton toolbar to select the map type of your choice. To add annotations simply click anywhere on the screen, either zoomed in or from afar. To delete annotations select the top of the pin then hold and drag to the delete button which pops up. ";
     self.mapTypeLabel.numberOfLines = 0;
     self.mapTypeLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
+    self.mapTypeLabel.layer.cornerRadius = 10;
+    self.mapTypeLabel.layer.masksToBounds = YES;
     [self.scrollView addSubview:self.mapTypeLabel];
     
     self.searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 365, self.view.frame.size.width - 50, 80)];
@@ -101,6 +105,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.searchLabel.text = @" Click the magnifying glass to display the search bar then select a location and zoom to it. ";
     self.searchLabel.numberOfLines = 0;
     self.searchLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
+    self.searchLabel.layer.cornerRadius = 10;
+    self.searchLabel.layer.masksToBounds = YES;
     [self.scrollView addSubview:self.searchLabel];
     
     self.clearAllLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 460, self.view.frame.size.width - 50, 95)];
@@ -109,6 +115,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.clearAllLabel.text = @" If need be you have the option to remove all your annotations at once by clicking the mushroom cloud then selecting 'yes'. ";
     self.clearAllLabel.numberOfLines = 0;
     self.clearAllLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
+    self.clearAllLabel.layer.cornerRadius = 10;
+    self.clearAllLabel.layer.masksToBounds = YES;
     [self.scrollView addSubview:self.clearAllLabel];
     
     self.shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 570, self.view.frame.size.width - 50, 80)];
@@ -117,6 +125,8 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
     self.shareLabel.text = @" Click the camera to take a snapshot then share with your friends! ";
     self.shareLabel.numberOfLines = 0;
     self.shareLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
+    self.shareLabel.layer.cornerRadius = 10;
+    self.shareLabel.layer.masksToBounds = YES;
     [self.scrollView addSubview:self.shareLabel];
     
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.scrollView.bounds];
