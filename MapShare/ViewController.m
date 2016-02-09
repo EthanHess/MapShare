@@ -233,11 +233,15 @@
         
         //pop out collection view with custom color here!
         
+        if (self.collectionContainerView.frame.origin.x < 0) {
+        
         [UIView animateWithDuration:0.5 animations:^{
             
             self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x + self.view.frame.size.width / 2, self.collectionContainerView.center.y);
             
         }];
+            
+        }
         
     }]];
     
@@ -476,6 +480,18 @@
 
 #pragma CollectionView for pin colors
 
+- (void)popBack {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        if (self.collectionContainerView.frame.origin.x >= 0) {
+            
+            self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x - self.view.frame.size.width / 2, self.collectionContainerView.center.y);
+        }
+        
+    }];
+}
+
 - (void)setUpCollectionView {
     
     self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-self.view.frame.size.width / 2, 150, self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
@@ -486,12 +502,21 @@
     self.collectionContainerView.layer.masksToBounds = YES;
     [self.view addSubview:self.collectionContainerView];
     
+    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
+    [backButton setTitle:@"<" forState:UIControlStateNormal];
+    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    backButton.layer.cornerRadius = 25;
+    backButton.layer.borderColor = [[UIColor blackColor]CGColor];
+    backButton.layer.borderWidth = 2;
+    [backButton addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
+    [self.collectionContainerView addSubview:backButton];
+    
     //establish layout
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
     
-    self.collectionView = [[UICollectionView alloc]initWithFrame:self.collectionContainerView.bounds collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.collectionContainerView.frame.size.width, self.view.frame.size.height / 3) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor whiteColor];
@@ -541,8 +566,9 @@
     UIColor *whiteColor = [UIColor whiteColor];
     UIColor *purpleColor = [UIColor purpleColor];
     UIColor *brownColor = [UIColor brownColor];
+    UIColor *randomColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
     
-    NSArray *colorArray = @[yellowColor, orangeColor, cyanColor, blackColor, grayColor, whiteColor, purpleColor, brownColor];
+    NSArray *colorArray = @[yellowColor, orangeColor, cyanColor, blackColor, grayColor, whiteColor, purpleColor, brownColor, randomColor];
     
     return colorArray;
 }
