@@ -198,7 +198,8 @@
         self.pinTintColor = [UIColor redColor];
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
-            pin.pinColor = MKPinAnnotationColorRed;
+//            pin.pinColor = MKPinAnnotationColorRed;
+            pin.pinTintColor = [UIColor redColor];
             [self.mapView addAnnotation:pin.annotation];
             
         }
@@ -211,7 +212,8 @@
         self.pinTintColor = [UIColor greenColor];
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
-            pin.pinColor = MKPinAnnotationColorGreen;
+//            pin.pinColor = MKPinAnnotationColorGreen;
+            pin.pinTintColor = [UIColor greenColor];
             [self.mapView addAnnotation:pin.annotation];
             
         }
@@ -223,7 +225,8 @@
         self.pinTintColor = [UIColor blueColor];
         for (MKPinAnnotationView * pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
-            pin.pinColor = MKPinAnnotationColorPurple;
+//            pin.pinColor = MKPinAnnotationColorPurple;
+            pin.pinTintColor = [UIColor blueColor];
             [self.mapView addAnnotation:pin.annotation];
             
         }
@@ -496,11 +499,16 @@
     
     self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-self.view.frame.size.width / 2, 150, self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
     self.collectionContainerView.layer.cornerRadius = 15;
-    self.collectionContainerView.backgroundColor = [UIColor whiteColor];
+    self.collectionContainerView.backgroundColor = [UIColor clearColor];
     self.collectionContainerView.layer.borderColor = [[UIColor blackColor]CGColor];
     self.collectionContainerView.layer.borderWidth = 2;
     self.collectionContainerView.layer.masksToBounds = YES;
     [self.view addSubview:self.collectionContainerView];
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.collectionContainerView.bounds];
+    imageView.layer.masksToBounds = YES;
+    imageView.image = [UIImage imageNamed:@"popOutBackgroundMS"];
+    [self.collectionContainerView addSubview:imageView];
     
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
     [backButton setTitle:@"<" forState:UIControlStateNormal];
@@ -519,7 +527,7 @@
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.collectionContainerView.frame.size.width, self.view.frame.size.height / 3) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     [self registerCollectionView:self.collectionView];
     [self.collectionContainerView addSubview:self.collectionView];
 }
@@ -551,6 +559,13 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     self.pinTintColor = [self customColors][indexPath.row];
+    
+    for (MKPinAnnotationView * pin in self.arrayOfPins) {
+        [self.mapView removeAnnotation:pin.annotation];
+        pin.pinTintColor = self.pinTintColor;
+        [self.mapView addAnnotation:pin.annotation];
+        
+    }
     
 }
 
