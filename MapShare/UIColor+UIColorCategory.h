@@ -22,4 +22,6 @@
 
 + (UIColor *)goldColor;
 
++ (UIColor *)darkBlueColor; 
+
 @end

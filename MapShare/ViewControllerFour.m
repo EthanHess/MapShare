@@ -1,36 +1,33 @@
 //
-//  ViewControllerThree.m
+//  ViewControllerFour.m
 //  MapShare
 //
-//  Created by Ethan Hess on 2/11/16.
+//  Created by Ethan Hess on 2/24/16.
 //  Copyright © 2016 Ethan Hess. All rights reserved.
 //
 
-#import "ViewControllerThree.h"
+#import "ViewControllerFour.h"
 
-@interface ViewControllerThree ()
+@interface ViewControllerFour ()
 
 @property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
-@implementation ViewControllerThree
+@implementation ViewControllerFour
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    self.imageView.image = [UIImage imageNamed:@"OnboardingCollectionView"];
+    self.imageView.image = [UIImage imageNamed:@"OnboardingSearch"];
     
     [self.view addSubview:self.imageView];
-    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
-    
+    // Dispose of any resources that can be recreated.
 }
 
 /*

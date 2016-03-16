@@ -20,8 +20,12 @@
     self.vcOne = [ViewControllerOne new];
     self.vcTwo = [ViewControllerTwo new];
     self.vcThree = [ViewControllerThree new];
+    self.vcFour = [ViewControllerFour new];
+    self.vcFive = [ViewControllerFive new]; 
     
     self.pageViewController = [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    
+    self.pageViewController.dataSource = self; 
     
     [self.pageViewController setViewControllers:@[[self vcOne]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
     
@@ -37,7 +41,11 @@
         return self.vcTwo;
     } else if (viewController == self.vcTwo) {
         return self.vcThree;
-    } else {
+    } else if (viewController == self.vcThree) {
+        return self.vcFour;
+    } else if (viewController == self.vcFour) {
+        return self.vcFive;
+    }else {
         return nil;
     }
 }
@@ -50,8 +58,10 @@
         return self.vcOne;
     } else if (viewController == self.vcThree) {
         return self.vcTwo;
+    } else if (viewController == self.vcFour) {
+        return self.vcThree;
     } else {
-        return self.vcTwo;
+        return self.vcFour;
     }
 
     

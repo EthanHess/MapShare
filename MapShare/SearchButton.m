@@ -27,7 +27,7 @@
         self.layer.masksToBounds = YES;
         
         _circleLayer = [CAShapeLayer layer];
-        _circleLayer.strokeColor = [UIColor whiteColor].CGColor;
+        _circleLayer.strokeColor = [UIColor darkGrayColor].CGColor;
         _circleLayer.lineWidth = 3.0;
         _circleLayer.fillColor = [UIColor clearColor].CGColor;
         

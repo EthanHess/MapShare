@@ -12,9 +12,9 @@
 #import "LocationController.h"
 #import "SoundController.h"
 #import "DismissView.h"
-#import "OnBoardMainView.h"
 #import "SnapshotController.h"
 #import "SnapshotCollectionView.h"
+#import "PageViewController.h"
 
 #define METERS_PER_MILE 23609.344
 
@@ -117,24 +117,28 @@
     [navItems addObject:flexItem0];
     
     UIBarButtonItem *pinColor = [[UIBarButtonItem alloc]initWithImage:pencil style:UIBarButtonItemStylePlain target:self action:@selector(changePinColor)];
+    pinColor.tintColor = [UIColor darkBlueColor];
     [navItems addObject:pinColor];
     
     UIBarButtonItem *flexItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem1];
     
     UIBarButtonItem *questionButton = [[UIBarButtonItem alloc]initWithImage:question style:UIBarButtonItemStylePlain target:self action:@selector(onboarding)];
+    questionButton.tintColor = [UIColor darkBlueColor];
     [navItems addObject:questionButton];
     
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem2];
     
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:search style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar)];
+    searchButton.tintColor = [UIColor darkBlueColor];
     [navItems addObject:searchButton];
     
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem3];
     
     UIBarButtonItem *archiveButton = [[UIBarButtonItem alloc]initWithImage:archives style:UIBarButtonItemStylePlain target:self action:@selector(archivesController)];
+    archiveButton.tintColor = [UIColor darkBlueColor];
     [navItems addObject:archiveButton];
     
     UIBarButtonItem *flexItem4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -162,24 +166,28 @@
     [buttons addObject:flexItem0];
     
     UIBarButtonItem *mapType = [[UIBarButtonItem alloc]initWithImage:map style:UIBarButtonItemStylePlain target:self action:@selector(mapType)];
+    mapType.tintColor = [UIColor darkBlueColor];
     [buttons addObject:mapType];
     
     UIBarButtonItem *flexItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem1];
     
     UIBarButtonItem *clearButton = [[UIBarButtonItem alloc]initWithImage:boom style:UIBarButtonItemStylePlain target:self action:@selector(clearAll)];
+    clearButton.tintColor = [UIColor darkBlueColor];
     [buttons addObject:clearButton];
     
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem2];
     
     UIBarButtonItem *zoomOut = [[UIBarButtonItem alloc]initWithImage:zoom style:UIBarButtonItemStylePlain target:self action:@selector(zoomOut)];
+    zoomOut.tintColor = [UIColor darkBlueColor];
     [buttons addObject:zoomOut];
     
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem3];
     
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:photo style:UIBarButtonItemStylePlain target:self action:@selector(saveSnapshot)];
+    shareButton.tintColor = [UIColor darkBlueColor]; 
     [buttons addObject:shareButton];
     
     UIBarButtonItem *flexItem4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -196,7 +204,7 @@
         
 //        self.pinColor = MKPinAnnotationColorRed;
         self.pinTintColor = [UIColor redColor];
-        for (MKPinAnnotationView * pin in self.arrayOfPins) {
+        for (MKPinAnnotationView *pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
 //            pin.pinColor = MKPinAnnotationColorRed;
             pin.pinTintColor = [UIColor redColor];
@@ -210,7 +218,7 @@
         
 //        self.pinColor = MKPinAnnotationColorGreen;
         self.pinTintColor = [UIColor greenColor];
-        for (MKPinAnnotationView * pin in self.arrayOfPins) {
+        for (MKPinAnnotationView *pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
 //            pin.pinColor = MKPinAnnotationColorGreen;
             pin.pinTintColor = [UIColor greenColor];
@@ -223,7 +231,7 @@
         
 //        self.pinColor = MKPinAnnotationColorPurple;
         self.pinTintColor = [UIColor blueColor];
-        for (MKPinAnnotationView * pin in self.arrayOfPins) {
+        for (MKPinAnnotationView *pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
 //            pin.pinColor = MKPinAnnotationColorPurple;
             pin.pinTintColor = [UIColor blueColor];
@@ -239,6 +247,8 @@
         if (self.collectionContainerView.frame.origin.x < 0) {
         
         [UIView animateWithDuration:0.5 animations:^{
+            
+            self.collectionContainerView.hidden = NO;
             
             self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x + self.view.frame.size.width / 2, self.collectionContainerView.center.y);
             
@@ -268,10 +278,9 @@
     
     //eventually make page view controller
     
-    OnBoardMainView *onboardMainView = [OnBoardMainView new];
+    PageViewController *pageViewController = [PageViewController new];
     
-    [self.navigationController pushViewController:onboardMainView animated:YES];
-    
+    [self.navigationController pushViewController:pageViewController animated:YES];
     
 }
 
@@ -487,6 +496,8 @@
     
     [UIView animateWithDuration:0.5 animations:^{
         
+        self.collectionContainerView.hidden = YES;
+        
         if (self.collectionContainerView.frame.origin.x >= 0) {
             
             self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x - self.view.frame.size.width / 2, self.collectionContainerView.center.y);
@@ -497,12 +508,13 @@
 
 - (void)setUpCollectionView {
     
-    self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-self.view.frame.size.width / 2, 150, self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
+    self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-self.view.frame.size.width / 2, self.view.frame.size.height / 2 - 75, self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
     self.collectionContainerView.layer.cornerRadius = 15;
     self.collectionContainerView.backgroundColor = [UIColor clearColor];
     self.collectionContainerView.layer.borderColor = [[UIColor blackColor]CGColor];
     self.collectionContainerView.layer.borderWidth = 2;
     self.collectionContainerView.layer.masksToBounds = YES;
+    self.collectionContainerView.hidden = NO;
     [self.view addSubview:self.collectionContainerView];
     
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.collectionContainerView.bounds];
@@ -511,11 +523,13 @@
     [self.collectionContainerView addSubview:imageView];
     
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
-    [backButton setTitle:@"<" forState:UIControlStateNormal];
+//    [backButton setTitle:@"<" forState:UIControlStateNormal];
     [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     backButton.layer.cornerRadius = 25;
     backButton.layer.borderColor = [[UIColor blackColor]CGColor];
     backButton.layer.borderWidth = 2;
+    backButton.layer.masksToBounds = YES;
+    [backButton setBackgroundImage:[UIImage imageNamed:@"PopButtonBackground"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
     [self.collectionContainerView addSubview:backButton];
     
@@ -543,10 +557,27 @@
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
+    if (indexPath.row < 8) {
+    
     cell.layer.cornerRadius = cell.frame.size.height / 2;
     cell.layer.borderColor = [[UIColor blackColor]CGColor];
     cell.layer.borderWidth = 1;
     cell.backgroundColor = [self customColors][indexPath.row];
+        
+    }
+    
+    if (indexPath.row == 8) {
+        
+        cell.layer.cornerRadius = cell.frame.size.height / 2;
+        cell.layer.borderColor = [[UIColor blackColor]CGColor];
+        cell.layer.masksToBounds = YES;
+        cell.layer.borderWidth = 1;
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:cell.bounds];
+        imageView.image = [UIImage imageNamed:@"randomButton"];
+        imageView.layer.masksToBounds = YES;
+        [cell addSubview:imageView];
+    }
     
     return cell;
 }
@@ -560,7 +591,7 @@
     
     self.pinTintColor = [self customColors][indexPath.row];
     
-    for (MKPinAnnotationView * pin in self.arrayOfPins) {
+    for (MKPinAnnotationView *pin in self.arrayOfPins) {
         [self.mapView removeAnnotation:pin.annotation];
         pin.pinTintColor = self.pinTintColor;
         [self.mapView addAnnotation:pin.annotation];
@@ -668,6 +699,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     MKMapItem *zoomItem = self.resultPlaces[indexPath.row];
     

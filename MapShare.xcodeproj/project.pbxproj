@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		270BD30C1C6D37D900C77FC5 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD30B1C6D37D900C77FC5 /* PageViewController.m */; settings = {ASSET_TAGS = (); }; };
-		270BD30F1C6D38A200C77FC5 /* ViewControllerOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD30E1C6D38A200C77FC5 /* ViewControllerOne.m */; settings = {ASSET_TAGS = (); }; };
-		270BD3121C6D38B200C77FC5 /* ViewControllerTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD3111C6D38B200C77FC5 /* ViewControllerTwo.m */; settings = {ASSET_TAGS = (); }; };
-		270BD3151C6D38D200C77FC5 /* ViewControllerThree.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD3141C6D38D200C77FC5 /* ViewControllerThree.m */; settings = {ASSET_TAGS = (); }; };
+		270BD30C1C6D37D900C77FC5 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD30B1C6D37D900C77FC5 /* PageViewController.m */; };
+		270BD30F1C6D38A200C77FC5 /* ViewControllerOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD30E1C6D38A200C77FC5 /* ViewControllerOne.m */; };
+		270BD3121C6D38B200C77FC5 /* ViewControllerTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD3111C6D38B200C77FC5 /* ViewControllerTwo.m */; };
+		270BD3151C6D38D200C77FC5 /* ViewControllerThree.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD3141C6D38D200C77FC5 /* ViewControllerThree.m */; };
 		276EA5FC1AF261FD00598EB1 /* snapSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 276EA5FB1AF261FD00598EB1 /* snapSound.mp3 */; };
-		278DFF7C1C548BDD00E4F18D /* searchBarBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 278DFF7B1C548BDD00E4F18D /* searchBarBackground.jpg */; settings = {ASSET_TAGS = (); }; };
+		277440FF1C7EB65D00B6AADC /* ViewControllerFour.m in Sources */ = {isa = PBXBuildFile; fileRef = 277440FE1C7EB65D00B6AADC /* ViewControllerFour.m */; };
+		277441021C7EB67000B6AADC /* ViewControllerFive.m in Sources */ = {isa = PBXBuildFile; fileRef = 277441011C7EB67000B6AADC /* ViewControllerFive.m */; };
+		278DFF7C1C548BDD00E4F18D /* searchBarBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 278DFF7B1C548BDD00E4F18D /* searchBarBackground.jpg */; };
 		27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6381AD5E4FF007B67C4 /* Model.xcdatamodeld */; };
 		27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC63C1AD5E53E007B67C4 /* Location.m */; };
 		27CAC6751AD6E179007B67C4 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6741AD6E179007B67C4 /* CalloutView.m */; };
@@ -21,7 +23,6 @@
 		27CAC6F41ADEBED5007B67C4 /* water-splash-3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 27CAC6F31ADEBED5007B67C4 /* water-splash-3.mp3 */; };
 		27CAC6F61ADEBEE1007B67C4 /* clong-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 27CAC6F51ADEBEE1007B67C4 /* clong-1.mp3 */; };
 		27CAC6FE1ADF28B0007B67C4 /* bomb.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 27CAC6FD1ADF28B0007B67C4 /* bomb.mp3 */; };
-		27CAC7011ADF31D2007B67C4 /* OnBoardMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC7001ADF31D2007B67C4 /* OnBoardMainView.m */; };
 		27CAC7031AE04970007B67C4 /* dreamHarp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 27CAC7021AE04970007B67C4 /* dreamHarp.mp3 */; };
 		27CAC7391AE1818E007B67C4 /* SnapshotController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC7381AE1818E007B67C4 /* SnapshotController.m */; };
 		27CAC73C1AE1834D007B67C4 /* SnapshotCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC73B1AE1834D007B67C4 /* SnapshotCollectionView.m */; };
@@ -64,6 +65,10 @@
 		270BD3131C6D38D200C77FC5 /* ViewControllerThree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerThree.h; sourceTree = "<group>"; };
 		270BD3141C6D38D200C77FC5 /* ViewControllerThree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerThree.m; sourceTree = "<group>"; };
 		276EA5FB1AF261FD00598EB1 /* snapSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = snapSound.mp3; sourceTree = "<group>"; };
+		277440FD1C7EB65D00B6AADC /* ViewControllerFour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerFour.h; sourceTree = "<group>"; };
+		277440FE1C7EB65D00B6AADC /* ViewControllerFour.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerFour.m; sourceTree = "<group>"; };
+		277441001C7EB67000B6AADC /* ViewControllerFive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerFive.h; sourceTree = "<group>"; };
+		277441011C7EB67000B6AADC /* ViewControllerFive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerFive.m; sourceTree = "<group>"; };
 		278DFF7B1C548BDD00E4F18D /* searchBarBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = searchBarBackground.jpg; sourceTree = "<group>"; };
 		27CAC6391AD5E4FF007B67C4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		27CAC63B1AD5E53E007B67C4 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
@@ -77,8 +82,6 @@
 		27CAC6F31ADEBED5007B67C4 /* water-splash-3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "water-splash-3.mp3"; sourceTree = "<group>"; };
 		27CAC6F51ADEBEE1007B67C4 /* clong-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "clong-1.mp3"; sourceTree = "<group>"; };
 		27CAC6FD1ADF28B0007B67C4 /* bomb.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bomb.mp3; sourceTree = "<group>"; };
-		27CAC6FF1ADF31D2007B67C4 /* OnBoardMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnBoardMainView.h; sourceTree = "<group>"; };
-		27CAC7001ADF31D2007B67C4 /* OnBoardMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnBoardMainView.m; sourceTree = "<group>"; };
 		27CAC7021AE04970007B67C4 /* dreamHarp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dreamHarp.mp3; sourceTree = "<group>"; };
 		27CAC7371AE1818E007B67C4 /* SnapshotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnapshotController.h; sourceTree = "<group>"; };
 		27CAC7381AE1818E007B67C4 /* SnapshotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnapshotController.m; sourceTree = "<group>"; };
@@ -200,8 +203,10 @@
 				270BD3111C6D38B200C77FC5 /* ViewControllerTwo.m */,
 				270BD3131C6D38D200C77FC5 /* ViewControllerThree.h */,
 				270BD3141C6D38D200C77FC5 /* ViewControllerThree.m */,
-				27CAC6FF1ADF31D2007B67C4 /* OnBoardMainView.h */,
-				27CAC7001ADF31D2007B67C4 /* OnBoardMainView.m */,
+				277440FD1C7EB65D00B6AADC /* ViewControllerFour.h */,
+				277440FE1C7EB65D00B6AADC /* ViewControllerFour.m */,
+				277441001C7EB67000B6AADC /* ViewControllerFive.h */,
+				277441011C7EB67000B6AADC /* ViewControllerFive.m */,
 				27CAC6E31ADC6EF5007B67C4 /* Controllers  */,
 				27CAC6E01ADC4E26007B67C4 /* SoundController.h */,
 				27CAC6E11ADC4E26007B67C4 /* SoundController.m */,
@@ -402,7 +407,6 @@
 			files = (
 				27CEF97C1AD5BBE400890179 /* Stack.m in Sources */,
 				27CDDBB11AE59BD00073AA27 /* Snapshot.m in Sources */,
-				27CAC7011ADF31D2007B67C4 /* OnBoardMainView.m in Sources */,
 				270BD30F1C6D38A200C77FC5 /* ViewControllerOne.m in Sources */,
 				27CAC6E21ADC4E26007B67C4 /* SoundController.m in Sources */,
 				27CAC7451AE21048007B67C4 /* ShareButton.m in Sources */,
@@ -414,6 +418,7 @@
 				27CAC6751AD6E179007B67C4 /* CalloutView.m in Sources */,
 				27CEF9841AD5CACB00890179 /* SearchBarView.m in Sources */,
 				27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */,
+				277440FF1C7EB65D00B6AADC /* ViewControllerFour.m in Sources */,
 				27CAC7421AE19F0C007B67C4 /* SnapshotViewController.m in Sources */,
 				270BD3121C6D38B200C77FC5 /* ViewControllerTwo.m in Sources */,
 				27CEF95A1AD5BB6E00890179 /* AppDelegate.m in Sources */,
@@ -425,6 +430,7 @@
 				27CAC6EF1ADD8F47007B67C4 /* DismissView.m in Sources */,
 				27CEF9871AD5CBA000890179 /* SearchButton.m in Sources */,
 				27CEF9801AD5C16C00890179 /* UIColor+UIColorCategory.m in Sources */,
+				277441021C7EB67000B6AADC /* ViewControllerFive.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

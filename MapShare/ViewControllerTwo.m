@@ -20,7 +20,7 @@
     [super viewDidLoad];
     
     self.imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    self.imageView.image = [UIImage imageNamed:@""];
+    self.imageView.image = [UIImage imageNamed:@"OnboardingColors"];
     
     [self.view addSubview:self.imageView];
 }

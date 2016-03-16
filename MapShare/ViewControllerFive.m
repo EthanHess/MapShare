@@ -1,36 +1,39 @@
 //
-//  ViewControllerThree.m
+//  ViewControllerFive.m
 //  MapShare
 //
-//  Created by Ethan Hess on 2/11/16.
+//  Created by Ethan Hess on 2/24/16.
 //  Copyright © 2016 Ethan Hess. All rights reserved.
 //
 
-#import "ViewControllerThree.h"
+#import "ViewControllerFive.h"
 
-@interface ViewControllerThree ()
+@interface ViewControllerFive ()
 
 @property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
-@implementation ViewControllerThree
+@implementation ViewControllerFive
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    self.imageView.image = [UIImage imageNamed:@"OnboardingCollectionView"];
+    self.imageView.image = [UIImage imageNamed:@"OnboardingShare"];
     
     [self.view addSubview:self.imageView];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
     
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
-    
+    // Dispose of any resources that can be recreated.
 }
 
 /*
