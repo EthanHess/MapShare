@@ -22,6 +22,16 @@
 
 + (UIColor *)goldColor;
 
-+ (UIColor *)darkBlueColor; 
++ (UIColor *)darkBlueColor;
+
+//
+
++ (UIColor *)navBarColor;
+
++ (UIColor *)tableBackgroundColor;
+
++ (UIColor *)cellBackgroundColor;
+
++ (UIColor *)cellTextColor; 
 
 @end

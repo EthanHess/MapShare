@@ -30,7 +30,6 @@
 @property (nonatomic, strong) UIImage *shareImage;
 @property (nonatomic, assign) MKMapType currentMapType;
 @property (nonatomic, strong) MKPinAnnotationView *pinAnnotation;
-//@property (nonatomic, assign) MKPinAnnotationColor pinColor;
 @property (nonatomic, strong) UIColor *pinTintColor;
 @property (nonatomic, strong) NSArray *arrayOfPins;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -51,9 +50,7 @@
     
     self.calloutView = [[CalloutView alloc] init];
     
-    self.arrayOfPins =[NSArray new];
-    
-//    self.pinColor = MKPinAnnotationColorRed;
+    self.arrayOfPins = [NSArray new];
     
     self.pinTintColor = [UIColor redColor];
     
@@ -201,12 +198,11 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Pin Color" message:@"Pick a color!" preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Red" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-//        self.pinColor = MKPinAnnotationColorRed;
+
         self.pinTintColor = [UIColor redColor];
         for (MKPinAnnotationView *pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
-//            pin.pinColor = MKPinAnnotationColorRed;
+
             pin.pinTintColor = [UIColor redColor];
             [self.mapView addAnnotation:pin.annotation];
             
@@ -216,11 +212,10 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Green" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-//        self.pinColor = MKPinAnnotationColorGreen;
         self.pinTintColor = [UIColor greenColor];
         for (MKPinAnnotationView *pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
-//            pin.pinColor = MKPinAnnotationColorGreen;
+
             pin.pinTintColor = [UIColor greenColor];
             [self.mapView addAnnotation:pin.annotation];
             
@@ -229,11 +224,10 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Blue" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-//        self.pinColor = MKPinAnnotationColorPurple;
         self.pinTintColor = [UIColor blueColor];
         for (MKPinAnnotationView *pin in self.arrayOfPins) {
             [self.mapView removeAnnotation:pin.annotation];
-//            pin.pinColor = MKPinAnnotationColorPurple;
+            
             pin.pinTintColor = [UIColor blueColor];
             [self.mapView addAnnotation:pin.annotation];
             
@@ -250,7 +244,7 @@
             
             self.collectionContainerView.hidden = NO;
             
-            self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x + self.view.frame.size.width / 2, self.collectionContainerView.center.y);
+            self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x + 250, self.collectionContainerView.center.y);
             
         }];
             
@@ -500,7 +494,7 @@
         
         if (self.collectionContainerView.frame.origin.x >= 0) {
             
-            self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x - self.view.frame.size.width / 2, self.collectionContainerView.center.y);
+            self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x - 250, self.collectionContainerView.center.y);
         }
         
     }];
@@ -508,7 +502,7 @@
 
 - (void)setUpCollectionView {
     
-    self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-self.view.frame.size.width / 2, self.view.frame.size.height / 2 - 75, self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
+    self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-250, self.view.frame.size.height / 2 - 75, 250, 300)];
     self.collectionContainerView.layer.cornerRadius = 15;
     self.collectionContainerView.backgroundColor = [UIColor clearColor];
     self.collectionContainerView.layer.borderColor = [[UIColor blackColor]CGColor];
@@ -523,7 +517,7 @@
     [self.collectionContainerView addSubview:imageView];
     
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
-//    [backButton setTitle:@"<" forState:UIControlStateNormal];
+
     [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     backButton.layer.cornerRadius = 25;
     backButton.layer.borderColor = [[UIColor blackColor]CGColor];
@@ -538,7 +532,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
     
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.collectionContainerView.frame.size.width, self.view.frame.size.height / 3) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.collectionContainerView.frame.size.width, 250) collectionViewLayout:layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor clearColor];
@@ -809,7 +803,7 @@
         CGRect finalImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
         
         MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
-//        pin.pinColor = self.pinColor;
+
         pin.pinTintColor = self.pinTintColor;
         UIImage *pinImage = pin.image;
         
@@ -899,8 +893,6 @@
     
     
     self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinAnnotation"];
-    
-//    self.pinAnnotation.pinColor = self.pinColor;
     
     self.pinAnnotation.pinTintColor = self.pinTintColor;
     
