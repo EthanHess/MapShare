@@ -23,9 +23,11 @@
         self.layer.masksToBounds = YES;
         self.layer.borderWidth = 2;
         
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.bounds];
-        imageView.image = [UIImage imageNamed:@"stoneGray"];
-        [self addSubview:imageView];
+//        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.bounds];
+//        imageView.image = [UIImage imageNamed:@"stoneGray"];
+//        [self addSubview:imageView];
+        
+        [self setBackgroundColor:[UIColor colorWithRed:14.0f/255.0f green:85.0f/255.0f blue:235.0f/255.0f alpha:1.0]]; 
         
         self.dismissButton = [UIButton new];
         self.dismissButton.translatesAutoresizingMaskIntoConstraints = NO;

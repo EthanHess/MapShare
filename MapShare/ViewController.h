@@ -11,6 +11,7 @@
 @import MapKit;
 #import "Location.h"
 #import "CalloutView.h"
+@import CoreLocation; 
 
 @interface ViewController : UIViewController <MKMapViewDelegate>
 

@@ -24,14 +24,14 @@
 
 + (UIColor *)darkBlueColor;
 
++ (UIColor *)instructionsBackground;
+
+//+ (UIColor *)navBarColor;
 //
-
-+ (UIColor *)navBarColor;
-
-+ (UIColor *)tableBackgroundColor;
-
-+ (UIColor *)cellBackgroundColor;
-
-+ (UIColor *)cellTextColor; 
+//+ (UIColor *)tableBackgroundColor;
+//
+//+ (UIColor *)cellBackgroundColor;
+//
+//+ (UIColor *)cellTextColor; 
 
 @end

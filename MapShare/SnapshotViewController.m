@@ -58,6 +58,10 @@
 - (void)setUpButton {
     
     self.shareButton = [[ShareButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 60, 500, 120, 120)];
+    self.shareButton.layer.borderColor = [[UIColor whiteColor]CGColor];
+    self.shareButton.layer.borderWidth = 2.0;
+    [self.shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.shareButton setTitle:@"Share" forState:UIControlStateNormal]; 
     [self.shareButton addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     [self.scrollView addSubview:self.shareButton];
     
@@ -88,9 +92,11 @@
 
 - (void)collectionView {
     
-    SnapshotCollectionView *collectionView = [SnapshotCollectionView new];
+//    SnapshotCollectionView *collectionView = [SnapshotCollectionView new];
+//    
+//    [self.navigationController pushViewController:collectionView animated:YES];
     
-    [self.navigationController pushViewController:collectionView animated:YES];
+    [self.navigationController popViewControllerAnimated:YES]; 
     
 }
 

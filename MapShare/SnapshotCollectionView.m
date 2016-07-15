@@ -90,9 +90,11 @@
 
 - (void)home {
     
-    ViewController *viewController = [ViewController new];
+//    ViewController *viewController = [ViewController new];
     
-    [self.navigationController pushViewController:viewController animated:YES];
+//    [self.navigationController pushViewController:viewController animated:YES];
+    
+    [self.navigationController popViewControllerAnimated:YES]; 
     
 }
 

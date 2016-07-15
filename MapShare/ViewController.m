@@ -15,6 +15,8 @@
 #import "SnapshotController.h"
 #import "SnapshotCollectionView.h"
 #import "PageViewController.h"
+#import "InstructionsViewController.h"
+#import "LocationManagerController.h"
 
 #define METERS_PER_MILE 23609.344
 
@@ -48,6 +50,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [LocationManagerController sharedInstance];
+    
     self.calloutView = [[CalloutView alloc] init];
     
     self.arrayOfPins = [NSArray new];
@@ -56,7 +60,7 @@
     
     self.soundController = [SoundController new];
     
-    [self setUpMapView];
+//    [self setUpMapView];
     
     [self setUpToolBar];
     
@@ -78,18 +82,34 @@
     
     [self.view addSubview:self.calloutView];
     
+    //dealloc too
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setUpMapView) name:@"LocationReady" object:nil];
 }
 
 
 
 - (void)setUpMapView {
     
-    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 75)];
-    self.mapView.delegate = self;
-    [self.mapView setMapType:MKMapTypeHybrid];
-    self.currentMapType = MKMapTypeHybrid;
-    [self.view addSubview:self.mapView];
+    [[LocationManagerController sharedInstance]getCurrentLocationWithCompletion:^(CLLocationCoordinate2D currentLocation, BOOL success) {
+        
+        self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 75)];
+        self.mapView.delegate = self;
+        [self.mapView setMapType:MKMapTypeHybrid];
+        self.currentMapType = MKMapTypeHybrid;
+        
+        MKCoordinateRegion mapRegion;
+        
+        mapRegion.center = currentLocation;
+        mapRegion.span.latitudeDelta = 0.025;
+        mapRegion.span.longitudeDelta = 0.025;
+        
+        [self.mapView setRegion:mapRegion animated:YES]; 
+        
+        [self.view addSubview:self.mapView];
+        [self.view sendSubviewToBack:self.mapView]; 
+        
+    }];
     
     UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
@@ -270,11 +290,9 @@
 
 - (void)onboarding {
     
-    //eventually make page view controller
+    InstructionsViewController *instructions = [InstructionsViewController new];
     
-    PageViewController *pageViewController = [PageViewController new];
-    
-    [self.navigationController pushViewController:pageViewController animated:YES];
+    [self presentViewController:instructions animated:YES completion:nil]; 
     
 }
 
@@ -669,7 +687,7 @@
     
     MKMapItem *item = self.resultPlaces[indexPath.row];
     
-    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bluePool"]];
+    cell.backgroundColor = [UIColor colorWithRed:216.0f/255.0f green:241.0f/255.0f blue:225.0f/255.0f alpha:1.0];
     cell.textLabel.text = item.name;
     cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
     cell.textLabel.textColor = [UIColor blackColor];

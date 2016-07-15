@@ -20,9 +20,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        [self setBackgroundColor:[UIColor greenColor]];
+//        [self setBackgroundColor:[UIColor greenColor]];
+//        
+//        [self setBackgroundImage:[UIImage imageNamed:@"customShareButton"] forState:UIControlStateNormal];
         
-        [self setBackgroundImage:[UIImage imageNamed:@"customShareButton"] forState:UIControlStateNormal];
+        [self setBackgroundColor:[UIColor colorWithRed:7.0f/255.0f green:107.0f/255.0f blue:128.0f/255.0f alpha:1.0]]; 
         
         self.layer.masksToBounds = YES;
         

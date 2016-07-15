@@ -45,4 +45,9 @@
     return [UIColor colorWithRed:24.0f/255.0f green:43.0f/255.0f blue:255.0f/255.0f alpha:1.0];
 }
 
++ (UIColor *)instructionsBackground {
+    
+    return [UIColor colorWithRed:196.0f/255.0f green:230.0f/255.0f blue:237.0f/255.0f alpha:1.0];
+}
+
 @end

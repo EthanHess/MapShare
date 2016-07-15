@@ -15,6 +15,8 @@
 		277440FF1C7EB65D00B6AADC /* ViewControllerFour.m in Sources */ = {isa = PBXBuildFile; fileRef = 277440FE1C7EB65D00B6AADC /* ViewControllerFour.m */; };
 		277441021C7EB67000B6AADC /* ViewControllerFive.m in Sources */ = {isa = PBXBuildFile; fileRef = 277441011C7EB67000B6AADC /* ViewControllerFive.m */; };
 		278DFF7C1C548BDD00E4F18D /* searchBarBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 278DFF7B1C548BDD00E4F18D /* searchBarBackground.jpg */; };
+		279B60781D39653C00332582 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279B60771D39653C00332582 /* InstructionsViewController.m */; };
+		279B607B1D396D7E00332582 /* LocationManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279B607A1D396D7E00332582 /* LocationManagerController.m */; };
 		27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6381AD5E4FF007B67C4 /* Model.xcdatamodeld */; };
 		27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC63C1AD5E53E007B67C4 /* Location.m */; };
 		27CAC6751AD6E179007B67C4 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6741AD6E179007B67C4 /* CalloutView.m */; };
@@ -70,6 +72,10 @@
 		277441001C7EB67000B6AADC /* ViewControllerFive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerFive.h; sourceTree = "<group>"; };
 		277441011C7EB67000B6AADC /* ViewControllerFive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerFive.m; sourceTree = "<group>"; };
 		278DFF7B1C548BDD00E4F18D /* searchBarBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = searchBarBackground.jpg; sourceTree = "<group>"; };
+		279B60761D39653C00332582 /* InstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsViewController.h; sourceTree = "<group>"; };
+		279B60771D39653C00332582 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
+		279B60791D396D7E00332582 /* LocationManagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManagerController.h; sourceTree = "<group>"; };
+		279B607A1D396D7E00332582 /* LocationManagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerController.m; sourceTree = "<group>"; };
 		27CAC6391AD5E4FF007B67C4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		27CAC63B1AD5E53E007B67C4 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		27CAC63C1AD5E53E007B67C4 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
@@ -120,6 +126,7 @@
 		27CEF9891AD5CBDA00890179 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
 		27CEF98C1AD5D2BF00890179 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
 		27CEF98D1AD5D2BF00890179 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
+		27CF74DC1CC56C4E002A354E /* MapShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MapShare.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +189,7 @@
 		27CEF9531AD5BB6E00890179 /* MapShare */ = {
 			isa = PBXGroup;
 			children = (
+				27CF74DC1CC56C4E002A354E /* MapShare.entitlements */,
 				27CEF9581AD5BB6E00890179 /* AppDelegate.h */,
 				27CEF9591AD5BB6E00890179 /* AppDelegate.m */,
 				27CEF95B1AD5BB6E00890179 /* ViewController.h */,
@@ -195,6 +203,8 @@
 				27CAC6731AD6E179007B67C4 /* CalloutView.h */,
 				27CAC6741AD6E179007B67C4 /* CalloutView.m */,
 				27CAC6F71ADED7AD007B67C4 /* Onboarding */,
+				279B60761D39653C00332582 /* InstructionsViewController.h */,
+				279B60771D39653C00332582 /* InstructionsViewController.m */,
 				270BD30A1C6D37D900C77FC5 /* PageViewController.h */,
 				270BD30B1C6D37D900C77FC5 /* PageViewController.m */,
 				270BD30D1C6D38A200C77FC5 /* ViewControllerOne.h */,
@@ -214,6 +224,8 @@
 				27CAC7381AE1818E007B67C4 /* SnapshotController.m */,
 				27CEF9881AD5CBDA00890179 /* LocationController.h */,
 				27CEF9891AD5CBDA00890179 /* LocationController.m */,
+				279B60791D396D7E00332582 /* LocationManagerController.h */,
+				279B607A1D396D7E00332582 /* LocationManagerController.m */,
 				27CAC7361AE1815F007B67C4 /* Snapshot */,
 				27CAC7431AE21048007B67C4 /* ShareButton.h */,
 				27CAC7441AE21048007B67C4 /* ShareButton.m */,
@@ -348,6 +360,11 @@
 					27CEF9501AD5BB6E00890179 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = 63ARTNG4RQ;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 0;
+							};
+						};
 					};
 					27CEF9691AD5BB6E00890179 = {
 						CreatedOnToolsVersion = 6.2;
@@ -413,11 +430,13 @@
 				27CAC73C1AE1834D007B67C4 /* SnapshotCollectionView.m in Sources */,
 				27CAC7391AE1818E007B67C4 /* SnapshotController.m in Sources */,
 				27CEF95D1AD5BB6E00890179 /* ViewController.m in Sources */,
+				279B60781D39653C00332582 /* InstructionsViewController.m in Sources */,
 				27CEF98E1AD5D2BF00890179 /* MapAnnotation.m in Sources */,
 				27CDDBB41AE5AC230073AA27 /* SnapshotCollectionViewCell.m in Sources */,
 				27CAC6751AD6E179007B67C4 /* CalloutView.m in Sources */,
 				27CEF9841AD5CACB00890179 /* SearchBarView.m in Sources */,
 				27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */,
+				279B607B1D396D7E00332582 /* LocationManagerController.m in Sources */,
 				277440FF1C7EB65D00B6AADC /* ViewControllerFour.m in Sources */,
 				27CAC7421AE19F0C007B67C4 /* SnapshotViewController.m in Sources */,
 				270BD3121C6D38B200C77FC5 /* ViewControllerTwo.m in Sources */,
@@ -555,13 +574,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MapShare/MapShare.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MapShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.devmtn.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a78e831a-5f0d-4a30-9ce0-3b2164676039";
 			};
 			name = Debug;
 		};
@@ -569,13 +589,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MapShare/MapShare.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MapShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.devmtn.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a78e831a-5f0d-4a30-9ce0-3b2164676039";
 			};
 			name = Release;
 		};
