@@ -70,7 +70,15 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     
-    NSLog(@"%@", error.localizedDescription); 
+    NSLog(@"ERROR: %@", error.localizedDescription);
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error: Please check your internet connection" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Okay!" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertController addAction:action];
+    
+    [[[[UIApplication sharedApplication]keyWindow] rootViewController]presentViewController:alertController animated:YES completion:nil]; 
 }
 
 @end
