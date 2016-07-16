@@ -74,7 +74,12 @@
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error: Please check your internet connection" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Okay!" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Okay!" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self.manager startUpdatingLocation];
+        
+        [[[[UIApplication sharedApplication]keyWindow]rootViewController]dismissViewControllerAnimated:YES completion:nil];
+    }]; 
     
     [alertController addAction:action];
     

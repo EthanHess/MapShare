@@ -17,6 +17,7 @@
 		278DFF7C1C548BDD00E4F18D /* searchBarBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 278DFF7B1C548BDD00E4F18D /* searchBarBackground.jpg */; };
 		279B60781D39653C00332582 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279B60771D39653C00332582 /* InstructionsViewController.m */; };
 		279B607B1D396D7E00332582 /* LocationManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279B607A1D396D7E00332582 /* LocationManagerController.m */; };
+		27C089B01D39A320000BC9D7 /* MapShare.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 27C089AF1D39A320000BC9D7 /* MapShare.entitlements */; };
 		27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6381AD5E4FF007B67C4 /* Model.xcdatamodeld */; };
 		27CAC63D1AD5E53E007B67C4 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC63C1AD5E53E007B67C4 /* Location.m */; };
 		27CAC6751AD6E179007B67C4 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CAC6741AD6E179007B67C4 /* CalloutView.m */; };
@@ -76,6 +77,7 @@
 		279B60771D39653C00332582 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
 		279B60791D396D7E00332582 /* LocationManagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManagerController.h; sourceTree = "<group>"; };
 		279B607A1D396D7E00332582 /* LocationManagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManagerController.m; sourceTree = "<group>"; };
+		27C089AF1D39A320000BC9D7 /* MapShare.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MapShare.entitlements; sourceTree = "<group>"; };
 		27CAC6391AD5E4FF007B67C4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		27CAC63B1AD5E53E007B67C4 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		27CAC63C1AD5E53E007B67C4 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
@@ -126,7 +128,6 @@
 		27CEF9891AD5CBDA00890179 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
 		27CEF98C1AD5D2BF00890179 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
 		27CEF98D1AD5D2BF00890179 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
-		27CF74DC1CC56C4E002A354E /* MapShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MapShare.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,7 +190,7 @@
 		27CEF9531AD5BB6E00890179 /* MapShare */ = {
 			isa = PBXGroup;
 			children = (
-				27CF74DC1CC56C4E002A354E /* MapShare.entitlements */,
+				27C089AF1D39A320000BC9D7 /* MapShare.entitlements */,
 				27CEF9581AD5BB6E00890179 /* AppDelegate.h */,
 				27CEF9591AD5BB6E00890179 /* AppDelegate.m */,
 				27CEF95B1AD5BB6E00890179 /* ViewController.h */,
@@ -398,6 +399,7 @@
 			files = (
 				27CAC6F61ADEBEE1007B67C4 /* clong-1.mp3 in Resources */,
 				27CEF9601AD5BB6E00890179 /* Main.storyboard in Resources */,
+				27C089B01D39A320000BC9D7 /* MapShare.entitlements in Resources */,
 				27CAC7031AE04970007B67C4 /* dreamHarp.mp3 in Resources */,
 				276EA5FC1AF261FD00598EB1 /* snapSound.mp3 in Resources */,
 				27CAC6FE1ADF28B0007B67C4 /* bomb.mp3 in Resources */,
@@ -581,7 +583,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.devmtn.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a78e831a-5f0d-4a30-9ce0-3b2164676039";
+				PROVISIONING_PROFILE = "4678e05f-95c2-4b81-a51c-cddc396b1231";
 			};
 			name = Debug;
 		};
@@ -596,7 +598,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.devmtn.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a78e831a-5f0d-4a30-9ce0-3b2164676039";
+				PROVISIONING_PROFILE = "4678e05f-95c2-4b81-a51c-cddc396b1231";
 			};
 			name = Release;
 		};

@@ -45,6 +45,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [[self navigationController] setNavigationBarHidden:YES];
+    
+    [LocationManagerController sharedInstance];
 }
 
 - (void)viewDidLoad {
