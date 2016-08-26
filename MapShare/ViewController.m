@@ -14,9 +14,9 @@
 #import "DismissView.h"
 #import "SnapshotController.h"
 #import "SnapshotCollectionView.h"
-#import "PageViewController.h"
 #import "InstructionsViewController.h"
 #import "LocationManagerController.h"
+#import "PictureChoiceCollectionViewController.h"
 
 #define METERS_PER_MILE 23609.344
 
@@ -36,6 +36,7 @@
 @property (nonatomic, strong) NSArray *arrayOfPins;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIView *collectionContainerView;
+@property (nonatomic, assign) CLLocationCoordinate2D *currentLocation;
 
 
 @end
@@ -46,13 +47,25 @@
     
     [[self navigationController] setNavigationBarHidden:YES];
     
-    [LocationManagerController sharedInstance];
+    //[LocationManagerController sharedInstance];
+    
+    /*
+    
+    [[LocationManagerController sharedInstance]getCurrentLocationWithCompletion:^(CLLocationCoordinate2D currentLocation, BOOL success) {
+        
+        self.currentLocation = &(currentLocation);
+        
+    }];
+     
+     */
+    
+    //[self setUpMapView];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [LocationManagerController sharedInstance];
+    //[LocationManagerController sharedInstance];
     
     self.calloutView = [[CalloutView alloc] init];
     
@@ -62,7 +75,7 @@
     
     self.soundController = [SoundController new];
     
-//    [self setUpMapView];
+    [self setUpMapView];
     
     [self setUpToolBar];
     
@@ -86,14 +99,16 @@
     
     //dealloc too
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setUpMapView) name:@"LocationReady" object:nil];
+    //[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setUpMapView) name:@"LocationReady" object:nil];
 }
 
 
 
 - (void)setUpMapView {
     
-    [[LocationManagerController sharedInstance]getCurrentLocationWithCompletion:^(CLLocationCoordinate2D currentLocation, BOOL success) {
+    /*
+    
+    if (self.currentLocation) {
         
         self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 75)];
         self.mapView.delegate = self;
@@ -102,16 +117,26 @@
         
         MKCoordinateRegion mapRegion;
         
-        mapRegion.center = currentLocation;
+        mapRegion.center = *(_currentLocation);
         mapRegion.span.latitudeDelta = 0.025;
         mapRegion.span.longitudeDelta = 0.025;
         
-        [self.mapView setRegion:mapRegion animated:YES]; 
+        [self.mapView setRegion:mapRegion animated:YES];
         
         [self.view addSubview:self.mapView];
-        [self.view sendSubviewToBack:self.mapView]; 
+        [self.view sendSubviewToBack:self.mapView];
+    }
+     
+     */
+
         
-    }];
+        self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,    self.view.frame.size.height - 75)];
+        self.mapView.delegate = self;
+        [self.mapView setMapType:MKMapTypeHybrid];
+        self.currentMapType = MKMapTypeHybrid;
+        
+        [self.view addSubview:self.mapView];
+        [self.view sendSubviewToBack:self.mapView];
     
     UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
@@ -121,8 +146,10 @@
 
 - (void)setUpNavigationToolBar {
     
+    UIColor *tintColor = [UIColor whiteColor];
+    
     self.navToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
-    [self.navToolBar setBackgroundImage:[UIImage imageNamed:@"toolbarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    self.navToolBar.barTintColor = [UIColor blackColor];
     [self.view addSubview:self.navToolBar];
     
     UIImage *pencil = [UIImage imageNamed:@"pencil"];
@@ -136,28 +163,28 @@
     [navItems addObject:flexItem0];
     
     UIBarButtonItem *pinColor = [[UIBarButtonItem alloc]initWithImage:pencil style:UIBarButtonItemStylePlain target:self action:@selector(changePinColor)];
-    pinColor.tintColor = [UIColor darkBlueColor];
+    pinColor.tintColor = tintColor;
     [navItems addObject:pinColor];
     
     UIBarButtonItem *flexItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem1];
     
     UIBarButtonItem *questionButton = [[UIBarButtonItem alloc]initWithImage:question style:UIBarButtonItemStylePlain target:self action:@selector(onboarding)];
-    questionButton.tintColor = [UIColor darkBlueColor];
+    questionButton.tintColor = tintColor;
     [navItems addObject:questionButton];
     
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem2];
     
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc]initWithImage:search style:UIBarButtonItemStylePlain target:self action:@selector(popSearchBar)];
-    searchButton.tintColor = [UIColor darkBlueColor];
+    searchButton.tintColor = tintColor;
     [navItems addObject:searchButton];
     
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [navItems addObject:flexItem3];
     
     UIBarButtonItem *archiveButton = [[UIBarButtonItem alloc]initWithImage:archives style:UIBarButtonItemStylePlain target:self action:@selector(archivesController)];
-    archiveButton.tintColor = [UIColor darkBlueColor];
+    archiveButton.tintColor = tintColor;
     [navItems addObject:archiveButton];
     
     UIBarButtonItem *flexItem4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -170,8 +197,11 @@
 
 - (void)setUpToolBar {
     
+    UIColor *tintColor = [UIColor whiteColor];
+    
     self.toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
-    [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+//    [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    self.toolBar.barTintColor = [UIColor blackColor];
     [self.view addSubview:self.toolBar];
     
     UIImage *map = [UIImage imageNamed:@"map"];
@@ -185,28 +215,28 @@
     [buttons addObject:flexItem0];
     
     UIBarButtonItem *mapType = [[UIBarButtonItem alloc]initWithImage:map style:UIBarButtonItemStylePlain target:self action:@selector(mapType)];
-    mapType.tintColor = [UIColor darkBlueColor];
+    mapType.tintColor = tintColor;
     [buttons addObject:mapType];
     
     UIBarButtonItem *flexItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem1];
     
     UIBarButtonItem *clearButton = [[UIBarButtonItem alloc]initWithImage:boom style:UIBarButtonItemStylePlain target:self action:@selector(clearAll)];
-    clearButton.tintColor = [UIColor darkBlueColor];
+    clearButton.tintColor = tintColor;
     [buttons addObject:clearButton];
     
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem2];
     
     UIBarButtonItem *zoomOut = [[UIBarButtonItem alloc]initWithImage:zoom style:UIBarButtonItemStylePlain target:self action:@selector(zoomOut)];
-    zoomOut.tintColor = [UIColor darkBlueColor];
+    zoomOut.tintColor = tintColor;
     [buttons addObject:zoomOut];
     
     UIBarButtonItem *flexItem3 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttons addObject:flexItem3];
     
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:photo style:UIBarButtonItemStylePlain target:self action:@selector(saveSnapshot)];
-    shareButton.tintColor = [UIColor darkBlueColor]; 
+    shareButton.tintColor = tintColor;
     [buttons addObject:shareButton];
     
     UIBarButtonItem *flexItem4 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -271,6 +301,14 @@
         }];
             
         }
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+        PictureChoiceCollectionViewController *pvc = [PictureChoiceCollectionViewController new];
+        
+        [self presentViewController:pvc animated:YES completion:nil]; 
         
     }]];
     
@@ -386,7 +424,7 @@
     
 }
 
-
+//Adds pin when tapped
 
 - (void)handleTapPressGesture:(UIGestureRecognizer *)sender {
     
@@ -417,7 +455,7 @@
     
 }
 
-#pragma mark - adding annotations
+#pragma mark - adding annotations from core data
 
 - (void)settingAnnotations {
     
@@ -531,10 +569,12 @@
     self.collectionContainerView.hidden = NO;
     [self.view addSubview:self.collectionContainerView];
     
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.collectionContainerView.bounds];
-    imageView.layer.masksToBounds = YES;
-    imageView.image = [UIImage imageNamed:@"popOutBackgroundMS"];
-    [self.collectionContainerView addSubview:imageView];
+//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.collectionContainerView.bounds];
+//    imageView.layer.masksToBounds = YES;
+//    imageView.image = [UIImage imageNamed:@"popOutBackgroundMS"];
+//    [self.collectionContainerView addSubview:imageView];
+    
+    self.collectionContainerView.backgroundColor = [UIColor darkGrayColor];
     
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
 
@@ -661,12 +701,13 @@
     }
     
     
-    self.tableView.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.backgroundColor = [UIColor blackColor];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, tableViewHeight)];
     self.tableView.layer.cornerRadius = 10;
-    self.tableView.layer.borderColor = [[UIColor darkGrayColor]CGColor];
-    self.tableView.layer.borderWidth = 2;
+    self.tableView.layer.borderColor = [[UIColor whiteColor]CGColor];
+    self.tableView.layer.borderWidth = 1;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone; 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self registerTableView:self.tableView];
@@ -689,14 +730,14 @@
     
     MKMapItem *item = self.resultPlaces[indexPath.row];
     
-    cell.backgroundColor = [UIColor colorWithRed:216.0f/255.0f green:241.0f/255.0f blue:225.0f/255.0f alpha:1.0];
+    cell.backgroundColor = [UIColor darkGrayColor];
     cell.textLabel.text = item.name;
-    cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:18];
-    cell.textLabel.textColor = [UIColor blackColor];
+    cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
+    cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.detailTextLabel.text = item.placemark.title;
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Chalkduster" size:14];
-    cell.detailTextLabel.textColor = [UIColor blackColor];
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Chalkduster" size:12];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
     cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.backgroundColor = [UIColor clearColor];
     
@@ -818,8 +859,6 @@
         
         UIImage *image = snapshot.image;
         
-        // Get the size of the final image
-        
         CGRect finalImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
         
         MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
@@ -833,7 +872,7 @@
         
         [image drawAtPoint:CGPointMake(0, 0)];
         
-        //iterate through annotations
+        //loop through annotations
         
         for (id<MKAnnotation>annotation in self.mapView.annotations)
         {
@@ -850,7 +889,7 @@
             }
         }
         
-        // grab the final image
+        // the final image
         
         UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -924,6 +963,17 @@
     
 }
 
+//TODO : for when user location feature complete
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    
+    //
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    
+    //
+}
 
 
 - (void)didReceiveMemoryWarning {

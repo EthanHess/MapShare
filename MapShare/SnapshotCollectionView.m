@@ -43,7 +43,7 @@
 - (void)setUpNavbar {
     
     self.toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
-    [self.toolbar setBackgroundImage:[UIImage imageNamed:@"abstractBlue"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.toolbar setBarTintColor:[UIColor blackColor]];
     [self.view addSubview:self.toolbar];
     
     UIImage *arrow = [UIImage imageNamed:@"leftArrow"];
@@ -54,6 +54,7 @@
     [navItems addObject:flexItem0];
     
     UIBarButtonItem *arrowButton = [[UIBarButtonItem alloc]initWithImage:arrow style:UIBarButtonItemStylePlain target:self action:@selector(home)];
+    arrowButton.tintColor = [UIColor whiteColor];
     [navItems addObject:arrowButton];
     
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -69,9 +70,11 @@
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:layout];
     
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    imageView.image = [UIImage imageNamed:@"SnapBack"];
-    self.collectionView.backgroundView = imageView;
+//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+//    imageView.image = [UIImage imageNamed:@"SnapBack"];
+//    self.collectionView.backgroundView = imageView;
+    
+    self.collectionView.backgroundColor = [UIColor darkGrayColor];     //TODO: Change to custom
     
     layout.sectionInset = UIEdgeInsetsMake(80, 50, 80, 50);
     
@@ -90,9 +93,6 @@
 
 - (void)home {
     
-//    ViewController *viewController = [ViewController new];
-    
-//    [self.navigationController pushViewController:viewController animated:YES];
     
     [self.navigationController popViewControllerAnimated:YES]; 
     
@@ -162,10 +162,10 @@
     
     cell.footerLabel.text = snapshot.caption;
     cell.footerLabel.font = [UIFont fontWithName:@"Chalkduster" size:20];
-    cell.footerLabel.textColor = [UIColor brownColor];
-    cell.footerLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"parchment"]];
+    cell.footerLabel.textColor = [UIColor whiteColor];
+    cell.footerLabel.backgroundColor = [UIColor blackColor];
     cell.layer.cornerRadius = 10;
-    cell.layer.borderColor = [[UIColor goldColor]CGColor];
+    cell.layer.borderColor = [[UIColor whiteColor]CGColor];
     cell.layer.borderWidth = 3;
     cell.layer.masksToBounds = YES; 
     [cell bringSubviewToFront:cell.footerLabel];

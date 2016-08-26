@@ -29,9 +29,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    imageView.image = [UIImage imageNamed:@"SnapBack"];
-    [self.view addSubview:imageView];
+//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+//    imageView.image = [UIImage imageNamed:@"SnapBack"];
+//    [self.view addSubview:imageView];
+    
+    self.view.backgroundColor = [UIColor darkGrayColor];
     
     [self setUpScrollView];
     
@@ -70,7 +72,8 @@
 - (void)setUpToolBar {
     
     self.toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
-    [self.toolbar setBackgroundImage:[UIImage imageNamed:@"abstractBlue"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+//    [self.toolbar setBackgroundImage:[UIImage imageNamed:@"abstractBlue"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    self.toolbar.barTintColor = [UIColor blackColor];
     [self.view addSubview:self.toolbar];
     
     UIImage *arrow = [UIImage imageNamed:@"leftArrow"];
@@ -81,6 +84,7 @@
     [navItems addObject:flexItem0];
     
     UIBarButtonItem *arrowButton = [[UIBarButtonItem alloc]initWithImage:arrow style:UIBarButtonItemStylePlain target:self action:@selector(collectionView)];
+    arrowButton.tintColor = [UIColor whiteColor];
     [navItems addObject:arrowButton];
     
     UIBarButtonItem *flexItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -92,10 +96,6 @@
 
 - (void)collectionView {
     
-//    SnapshotCollectionView *collectionView = [SnapshotCollectionView new];
-//    
-//    [self.navigationController pushViewController:collectionView animated:YES];
-    
     [self.navigationController popViewControllerAnimated:YES]; 
     
 }
@@ -105,7 +105,7 @@
     self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 100, self.view.frame.size.width - 30, self.view.frame.size.width - 30)];
     self.imageView.layer.masksToBounds = YES; 
     self.imageView.layer.cornerRadius = 10;
-    self.imageView.layer.borderColor = [[UIColor goldColor]CGColor];
+    self.imageView.layer.borderColor = [[UIColor whiteColor]CGColor];
     self.imageView.layer.borderWidth = 2;
     self.imageView.backgroundColor = [UIColor awesome];
     [self.scrollView addSubview:self.imageView];

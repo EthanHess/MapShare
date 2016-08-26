@@ -63,7 +63,7 @@
         
         [self.manager stopUpdatingLocation];
         
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"LocationReady" object:nil];
+        //[[NSNotificationCenter defaultCenter]postNotificationName:@"LocationReady" object:nil];
         
     }
 }

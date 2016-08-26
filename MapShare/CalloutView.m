@@ -18,9 +18,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor blackColor];
         self.layer.cornerRadius = 15;
-        self.layer.borderColor = [[UIColor blackColor]CGColor];
+        self.layer.borderColor = [[UIColor whiteColor]CGColor];
         self.layer.borderWidth = 2;
         
         self.removeButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, 60, 35)];

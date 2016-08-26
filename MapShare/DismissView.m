@@ -23,21 +23,17 @@
         self.layer.masksToBounds = YES;
         self.layer.borderWidth = 2;
         
-//        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.bounds];
-//        imageView.image = [UIImage imageNamed:@"stoneGray"];
-//        [self addSubview:imageView];
-        
-        [self setBackgroundColor:[UIColor colorWithRed:14.0f/255.0f green:85.0f/255.0f blue:235.0f/255.0f alpha:1.0]]; 
+        [self setBackgroundColor:[UIColor blackColor]];
         
         self.dismissButton = [UIButton new];
         self.dismissButton.translatesAutoresizingMaskIntoConstraints = NO;
         self.dismissButton.layer.cornerRadius = 10;
-        [self.dismissButton setTitle:@" Dismiss " forState:UIControlStateNormal];
+        [self.dismissButton setTitle:@"Dismiss" forState:UIControlStateNormal];
         self.dismissButton.titleLabel.font = [UIFont fontWithName:@"Chalkduster" size:22];
         [self.dismissButton setBackgroundColor:[UIColor darkGrayColor]];
         [self.dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.dismissButton.layer.cornerRadius = 10;
-        self.dismissButton.layer.borderColor = [[UIColor grayColor]CGColor];
+        self.dismissButton.layer.borderColor = [[UIColor whiteColor]CGColor];
         self.dismissButton.layer.borderWidth = 2;
         [self addSubview:self.dismissButton];
         

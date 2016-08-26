@@ -22,6 +22,8 @@
     
 }
 
+//computed properties, fetch requests
+
 - (NSArray *)snapshots {
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Snapshot"];
@@ -31,6 +33,17 @@
     return objects;
     
 }
+
+- (NSArray *)pictures {
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
+    
+    NSArray *objects = [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
+    
+    return objects;
+}
+
+//snapshot functions
 
 - (void)addSnapshotWithImage:(UIImage *)image caption:(NSString *)caption {
     
@@ -53,6 +66,21 @@
     [self synchronize];
     
 }
+
+//for custom pictures
+
+- (void)addPicture:(UIImage *)image {
+    
+    
+    //TODO implement
+    
+}
+
+- (NSData *)imageToData:(UIImage *)image {
+    
+    return [NSData dataWithData:UIImageJPEGRepresentation(image, 100)];
+}
+
 
 - (void)synchronize {
     

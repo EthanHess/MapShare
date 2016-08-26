@@ -9,6 +9,8 @@
 #import "SearchBarView.h"
 #import "UIColor+UIColorCategory.h"
 
+#define IS_IPHONE_4 ([UIScreen mainScreen].bounds.size.width == 320.0)
+
 @implementation SearchBarView
 
 - (id)initWithFrame:(CGRect)frame {
@@ -17,10 +19,11 @@
     
     if (self) {
         
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.bounds];
-        imageView.image = [UIImage imageNamed:@"searchBarBackground"];
-        [self addSubview:imageView]; 
+//        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.bounds];
+//        imageView.image = [UIImage imageNamed:@"searchBarBackground"];
+//        [self addSubview:imageView]; 
 
+        self.backgroundColor = [UIColor blackColor];
         
         self.searchBar = [UISearchBar new];
         self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;
@@ -37,6 +40,13 @@
         NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_searchBar(==60)]" options:0 metrics:nil views:viewsDictionary];
         
         NSLayoutConstraint *equalConstraint = [NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.searchBar attribute:NSLayoutAttributeHeight multiplier:1 constant:0.0];
+        
+        if (IS_IPHONE_4) {
+            
+            NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_searchBar(==190)]-20-[_button(==60)]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
+            
+            [self addConstraints:horizontalConstraints];
+        }
         
         NSArray *horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-25-[_searchBar(==225)]-20-[_button(==60)]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
         
