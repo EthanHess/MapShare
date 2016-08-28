@@ -7,7 +7,8 @@
 //
 
 #import "PictureChoiceCollectionViewController.h"
-#import "SnapshotController.h"
+#import "PictureController.h"
+#import "Picture.h"
 
 @interface PictureChoiceCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -23,9 +24,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor blackColor];
+    
     [self setUpViews];
     
     [self setUpCollectionView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.pictureCollectionView reloadData]; 
 }
 
 - (void)setUpViews {
@@ -55,11 +64,12 @@
     CGRect collectionViewFrame = CGRectMake(0, 65, self.view.frame.size.width, self.view.frame.size.height - 65);
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    layout.sectionInset = UIEdgeInsetsMake(2, 2, 2, 2);
     
     _pictureCollectionView = [[UICollectionView alloc]initWithFrame:collectionViewFrame collectionViewLayout:layout];
     _pictureCollectionView.delegate = self;
     _pictureCollectionView.dataSource = self;
+    _pictureCollectionView.backgroundColor = [UIColor clearColor];
     [self registerCollectionView:_pictureCollectionView];
     [self.view addSubview:_pictureCollectionView];
     
@@ -69,7 +79,7 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    //maybe pop alert asking if they want to use image view nsnotification?
+    //maybe pop alert asking if they want to use image via nsnotification?
 }
 
 - (void)popImagePicker {
@@ -89,31 +99,60 @@
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
+    //prevents image overlap
     
+    NSArray *subviews = [cell.contentView subviews];
+    
+    for (UIView *view in subviews) {
+        [view removeFromSuperview];
+    }
+    
+    Picture *picture = [PictureController sharedInstance].pictures[indexPath.row];
+    
+    [self configureCell:cell withImageData:picture.picData];
     
     return cell;
     
 }
 
-- (void)configureCell:(UICollectionViewCell *)cell withImage:(UIImage *)image {
+- (void)configureCell:(UICollectionViewCell *)cell withImageData:(NSData *)imageData {
     
+    UIImageView *backgroundImageView = [[UIImageView alloc]initWithFrame:cell.bounds];
+    backgroundImageView.image = [UIImage imageWithData:imageData];
+    [cell.contentView addSubview:backgroundImageView];
     
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return 1;
+    return [PictureController sharedInstance].pictures.count;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return CGSizeMake((self.view.frame.size.width / 2) - 8, 180);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //alert
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 //image picker methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
-    self.chosenImage = info[UIImagePickerControllerEditedImage];
+    //self.chosenImage = info[UIImagePickerControllerEditedImage];
+    self.chosenImage = info[UIImagePickerControllerOriginalImage];
     
-    [[SnapshotController sharedInstance]addPicture:self.chosenImage];
+    [[PictureController sharedInstance]addPicture:self.chosenImage];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.pictureCollectionView reloadData];
     
 }
 

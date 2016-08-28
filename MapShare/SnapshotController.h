@@ -18,8 +18,6 @@
 
 - (void)addSnapshotWithImage:(UIImage *)image caption:(NSString *)caption;
 
-- (void)addPicture:(UIImage *)image; 
-
 - (void)removeSnapshots:(Snapshot *)snapshot;
 
 @end
