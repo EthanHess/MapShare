@@ -34,6 +34,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    imageView.image = [UIImage imageNamed:@"spaceCollectionBG"];
+    [self.view addSubview:imageView];
+    
     [self setUpNavbar];
     
     [self setUpCollectionView];
@@ -74,7 +78,7 @@
 //    imageView.image = [UIImage imageNamed:@"SnapBack"];
 //    self.collectionView.backgroundView = imageView;
     
-    self.collectionView.backgroundColor = [UIColor darkGrayColor];     //TODO: Change to custom
+    self.collectionView.backgroundColor = [UIColor clearColor];     //TODO: Change to custom
     
     layout.sectionInset = UIEdgeInsetsMake(80, 50, 80, 50);
     

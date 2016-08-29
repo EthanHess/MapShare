@@ -22,7 +22,6 @@
 
 #define IS_IPHONE_4 ([UIScreen mainScreen].bounds.size.height == 480.0)
 
-
 @interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) id <MKAnnotation> selectedAnnotation;
@@ -46,6 +45,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [[self navigationController] setNavigationBarHidden:YES];
+    
+    [self registerForNotifications]; 
     
     //[LocationManagerController sharedInstance];
     
@@ -83,7 +84,7 @@
     
     [self setUpSearchBar];
     
-    [self settingAnnotations];
+    [self setAnnotations];
     
     [self setUpDismissView];
     
@@ -102,7 +103,26 @@
     //[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setUpMapView) name:@"LocationReady" object:nil];
 }
 
+- (void)registerForNotifications {
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshMapView) name:@"pictureAdded" object:nil];
+}
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+- (void)refreshMapView {
+    
+    self.arrayOfPins = @[];
+    
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    
+    self.annType = image;
+    
+    [self setAnnotations];
+}
 
 - (void)setUpMapView {
     
@@ -130,13 +150,14 @@
      */
 
         
-        self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,    self.view.frame.size.height - 75)];
-        self.mapView.delegate = self;
-        [self.mapView setMapType:MKMapTypeHybrid];
-        self.currentMapType = MKMapTypeHybrid;
+    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,
+    self.view.frame.size.height - 75)];
+    self.mapView.delegate = self;
+    [self.mapView setMapType:MKMapTypeHybrid];
+    self.currentMapType = MKMapTypeHybrid;
         
-        [self.view addSubview:self.mapView];
-        [self.view sendSubviewToBack:self.mapView];
+    [self.view addSubview:self.mapView];
+    [self.view sendSubviewToBack:self.mapView];
     
     UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
@@ -457,7 +478,7 @@
 
 #pragma mark - adding annotations from core data
 
-- (void)settingAnnotations {
+- (void)setAnnotations {
     
     NSArray *locations = [LocationController sharedInstance].locations;
     
@@ -950,17 +971,103 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     
+//    self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinAnnotation"];
+//    
+//    switch (self.annType) {
+//            
+//        case pinColor:
+//            
+//            [self defaultPin];
+//            
+//            break;
+//        
+//        case image:
+//            
+//            [self withCustomImage];
+//            
+//        default:
+//            
+//            [self defaultPin]; //eventually save user's preferred color to defaults
+//            
+//            break;
+//    }
+//    
+//    
+//    //TODO set better custom colors
+//    
+//    self.pinAnnotation.animatesDrop = YES;
+//    
+//    return self.pinAnnotation;
     
-    self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinAnnotation"];
+    if (self.annType == pinColor) {
+        
+        self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinAnnotation"];
+        [self defaultPin];
+        self.pinAnnotation.animatesDrop = YES;
+        
+        return self.pinAnnotation;
+    }
+    
+    else if (self.annType == image) {
+        
+        MKAnnotationView *annView = [[MKAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"identifier"];
+        
+        annView.annotation = annotation;
+        [self withCustomImage:annView];
+        
+        return annView;
+    }
+    
+    else { //move to own function so I don't have to write it twice
+        
+        self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinAnnotation"];
+        [self defaultPin];
+        self.pinAnnotation.animatesDrop = YES;
+        
+        return self.pinAnnotation;
+        
+    }
+    
+}
+
+- (BOOL)annotationDataExists {
+    
+    return [self imagePath] != nil;
+}
+
+- (NSString *)imagePath {
+    
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"annotationImageData"];
+}
+
+- (void)defaultPin {
     
     self.pinAnnotation.pinTintColor = self.pinTintColor;
     
-    //TODO set better custom colors
+}
+
+- (void)withCustomImage:(MKAnnotationView *)annotationView {
     
-    self.pinAnnotation.animatesDrop = YES;
-    
-    return self.pinAnnotation;
-    
+    if ([self annotationDataExists] == YES) {
+        
+        UIImage *imageToResize = [UIImage imageWithData:[NSData dataWithContentsOfFile:[self imagePath]]];
+        CGSize size = CGSizeMake(50, 50);
+        UIGraphicsBeginImageContext(size);
+        [imageToResize drawInRect:CGRectMake(0, 0, size.width, size.height)];
+        UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        //add image view to make round
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+        imageView.image = resizedImage;
+        imageView.layer.cornerRadius = imageView.frame.size.height / 2;
+        imageView.layer.masksToBounds = YES;
+        
+        [annotationView addSubview:imageView]; 
+        
+        //annotationView.image = resizedImage;
+    }
 }
 
 //TODO : for when user location feature complete

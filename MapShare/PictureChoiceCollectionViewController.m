@@ -9,6 +9,7 @@
 #import "PictureChoiceCollectionViewController.h"
 #import "PictureController.h"
 #import "Picture.h"
+#import "ViewController.h"
 
 @interface PictureChoiceCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -136,9 +137,31 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    //alert
+    Picture *picture = [PictureController sharedInstance].pictures[indexPath.row];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Use or delete?" message:@"Use as annotation picture or discard?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self storeImageData:picture.picData];
+        
+        [self postNotificationWithName:@"pictureAdded"];
+        
+    }];
+    
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [[PictureController sharedInstance]removePicture:picture];
+        
+    }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:addAction];
+    [alertController addAction:deleteAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 //image picker methods
@@ -154,6 +177,27 @@
     
     [self.pictureCollectionView reloadData];
     
+}
+
+- (void)storeImageData:(NSData *)data {
+    
+    NSString *imagePath = [self documentsPathForFileName:[NSString stringWithFormat:@"image_%f.jpg", [NSDate timeIntervalSinceReferenceDate]]];
+
+    [data writeToFile:imagePath atomically:YES];
+    [[NSUserDefaults standardUserDefaults] setObject:imagePath forKey:@"annotationImageData"]; //make constant?
+}
+
+- (NSString *)documentsPathForFileName:(NSString *)name {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    
+    return [documentsPath stringByAppendingPathComponent:name];
+}
+
+- (void)postNotificationWithName:(NSString *)notificationName {
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:notificationName object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

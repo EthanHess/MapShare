@@ -11,7 +11,12 @@
 @import MapKit;
 #import "Location.h"
 #import "CalloutView.h"
-@import CoreLocation; 
+@import CoreLocation;
+
+typedef enum {
+    pinColor,
+    image,
+} AnnotationType;
 
 @interface ViewController : UIViewController <MKMapViewDelegate>
 
@@ -21,7 +26,7 @@
 @property (nonatomic, strong) CalloutView *calloutView;
 @property (nonatomic, strong) NSArray *resultPlaces;
 @property (nonatomic, strong) UIToolbar *navToolBar;
-
+@property (nonatomic, assign) AnnotationType annType;
 
 @end
 

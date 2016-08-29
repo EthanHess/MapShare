@@ -29,9 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-//    imageView.image = [UIImage imageNamed:@"SnapBack"];
-//    [self.view addSubview:imageView];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    imageView.image = [UIImage imageNamed:@"spaceCollectionBG"];
+    [self.view addSubview:imageView];
+    
     
     self.view.backgroundColor = [UIColor darkGrayColor];
     
@@ -42,7 +43,6 @@
     [self setUpImageView];
     
     [self setUpButton];
-    
 
 }
 
