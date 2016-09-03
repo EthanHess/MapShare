@@ -105,6 +105,10 @@
 
 - (void)registerForNotifications {
     
+    //remove before adding
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"pictureAdded" object:nil];
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshMapView) name:@"pictureAdded" object:nil];
 }
 
@@ -113,13 +117,29 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
+//from pic vc, after picture is chosen
+
 - (void)refreshMapView {
+
+    self.arrayOfPins = @[];
+    
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    
+    self.annType = annImage;
+    
+    [self setAnnotations];
+
+}
+
+//from self, after pin color is chosen
+
+- (void)refreshMap {
     
     self.arrayOfPins = @[];
     
     [self.mapView removeAnnotations:self.mapView.annotations];
     
-    self.annType = image;
+    self.annType = pinColor;
     
     [self setAnnotations];
 }
@@ -271,39 +291,74 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Pin Color" message:@"Pick a color!" preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Red" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-
-        self.pinTintColor = [UIColor redColor];
-        for (MKPinAnnotationView *pin in self.arrayOfPins) {
-            [self.mapView removeAnnotation:pin.annotation];
-
-            pin.pinTintColor = [UIColor redColor];
-            [self.mapView addAnnotation:pin.annotation];
+        
+        if (self.annType == annImage) {
             
+            NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+            [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+            
+            self.pinTintColor = [UIColor redColor];
+            [self refreshMap];
         }
         
+        else {
+            
+            self.pinTintColor = [UIColor redColor];
+            for (MKPinAnnotationView *pin in self.arrayOfPins) {
+                [self.mapView removeAnnotation:pin.annotation];
+                
+                pin.pinTintColor = [UIColor redColor];
+                [self.mapView addAnnotation:pin.annotation];
+                
+            }
+        }
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Green" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        self.pinTintColor = [UIColor greenColor];
-        for (MKPinAnnotationView *pin in self.arrayOfPins) {
-            [self.mapView removeAnnotation:pin.annotation];
-
-            pin.pinTintColor = [UIColor greenColor];
-            [self.mapView addAnnotation:pin.annotation];
+        if (self.annType == annImage) {
             
+            NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+            [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+            
+            self.pinTintColor = [UIColor greenColor];
+            [self refreshMap];
+        }
+        
+        else {
+            
+            self.pinTintColor = [UIColor greenColor];
+            for (MKPinAnnotationView *pin in self.arrayOfPins) {
+                [self.mapView removeAnnotation:pin.annotation];
+                
+                pin.pinTintColor = [UIColor greenColor];
+                [self.mapView addAnnotation:pin.annotation];
+                
+            }
         }
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Blue" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        self.pinTintColor = [UIColor blueColor];
-        for (MKPinAnnotationView *pin in self.arrayOfPins) {
-            [self.mapView removeAnnotation:pin.annotation];
+        if (self.annType == annImage) {
             
-            pin.pinTintColor = [UIColor blueColor];
-            [self.mapView addAnnotation:pin.annotation];
+            NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+            [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
             
+            self.pinTintColor = [UIColor blueColor];
+            [self refreshMap];
+        }
+        
+        else {
+            
+            self.pinTintColor = [UIColor blueColor];
+            for (MKPinAnnotationView *pin in self.arrayOfPins) {
+                [self.mapView removeAnnotation:pin.annotation];
+                
+                pin.pinTintColor = [UIColor blueColor];
+                [self.mapView addAnnotation:pin.annotation];
+                
+            }
         }
     }]];
     
@@ -449,7 +504,6 @@
 
 - (void)handleTapPressGesture:(UIGestureRecognizer *)sender {
     
-    
     CGPoint point = [sender locationInView:self.mapView];
     CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     
@@ -493,7 +547,6 @@
         self.arrayOfPins = [self.arrayOfPins arrayByAddingObject:pin];
         
         [self.mapView addAnnotation:dropPin];
-        
     }
 }
 
@@ -551,10 +604,7 @@
                 [self errorMessage];
             }
         }];
-        
-        
     }
-    
 }
 
 - (void)errorMessage {
@@ -664,15 +714,26 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    if (self.annType == annImage) {
+        
+        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+        
+        self.pinTintColor = [self customColors][indexPath.row];
+        [self refreshMap];
+        
+    }
+    
+    else {
+    
     self.pinTintColor = [self customColors][indexPath.row];
     
     for (MKPinAnnotationView *pin in self.arrayOfPins) {
         [self.mapView removeAnnotation:pin.annotation];
         pin.pinTintColor = self.pinTintColor;
         [self.mapView addAnnotation:pin.annotation];
-        
     }
-    
+    }
 }
 
 - (NSArray *)customColors {
@@ -769,9 +830,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    
     return self.resultPlaces.count;
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -798,7 +857,6 @@
     NSString *lat = [NSString stringWithFormat:@"%f", [self.selectedAnnotation coordinate].latitude];
     NSString *lon = [NSString stringWithFormat:@"%f", [self.selectedAnnotation coordinate].longitude];
     
-    
     for (Location *location in [LocationController sharedInstance].locations) {
         
         if ([location.latitude isEqualToString:lat] && [location.longitude isEqualToString:lon]) {
@@ -806,10 +864,7 @@
             [[LocationController sharedInstance]removeLocation:location];
             
             [self.mapView removeAnnotation:self.selectedAnnotation];
-            
-            
         }
-        
     }
     
     [self.calloutView setHidden:YES];
@@ -828,9 +883,7 @@
 
 #pragma mark - clears all
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-
-{
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if (buttonIndex == 1) {
         
@@ -842,10 +895,8 @@
         
         self.arrayOfPins = @[];
         
-        
         [self.mapView removeAnnotations:self.mapView.annotations];
         [self playBombSound];
-        
     }
 }
 
@@ -882,6 +933,8 @@
         
         CGRect finalImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
         
+        if (self.annType == pinColor) {
+        
         MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
 
         pin.pinTintColor = self.pinTintColor;
@@ -907,6 +960,54 @@
                 point.y += pinCenterOffset.y;
                 
                 [pinImage drawAtPoint:point];
+            }
+            }
+        }
+        
+        if (self.annType == annImage) {
+            
+            MKAnnotationView *annPin = [[MKAnnotationView alloc]initWithAnnotation:nil reuseIdentifier:@""];
+            
+            if ([self annotationDataExists] == YES) {
+                
+                UIImage *imageToResize = [UIImage imageWithData:[NSData dataWithContentsOfFile:[self imagePath]]];
+                CGSize size = CGSizeMake(50, 50);
+                UIGraphicsBeginImageContext(size);
+                [imageToResize drawInRect:CGRectMake(0, 0, size.width, size.height)];
+                UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+                UIGraphicsEndImageContext();
+                
+                //add image view to make round
+                
+//                UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+//                imageView.image = resizedImage;
+//                imageView.layer.cornerRadius = imageView.frame.size.height / 2;
+//                imageView.layer.masksToBounds = YES;
+//                
+//                [annPin addSubview:imageView];
+//                
+                annPin.image = resizedImage;
+                annPin.layer.cornerRadius = annPin.frame.size.height / 2;
+            }
+
+            
+            UIGraphicsBeginImageContextWithOptions(image.size, YES, image.scale);
+            
+            [image drawAtPoint:CGPointMake(0, 0)];
+            
+            for (id<MKAnnotation>annotation in self.mapView.annotations)
+            {
+                CGPoint point = [snapshot pointForCoordinate:annotation.coordinate];
+                if (CGRectContainsPoint(finalImageRect, point)) // this is too conservative, but you get the idea
+                {
+                    CGPoint pinCenterOffset = annPin.centerOffset;
+                    point.x -= annPin.bounds.size.width / 2.0;
+                    point.y -= annPin.bounds.size.height / 2.0;
+                    point.x += pinCenterOffset.x;
+                    point.y += pinCenterOffset.y;
+                    
+                    [annPin.image drawAtPoint:point];
+                }
             }
         }
         
@@ -971,34 +1072,6 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     
-//    self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinAnnotation"];
-//    
-//    switch (self.annType) {
-//            
-//        case pinColor:
-//            
-//            [self defaultPin];
-//            
-//            break;
-//        
-//        case image:
-//            
-//            [self withCustomImage];
-//            
-//        default:
-//            
-//            [self defaultPin]; //eventually save user's preferred color to defaults
-//            
-//            break;
-//    }
-//    
-//    
-//    //TODO set better custom colors
-//    
-//    self.pinAnnotation.animatesDrop = YES;
-//    
-//    return self.pinAnnotation;
-    
     if (self.annType == pinColor) {
         
         self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinAnnotation"];
@@ -1008,7 +1081,7 @@
         return self.pinAnnotation;
     }
     
-    else if (self.annType == image) {
+    else if (self.annType == annImage) {
         
         MKAnnotationView *annView = [[MKAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"identifier"];
         

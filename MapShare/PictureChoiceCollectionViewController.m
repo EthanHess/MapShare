@@ -25,8 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blackColor];
-    
     [self setUpViews];
     
     [self setUpCollectionView];
@@ -58,6 +56,12 @@
     self.dismissButton.titleLabel.textColor = [UIColor whiteColor];
     [self.dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.dismissButton];
+    
+    CGRect backgroundImageFrame = CGRectMake(0, 65, self.view.frame.size.width, self.view.frame.size.height - 65);
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:backgroundImageFrame];
+    imageView.image = [UIImage imageNamed:@"spaceCollectionBG"];
+    [self.view addSubview:imageView]; 
 }
 
 - (void)setUpCollectionView {
@@ -120,6 +124,8 @@
     
     UIImageView *backgroundImageView = [[UIImageView alloc]initWithFrame:cell.bounds];
     backgroundImageView.image = [UIImage imageWithData:imageData];
+    cell.layer.cornerRadius = 10;
+    cell.layer.masksToBounds = YES; 
     [cell.contentView addSubview:backgroundImageView];
     
 }
@@ -147,7 +153,12 @@
         
         [self storeImageData:picture.picData];
         
-        [self postNotificationWithName:@"pictureAdded"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self postNotificationWithName:@"pictureAdded"];
+        });
+        
+        [self dismissViewControllerAnimated:YES completion:nil]; 
         
     }];
     

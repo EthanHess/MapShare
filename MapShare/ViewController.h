@@ -15,7 +15,7 @@
 
 typedef enum {
     pinColor,
-    image,
+    annImage,
 } AnnotationType;
 
 @interface ViewController : UIViewController <MKMapViewDelegate>
