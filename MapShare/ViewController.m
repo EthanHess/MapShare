@@ -17,6 +17,7 @@
 #import "InstructionsViewController.h"
 #import "LocationManagerController.h"
 #import "PictureChoiceCollectionViewController.h"
+#import <CoreGraphics/CoreGraphics.h>
 
 #define METERS_PER_MILE 23609.344
 
@@ -286,6 +287,16 @@
     [self.toolBar setItems:buttons];
 }
 
+- (void)resetPinTint:(UIColor *)color {
+    
+    //clears image data out
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    
+    self.pinTintColor = color;
+    [self refreshMap];
+}
+
 - (void)changePinColor {
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Pin Color" message:@"Pick a color!" preferredStyle:UIAlertControllerStyleAlert];
@@ -294,11 +305,7 @@
         
         if (self.annType == annImage) {
             
-            NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-            [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-            
-            self.pinTintColor = [UIColor redColor];
-            [self refreshMap];
+            [self resetPinTint:[UIColor redColor]];
         }
         
         else {
@@ -318,11 +325,7 @@
         
         if (self.annType == annImage) {
             
-            NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-            [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-            
-            self.pinTintColor = [UIColor greenColor];
-            [self refreshMap];
+            [self resetPinTint:[UIColor greenColor]];
         }
         
         else {
@@ -342,11 +345,7 @@
         
         if (self.annType == annImage) {
             
-            NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-            [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-            
-            self.pinTintColor = [UIColor blueColor];
-            [self refreshMap];
+            [self resetPinTint:[UIColor blueColor]];
         }
         
         else {
@@ -625,7 +624,6 @@
             
             self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x - 250, self.collectionContainerView.center.y);
         }
-        
     }];
 }
 
@@ -716,11 +714,9 @@
     
     if (self.annType == annImage) {
         
-        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+        UIColor *colorToChangeTo = [self customColors][indexPath.row];
         
-        self.pinTintColor = [self customColors][indexPath.row];
-        [self refreshMap];
+        [self resetPinTint:colorToChangeTo];
         
     }
     
@@ -917,6 +913,24 @@
     
 }
 
+- (void)snapScreenshot:(void (^)(UIImage *image))completion {
+    
+    //code to snapshot screen since mksnapshotter doesn't get pictures well
+    
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    CGRect rect = CGRectMake(0, 75, keyWindow.frame.size.width, keyWindow.frame.size.height - 75);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [keyWindow.layer renderInContext:context];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    completion(image);
+}
+
+
+//doesn't snapshot images well, so this is called for pins only
+
 - (void)snapshotMapImage:(void (^)(UIImage *image))completion {
     
     
@@ -933,7 +947,7 @@
         
         CGRect finalImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
         
-        if (self.annType == pinColor) {
+        //if (self.annType == pinColor) {
         
         MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
 
@@ -962,54 +976,7 @@
                 [pinImage drawAtPoint:point];
             }
             }
-        }
-        
-        if (self.annType == annImage) {
-            
-            MKAnnotationView *annPin = [[MKAnnotationView alloc]initWithAnnotation:nil reuseIdentifier:@""];
-            
-            if ([self annotationDataExists] == YES) {
-                
-                UIImage *imageToResize = [UIImage imageWithData:[NSData dataWithContentsOfFile:[self imagePath]]];
-                CGSize size = CGSizeMake(50, 50);
-                UIGraphicsBeginImageContext(size);
-                [imageToResize drawInRect:CGRectMake(0, 0, size.width, size.height)];
-                UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-                
-                //add image view to make round
-                
-//                UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-//                imageView.image = resizedImage;
-//                imageView.layer.cornerRadius = imageView.frame.size.height / 2;
-//                imageView.layer.masksToBounds = YES;
-//                
-//                [annPin addSubview:imageView];
-//                
-                annPin.image = resizedImage;
-                annPin.layer.cornerRadius = annPin.frame.size.height / 2;
-            }
 
-            
-            UIGraphicsBeginImageContextWithOptions(image.size, YES, image.scale);
-            
-            [image drawAtPoint:CGPointMake(0, 0)];
-            
-            for (id<MKAnnotation>annotation in self.mapView.annotations)
-            {
-                CGPoint point = [snapshot pointForCoordinate:annotation.coordinate];
-                if (CGRectContainsPoint(finalImageRect, point)) // this is too conservative, but you get the idea
-                {
-                    CGPoint pinCenterOffset = annPin.centerOffset;
-                    point.x -= annPin.bounds.size.width / 2.0;
-                    point.y -= annPin.bounds.size.height / 2.0;
-                    point.x += pinCenterOffset.x;
-                    point.y += pinCenterOffset.y;
-                    
-                    [annPin.image drawAtPoint:point];
-                }
-            }
-        }
         
         // the final image
         
@@ -1020,6 +987,7 @@
     }];
     
 }
+
 
 - (void)zoomOut {
     
@@ -1049,9 +1017,22 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Save caption" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
+        NSString *caption = alertController.textFields[0].text;
+        
+        if (self.annType == pinColor) {
+        
         [self snapshotMapImage:^(UIImage *image) {
-            [[SnapshotController sharedInstance] addSnapshotWithImage:image caption:((UITextField*)alertController.textFields[0]).text];
+            
+            [[SnapshotController sharedInstance] addSnapshotWithImage:image caption:caption];
         }];
+            
+        } else if (self.annType == annImage) {
+            
+        [self snapScreenshot:^(UIImage *image) {
+            
+            [[SnapshotController sharedInstance] addSnapshotWithImage:image caption:caption];
+        }];
+        }
         
     }]];
     
