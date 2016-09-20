@@ -50,4 +50,6 @@
     return [UIColor colorWithRed:196.0f/255.0f green:230.0f/255.0f blue:237.0f/255.0f alpha:1.0];
 }
 
+//TODO: Remove most of these and add custom collection view colors
+
 @end

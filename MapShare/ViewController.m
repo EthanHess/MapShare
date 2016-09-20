@@ -70,33 +70,21 @@
     //[LocationManagerController sharedInstance];
     
     self.calloutView = [[CalloutView alloc] init];
-    
     self.arrayOfPins = [NSArray new];
-    
     self.pinTintColor = [UIColor redColor];
-    
     self.soundController = [SoundController new];
     
     [self setUpMapView];
-    
     [self setUpToolBar];
-    
     [self setUpNavigationToolBar];
-    
     [self setUpSearchBar];
-    
     [self setAnnotations];
-    
     [self setUpDismissView];
-    
     [self setUpTableView];
-    
     [self setUpCollectionView];
     
     [self.view bringSubviewToFront:self.navToolBar];
-    
     [self.calloutView setHidden:YES];
-    
     [self.view addSubview:self.calloutView];
     
     //dealloc too
@@ -169,8 +157,7 @@
     }
      
      */
-
-        
+    
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,
     self.view.frame.size.height - 75)];
     self.mapView.delegate = self;
@@ -182,8 +169,6 @@
     
     UITapGestureRecognizer *pressRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapPressGesture:)];
     [self.mapView addGestureRecognizer:pressRecognizer];
-    
-    
 }
 
 - (void)setUpNavigationToolBar {
@@ -233,8 +218,6 @@
     [navItems addObject:flexItem4];
     
     [self.navToolBar setItems:navItems];
-    
-    
 }
 
 - (void)setUpToolBar {
@@ -242,7 +225,6 @@
     UIColor *tintColor = [UIColor whiteColor];
     
     self.toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 75, self.view.frame.size.width, 75)];
-//    [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbarBackground"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     self.toolBar.barTintColor = [UIColor blackColor];
     [self.view addSubview:self.toolBar];
     
@@ -316,7 +298,6 @@
                 
                 pin.pinTintColor = [UIColor redColor];
                 [self.mapView addAnnotation:pin.annotation];
-                
             }
         }
     }]];
@@ -336,7 +317,6 @@
                 
                 pin.pinTintColor = [UIColor greenColor];
                 [self.mapView addAnnotation:pin.annotation];
-                
             }
         }
     }]];
@@ -356,7 +336,6 @@
                 
                 pin.pinTintColor = [UIColor blueColor];
                 [self.mapView addAnnotation:pin.annotation];
-                
             }
         }
     }]];
@@ -374,9 +353,7 @@
             self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x + 250, self.collectionContainerView.center.y);
             
         }];
-            
         }
-        
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -398,17 +375,13 @@
 - (void)archivesController {
     
     SnapshotCollectionView *snapshotView = [SnapshotCollectionView new];
-    
     [self.navigationController pushViewController:snapshotView animated:YES];
-    
 }
 
 - (void)onboarding {
     
     InstructionsViewController *instructions = [InstructionsViewController new];
-    
-    [self presentViewController:instructions animated:YES completion:nil]; 
-    
+    [self presentViewController:instructions animated:YES completion:nil];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
@@ -469,14 +442,12 @@
         [self.searchBarView.searchBar becomeFirstResponder];
         
     }
+    
     else {
         
         [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
         [self.searchBarView.searchBar resignFirstResponder];
-        
     }
-    
-    
 }
 
 - (void)popSearchBar:(UIView *)view distance:(float)distance {
@@ -484,9 +455,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         
         view.center = CGPointMake(view.center.x, view.center.y + distance);
-        
     }];
-    
 }
 
 - (void)popSearchBarBack:(UIView *)view distance:(float)distance {
@@ -494,9 +463,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         
         view.center = CGPointMake(view.center.x, view.center.y - distance);
-        
     }];
-    
 }
 
 //Adds pin when tapped
@@ -518,7 +485,6 @@
     
     [self.mapView addAnnotation:dropPin];
     [self playClongSound];
-    
 }
 
 - (void)playClongSound {
@@ -526,7 +492,6 @@
     NSURL *urlForClong = [[NSBundle mainBundle] URLForResource:@"clong-1" withExtension:@"mp3"];
     
     [self.soundController playAudioFileAtURL:urlForClong];
-    
 }
 
 #pragma mark - adding annotations from core data
@@ -558,7 +523,6 @@
     [self.calloutView.removeButton addTarget:self action:@selector(removeLocation) forControlEvents:UIControlEventTouchUpInside];
     self.selectedAnnotation = view.annotation;
     [self.calloutView setHidden:NO];
-    
 }
 
 - (void)setUpDismissView {
@@ -567,15 +531,12 @@
     [self.dismissView.dismissButton addTarget:self action:@selector(dismissTableView) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissView setHidden:YES];
     [self.view addSubview:self.dismissView];
-    
 }
 
 - (void)dismissTableView {
     
-    
     [self.tableView removeFromSuperview];
     [self.dismissView setHidden:YES];
-    
 }
 
 - (void)search {
@@ -627,6 +588,8 @@
     }];
 }
 
+#pragma Pop out collection view
+
 - (void)setUpCollectionView {
     
     self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-250, self.view.frame.size.height / 2 - 75, 250, 300)];
@@ -643,13 +606,13 @@
 //    imageView.image = [UIImage imageNamed:@"popOutBackgroundMS"];
 //    [self.collectionContainerView addSubview:imageView];
     
-    self.collectionContainerView.backgroundColor = [UIColor darkGrayColor];
+    self.collectionContainerView.backgroundColor = [UIColor blackColor];
     
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
 
     [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     backButton.layer.cornerRadius = 25;
-    backButton.layer.borderColor = [[UIColor blackColor]CGColor];
+    backButton.layer.borderColor = [[UIColor lightGrayColor]CGColor];
     backButton.layer.borderWidth = 2;
     backButton.layer.masksToBounds = YES;
     [backButton setBackgroundImage:[UIImage imageNamed:@"PopButtonBackground"] forState:UIControlStateNormal];
@@ -676,17 +639,16 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    //remember to add for view in subviews for loop
-    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
-    if (indexPath.row < 8) {
-    
-    cell.layer.cornerRadius = cell.frame.size.height / 2;
-    cell.layer.borderColor = [[UIColor blackColor]CGColor];
-    cell.layer.borderWidth = 1;
-    cell.backgroundColor = [self customColors][indexPath.row];
+    if (indexPath.row < 8 && indexPath.row != 3) {
         
+        [self configureCell:cell atIndexPath:indexPath andColor:[UIColor blackColor]];
+    }
+    
+    if (indexPath.row == 3) {
+        
+        [self configureCell:cell atIndexPath:indexPath andColor:[UIColor whiteColor]];
     }
     
     if (indexPath.row == 8) {
@@ -705,6 +667,14 @@
     return cell;
 }
 
+- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath andColor:(UIColor *)borderColor {
+    
+    cell.layer.cornerRadius = cell.frame.size.height / 2;
+    cell.layer.borderColor = [borderColor CGColor];
+    cell.layer.borderWidth = 1;
+    cell.backgroundColor = [self customColors][indexPath.row];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     return [self customColors].count;
@@ -717,7 +687,6 @@
         UIColor *colorToChangeTo = [self customColors][indexPath.row];
         
         [self resetPinTint:colorToChangeTo];
-        
     }
     
     else {
@@ -744,6 +713,7 @@
     UIColor *whiteColor = [UIColor whiteColor];
     UIColor *purpleColor = [UIColor purpleColor];
     UIColor *brownColor = [UIColor brownColor];
+    
     UIColor *randomColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
     
     NSArray *colorArray = @[yellowColor, orangeColor, cyanColor, blackColor, grayColor, whiteColor, purpleColor, brownColor, randomColor];
@@ -777,8 +747,7 @@
             tableViewHeight = 80 * 2;
         }
     }
-    
-    
+
     self.tableView.backgroundColor = [UIColor blackColor];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, tableViewHeight)];
@@ -790,15 +759,12 @@
     self.tableView.delegate = self;
     [self registerTableView:self.tableView];
     
-    
     [self.view addSubview:self.tableView];
-    
 }
 
 - (void)registerTableView:(UITableView *)tableView {
     
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -808,7 +774,7 @@
     
     MKMapItem *item = self.resultPlaces[indexPath.row];
     
-    cell.backgroundColor = [UIColor darkGrayColor];
+    cell.backgroundColor = [UIColor blackColor];
     cell.textLabel.text = item.name;
     cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
     cell.textLabel.textColor = [UIColor whiteColor];
@@ -821,7 +787,6 @@
     
     
     return cell;
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -838,8 +803,6 @@
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance([zoomItem placemark].coordinate, 0.1*METERS_PER_MILE, 0.1*METERS_PER_MILE);
     MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
     [self.mapView setRegion:adjustedRegion animated:YES];
-    
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -865,7 +828,6 @@
     
     [self.calloutView setHidden:YES];
     [self playWaterSplashSound];
-    
 }
 
 
@@ -874,7 +836,6 @@
     
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Delete" message:@"Delete All Annotations?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
     [alert show];
-    
 }
 
 #pragma mark - clears all
@@ -896,13 +857,13 @@
     }
 }
 
+//TODO: Move methods to sound controller?
 
 - (void)playWaterSplashSound {
     
     NSURL *urlForWater = [[NSBundle mainBundle] URLForResource:@"water-splash-3" withExtension:@"mp3"];
     
     [self.soundController playAudioFileAtURL:urlForWater];
-    
 }
 
 - (void)playBombSound {
@@ -910,18 +871,16 @@
     NSURL *urlForBomb = [[NSBundle mainBundle] URLForResource:@"bomb" withExtension:@"mp3"];
     
     [self.soundController playAudioFileAtURL:urlForBomb];
-    
 }
 
 - (void)snapScreenshot:(void (^)(UIImage *image))completion {
     
     //code to snapshot screen since mksnapshotter doesn't get pictures well
     
-    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
-    CGRect rect = CGRectMake(0, 75, keyWindow.frame.size.width, keyWindow.frame.size.height - 75);
+    CGRect rect = [self.mapView bounds];
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    [keyWindow.layer renderInContext:context];
+    [self.mapView.layer renderInContext:context];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -946,8 +905,6 @@
         UIImage *image = snapshot.image;
         
         CGRect finalImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
-        
-        //if (self.annType == pinColor) {
         
         MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
 
@@ -975,9 +932,7 @@
                 
                 [pinImage drawAtPoint:point];
             }
-            }
-
-        
+        }
         // the final image
         
         UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -985,7 +940,6 @@
         
         completion(finalImage);
     }];
-    
 }
 
 
@@ -1004,7 +958,6 @@
     }
     
     [self.mapView setVisibleMapRect:zoomRect animated:YES];
-    
 }
 
 - (void)saveSnapshot {
@@ -1038,8 +991,6 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
     [self playSnapSound];
-    
-    
 }
 
 - (void)playSnapSound {
@@ -1047,8 +998,6 @@
     NSURL *urlForSnap = [[NSBundle mainBundle] URLForResource:@"snapSound" withExtension:@"mp3"];
     
     [self.soundController playAudioFileAtURL:urlForSnap];
-    
-    
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -1079,9 +1028,7 @@
         self.pinAnnotation.animatesDrop = YES;
         
         return self.pinAnnotation;
-        
     }
-    
 }
 
 - (BOOL)annotationDataExists {
@@ -1097,7 +1044,6 @@
 - (void)defaultPin {
     
     self.pinAnnotation.pinTintColor = self.pinTintColor;
-    
 }
 
 - (void)withCustomImage:(MKAnnotationView *)annotationView {
@@ -1105,7 +1051,7 @@
     if ([self annotationDataExists] == YES) {
         
         UIImage *imageToResize = [UIImage imageWithData:[NSData dataWithContentsOfFile:[self imagePath]]];
-        CGSize size = CGSizeMake(50, 50);
+        CGSize size = CGSizeMake(100, 100);
         UIGraphicsBeginImageContext(size);
         [imageToResize drawInRect:CGRectMake(0, 0, size.width, size.height)];
         UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -1113,14 +1059,12 @@
         
         //add image view to make round
         
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(-10, -10, 70, 70)];
         imageView.image = resizedImage;
         imageView.layer.cornerRadius = imageView.frame.size.height / 2;
         imageView.layer.masksToBounds = YES;
         
-        [annotationView addSubview:imageView]; 
-        
-        //annotationView.image = resizedImage;
+        [annotationView addSubview:imageView];
     }
 }
 
