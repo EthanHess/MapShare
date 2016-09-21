@@ -46,7 +46,6 @@
 - (void)removePicture:(Picture *)picture {
     
     [[picture managedObjectContext]deleteObject:picture];
-    //[picture.managedObjectContext deleteObject:picture];
     
     [self synchronize]; 
 }

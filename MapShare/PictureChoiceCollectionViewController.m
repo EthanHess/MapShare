@@ -165,6 +165,7 @@
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         [[PictureController sharedInstance]removePicture:picture];
+        [self refresh];
         
     }];
     
@@ -186,7 +187,7 @@
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    [self.pictureCollectionView reloadData];
+    [self refresh]; 
     
 }
 
@@ -209,6 +210,10 @@
 - (void)postNotificationWithName:(NSString *)notificationName {
     
     [[NSNotificationCenter defaultCenter]postNotificationName:notificationName object:nil];
+}
+
+- (void)refresh {
+    [self.pictureCollectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

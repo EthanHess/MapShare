@@ -1059,7 +1059,7 @@
         
         //add image view to make round
         
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(-10, -10, 70, 70)];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, -20, 80, 80)];
         imageView.image = resizedImage;
         imageView.layer.cornerRadius = imageView.frame.size.height / 2;
         imageView.layer.masksToBounds = YES;
