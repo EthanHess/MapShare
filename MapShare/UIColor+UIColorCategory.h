@@ -26,12 +26,14 @@
 
 + (UIColor *)instructionsBackground;
 
-//+ (UIColor *)navBarColor;
++ (UIColor *)snapYellow;
+
+//+ (UIColor *)snapOrange;
 //
-//+ (UIColor *)tableBackgroundColor;
+//+ (UIColor *)snapBlue;
 //
-//+ (UIColor *)cellBackgroundColor;
+//+ (UIColor *)snapPurple;
 //
-//+ (UIColor *)cellTextColor; 
+//+ (UIColor *)snapTan;
 
 @end

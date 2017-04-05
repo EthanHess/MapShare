@@ -25,6 +25,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     [self setUpViews];
     
     [self setUpCollectionView];
@@ -42,7 +48,7 @@
     CGRect buttonFrameOne = CGRectMake(0, 0, halfScreen, 65);
     
     self.chooseImageButton = [[UIButton alloc]initWithFrame:buttonFrameOne];
-    [self.chooseImageButton setTitle:@"Choose Image" forState:UIControlStateNormal];
+    [self.chooseImageButton setTitle:@"Upload Image" forState:UIControlStateNormal];
     self.chooseImageButton.backgroundColor = [UIColor blackColor];
     self.chooseImageButton.titleLabel.textColor = [UIColor whiteColor];
     [self.chooseImageButton addTarget:self action:@selector(popImagePicker) forControlEvents:UIControlEventTouchUpInside];
@@ -113,21 +119,51 @@
     }
     
     Picture *picture = [PictureController sharedInstance].pictures[indexPath.row];
-    
+        
     [self configureCell:cell withImageData:picture.picData];
     
     return cell;
     
 }
 
+//choppy scrolling, fix!
+
 - (void)configureCell:(UICollectionViewCell *)cell withImageData:(NSData *)imageData {
     
     UIImageView *backgroundImageView = [[UIImageView alloc]initWithFrame:cell.bounds];
     backgroundImageView.image = [UIImage imageWithData:imageData];
     cell.layer.cornerRadius = 10;
-    cell.layer.masksToBounds = YES; 
+    cell.layer.masksToBounds = YES;
     [cell.contentView addSubview:backgroundImageView];
     
+}
+
+//- (void)configureCell:(UICollectionViewCell *)cell withImageData:(NSData *)imageData {
+//    
+//    UIImageView *backgroundImageView = [[UIImageView alloc]initWithFrame:cell.bounds];
+//    
+//    UIImage __block *imageFromData = nil;
+//    
+//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        
+//        imageFromData = [UIImage imageWithData:imageData];
+//    });
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//        cell.layer.cornerRadius = 10;
+//        cell.layer.masksToBounds = YES;
+//
+//        backgroundImageView.image = imageFromData;
+//        [cell.contentView addSubview:backgroundImageView];
+//    });
+//}
+
+//maybe this is the solution?
+
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:    (UICollectionViewLayoutAttributes *)layoutAttributes
+{
+    return layoutAttributes;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

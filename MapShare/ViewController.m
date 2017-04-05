@@ -357,10 +357,13 @@
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
-        PictureChoiceCollectionViewController *pvc = [PictureChoiceCollectionViewController new];
         
-        [self presentViewController:pvc animated:YES completion:nil]; 
+        PictureChoiceCollectionViewController *pvc = [PictureChoiceCollectionViewController new];
+
+        [self presentViewController:pvc animated:YES completion:nil];
+        
+        //dispatch_async(dispatch_get_main_queue(), ^{});
+        //CFRunLoopWakeUp(CFRunLoopGetCurrent());
         
     }]];
     
@@ -873,9 +876,56 @@
     [self.soundController playAudioFileAtURL:urlForBomb];
 }
 
+- (void)squareMapView {
+    
+    [UIView animateWithDuration:0 animations:^{
+        
+        for (UIView *view in self.view.subviews) {
+            
+            if (view != self.mapView) {
+                
+                view.alpha = 0;
+            }
+        }
+        
+        float yCoord = (self.view.frame.size.height - self.mapView.frame.size.width) / 2;
+        float mapDimensions = self.mapView.frame.size.width;
+        
+        self.mapView.frame = CGRectMake(0, yCoord, mapDimensions ,mapDimensions);
+    }];
+    
+    [UIView animateWithDuration:0 animations:^{
+        
+        
+    } completion:^(BOOL finished) {
+        
+        [self performSelector:@selector(unsquareMapView) withObject:nil afterDelay:1];
+    }];
+}
+
+- (void)unsquareMapView {
+    
+    [UIView animateWithDuration:0 animations:^{
+        
+        for (UIView *view in self.view.subviews) {
+            
+            if (view != self.mapView) {
+                
+                view.alpha = 1;
+            }
+        }
+        
+        self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width,
+                                        self.view.frame.size.height - 75);
+        
+    }];
+}
+
 - (void)snapScreenshot:(void (^)(UIImage *image))completion {
     
     //code to snapshot screen since mksnapshotter doesn't get pictures well
+    
+    [self squareMapView];
     
     CGRect rect = [self.mapView bounds];
     UIGraphicsBeginImageContext(rect.size);
@@ -891,7 +941,6 @@
 //doesn't snapshot images well, so this is called for pins only
 
 - (void)snapshotMapImage:(void (^)(UIImage *image))completion {
-    
     
     MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
     
@@ -1051,7 +1100,7 @@
     if ([self annotationDataExists] == YES) {
         
         UIImage *imageToResize = [UIImage imageWithData:[NSData dataWithContentsOfFile:[self imagePath]]];
-        CGSize size = CGSizeMake(100, 100);
+        CGSize size = CGSizeMake(150, 150);
         UIGraphicsBeginImageContext(size);
         [imageToResize drawInRect:CGRectMake(0, 0, size.width, size.height)];
         UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -1059,7 +1108,7 @@
         
         //add image view to make round
         
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, -20, 80, 80)];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, -20, 130, 130)];
         imageView.image = resizedImage;
         imageView.layer.cornerRadius = imageView.frame.size.height / 2;
         imageView.layer.masksToBounds = YES;

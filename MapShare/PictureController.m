@@ -52,7 +52,7 @@
 
 - (NSData *)imageToData:(UIImage *)image {
     
-    return [NSData dataWithData:UIImageJPEGRepresentation(image, 100)];
+    return [NSData dataWithData:UIImageJPEGRepresentation(image, 1)];
 }
 
 - (void)synchronize {
