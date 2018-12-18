@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2740243921C613DA0066ABC8 /* ColorPopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2740243821C613DA0066ABC8 /* ColorPopUpViewController.m */; };
 		275823791D70F11C00BA78A9 /* PictureChoiceCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275823781D70F11C00BA78A9 /* PictureChoiceCollectionViewController.m */; };
 		275823801D727CB000BA78A9 /* Picture+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758237D1D727CB000BA78A9 /* Picture+CoreDataProperties.m */; };
 		275823811D727CB000BA78A9 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758237F1D727CB000BA78A9 /* Picture.m */; };
@@ -57,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2740243721C613DA0066ABC8 /* ColorPopUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorPopUpViewController.h; sourceTree = "<group>"; };
+		2740243821C613DA0066ABC8 /* ColorPopUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorPopUpViewController.m; sourceTree = "<group>"; };
 		275823771D70F11C00BA78A9 /* PictureChoiceCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureChoiceCollectionViewController.h; sourceTree = "<group>"; };
 		275823781D70F11C00BA78A9 /* PictureChoiceCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureChoiceCollectionViewController.m; sourceTree = "<group>"; };
 		2758237C1D727CB000BA78A9 /* Picture+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Picture+CoreDataProperties.h"; path = "../Picture+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -199,6 +202,8 @@
 				27CAC6741AD6E179007B67C4 /* CalloutView.m */,
 				275823771D70F11C00BA78A9 /* PictureChoiceCollectionViewController.h */,
 				275823781D70F11C00BA78A9 /* PictureChoiceCollectionViewController.m */,
+				2740243721C613DA0066ABC8 /* ColorPopUpViewController.h */,
+				2740243821C613DA0066ABC8 /* ColorPopUpViewController.m */,
 				27CAC6F71ADED7AD007B67C4 /* Onboarding */,
 				279B60761D39653C00332582 /* InstructionsViewController.h */,
 				279B60771D39653C00332582 /* InstructionsViewController.m */,
@@ -436,6 +441,7 @@
 				275823811D727CB000BA78A9 /* Picture.m in Sources */,
 				27CAC7421AE19F0C007B67C4 /* SnapshotViewController.m in Sources */,
 				27CEF95A1AD5BB6E00890179 /* AppDelegate.m in Sources */,
+				2740243921C613DA0066ABC8 /* ColorPopUpViewController.m in Sources */,
 				27CEF98A1AD5CBDA00890179 /* LocationController.m in Sources */,
 				27CEF9571AD5BB6E00890179 /* main.m in Sources */,
 				27CAC63A1AD5E4FF007B67C4 /* Model.xcdatamodeld in Sources */,

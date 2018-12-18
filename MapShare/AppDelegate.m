@@ -24,9 +24,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     
     ViewController *mainViewController = [ViewController new];
-    
     UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:mainViewController];
-    
     self.window.rootViewController = navController;
     
     [self.window makeKeyAndVisible];
@@ -38,7 +36,6 @@
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
     
     if ([[url absoluteString]containsString:@"icons"]) {
-        
         return true;
     }
     

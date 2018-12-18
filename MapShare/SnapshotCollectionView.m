@@ -39,9 +39,7 @@
     [self.view addSubview:imageView];
     
     [self setUpNavbar];
-    
     [self setUpCollectionView];
-    
 }
 
 - (void)setUpNavbar {
@@ -89,17 +87,13 @@
     
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     return CGSizeMake((self.view.frame.size.width - 100) ,self.view.frame.size.width - 100);
 }
 
 - (void)home {
-    
-    
-    [self.navigationController popViewControllerAnimated:YES]; 
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)registerCollectionView:(UICollectionView *)collectionView {
@@ -108,8 +102,6 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Options" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -124,11 +116,8 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         Snapshot *snapshot = [[SnapshotController sharedInstance].snapshots objectAtIndex:indexPath.item];
-        
         [[SnapshotController sharedInstance]removeSnapshots:snapshot];
-        
-        [self refreshData]; 
-        
+        [self refreshData];
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -136,14 +125,10 @@
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
-
-    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
     return [SnapshotController sharedInstance].snapshots.count;
-    
 }
 
 - (SnapshotCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -179,7 +164,6 @@
 }
 
 - (void)refreshData {
-    
     [self.collectionView reloadData];
 }
 

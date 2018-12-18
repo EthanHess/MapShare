@@ -32,7 +32,6 @@
     [super viewWillAppear:animated];
     
     [self setUpViews];
-    
     [self setUpCollectionView];
 }
 
@@ -87,14 +86,11 @@
 }
 
 - (void)dismiss {
-    
     [self dismissViewControllerAnimated:YES completion:nil];
-    
     //maybe pop alert asking if they want to use image via nsnotification?
 }
 
 - (void)popImagePicker {
-    
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
     imagePicker.delegate = self;
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -102,7 +98,6 @@
 }
 
 - (void)registerCollectionView:(UICollectionView *)collectionView {
-    
     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
 
@@ -119,7 +114,6 @@
     }
     
     Picture *picture = [PictureController sharedInstance].pictures[indexPath.row];
-        
     [self configureCell:cell withImageData:picture.picData];
     
     return cell;
@@ -129,13 +123,11 @@
 //choppy scrolling, fix!
 
 - (void)configureCell:(UICollectionViewCell *)cell withImageData:(NSData *)imageData {
-    
     UIImageView *backgroundImageView = [[UIImageView alloc]initWithFrame:cell.bounds];
     backgroundImageView.image = [UIImage imageWithData:imageData];
     cell.layer.cornerRadius = 10;
     cell.layer.masksToBounds = YES;
     [cell.contentView addSubview:backgroundImageView];
-    
 }
 
 //- (void)configureCell:(UICollectionViewCell *)cell withImageData:(NSData *)imageData {
@@ -161,8 +153,7 @@
 
 //maybe this is the solution?
 
-- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:    (UICollectionViewLayoutAttributes *)layoutAttributes
-{
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:    (UICollectionViewLayoutAttributes *)layoutAttributes {
     return layoutAttributes;
 }
 
@@ -171,9 +162,7 @@
     return [PictureController sharedInstance].pictures.count;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake((self.view.frame.size.width / 2) - 8, 180);
 }
 
@@ -190,19 +179,16 @@
         [self storeImageData:picture.picData];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             [self postNotificationWithName:@"pictureAdded"];
         });
         
-        [self dismissViewControllerAnimated:YES completion:nil]; 
-        
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
     
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         [[PictureController sharedInstance]removePicture:picture];
         [self refresh];
-        
     }];
     
     [alertController addAction:cancelAction];
@@ -223,8 +209,7 @@
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    [self refresh]; 
-    
+    [self refresh];
 }
 
 - (void)storeImageData:(NSData *)data {
@@ -236,7 +221,6 @@
 }
 
 - (NSString *)documentsPathForFileName:(NSString *)name {
-    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsPath = [paths objectAtIndex:0];
     
@@ -244,7 +228,6 @@
 }
 
 - (void)postNotificationWithName:(NSString *)notificationName {
-    
     [[NSNotificationCenter defaultCenter]postNotificationName:notificationName object:nil];
 }
 

@@ -31,7 +31,6 @@
     [self.footerLabel setTextAlignment:NSTextAlignmentCenter];
     
     [self addSubview:self.footerLabel];
-    
 }
 
 @end

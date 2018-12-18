@@ -21,7 +21,6 @@
     self.player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
     self.player.numberOfLoops = 0;
     [self.player play];
-    
 }
 
 @end

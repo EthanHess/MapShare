@@ -42,7 +42,6 @@
 - (void)getCurrentLocationWithCompletion:(void (^)(CLLocationCoordinate2D currentLocation, BOOL success))completion {
     
     if (self.currentLocation) {
-        
         completion(*(_currentLocation), YES);
     }
         
@@ -52,19 +51,13 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
     if (locations.lastObject) {
-    
     CLLocation *mostRecentLocation = locations.lastObject;
         
         CLLocationCoordinate2D currentLocation = CLLocationCoordinate2DMake(mostRecentLocation.coordinate.latitude, mostRecentLocation.coordinate.longitude);
-        
         self.currentLocation = &(currentLocation);
-        
         self.locationReady = YES;
-        
         [self.manager stopUpdatingLocation];
-        
         //[[NSNotificationCenter defaultCenter]postNotificationName:@"LocationReady" object:nil];
-        
     }
 }
 

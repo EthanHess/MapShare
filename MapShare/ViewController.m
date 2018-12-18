@@ -95,41 +95,29 @@
 - (void)registerForNotifications {
     
     //remove before adding
-    
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"pictureAdded" object:nil];
-    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshMapView) name:@"pictureAdded" object:nil];
 }
 
 - (void)dealloc {
-    
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 //from pic vc, after picture is chosen
 
 - (void)refreshMapView {
-
     self.arrayOfPins = @[];
-    
     [self.mapView removeAnnotations:self.mapView.annotations];
-    
     self.annType = annImage;
-    
     [self setAnnotations];
-
 }
 
 //from self, after pin color is chosen
 
 - (void)refreshMap {
-    
     self.arrayOfPins = @[];
-    
     [self.mapView removeAnnotations:self.mapView.annotations];
-    
     self.annType = pinColor;
-    
     [self setAnnotations];
 }
 
@@ -171,18 +159,21 @@
     [self.mapView addGestureRecognizer:pressRecognizer];
 }
 
+//Can do outside of VC, takes up a lot of space
+
 - (void)setUpNavigationToolBar {
     
+    //Can discard this
     UIColor *tintColor = [UIColor whiteColor];
     
     self.navToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
     self.navToolBar.barTintColor = [UIColor blackColor];
     [self.view addSubview:self.navToolBar];
     
-    UIImage *pencil = [UIImage imageNamed:@"pencil"];
-    UIImage *question = [UIImage imageNamed:@"question"];
-    UIImage *search = [UIImage imageNamed:@"search"];
-    UIImage *archives = [UIImage imageNamed:@"archives"];
+    UIImage *pencil = [[UIImage imageNamed:@"pencil48"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *question = [[UIImage imageNamed:@"question48"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *search = [[UIImage imageNamed:@"search48"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *archives = [[UIImage imageNamed:@"archives48"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     NSMutableArray *navItems = [[NSMutableArray alloc] initWithCapacity:3];
     
@@ -228,10 +219,10 @@
     self.toolBar.barTintColor = [UIColor blackColor];
     [self.view addSubview:self.toolBar];
     
-    UIImage *map = [UIImage imageNamed:@"map"];
-    UIImage *boom = [UIImage imageNamed:@"boom"];
-    UIImage *zoom = [UIImage imageNamed:@"zoomOut"];
-    UIImage *photo = [UIImage imageNamed:@"Photo"];
+    UIImage *map = [[UIImage imageNamed:@"map48"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *boom = [[UIImage imageNamed:@"boom48"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *zoom = [[UIImage imageNamed:@"zoomOut48"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *photo = [[UIImage imageNamed:@"Photo48"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:3];
     
@@ -284,18 +275,13 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Pin Color" message:@"Pick a color!" preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Red" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
         if (self.annType == annImage) {
-            
             [self resetPinTint:[UIColor redColor]];
         }
-        
         else {
-            
             self.pinTintColor = [UIColor redColor];
             for (MKPinAnnotationView *pin in self.arrayOfPins) {
                 [self.mapView removeAnnotation:pin.annotation];
-                
                 pin.pinTintColor = [UIColor redColor];
                 [self.mapView addAnnotation:pin.annotation];
             }
@@ -303,18 +289,13 @@
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Green" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
         if (self.annType == annImage) {
-            
             [self resetPinTint:[UIColor greenColor]];
         }
-        
         else {
-            
             self.pinTintColor = [UIColor greenColor];
             for (MKPinAnnotationView *pin in self.arrayOfPins) {
                 [self.mapView removeAnnotation:pin.annotation];
-                
                 pin.pinTintColor = [UIColor greenColor];
                 [self.mapView addAnnotation:pin.annotation];
             }
@@ -322,18 +303,13 @@
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Blue" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
         if (self.annType == annImage) {
-            
             [self resetPinTint:[UIColor blueColor]];
         }
-        
         else {
-            
             self.pinTintColor = [UIColor blueColor];
             for (MKPinAnnotationView *pin in self.arrayOfPins) {
                 [self.mapView removeAnnotation:pin.annotation];
-                
                 pin.pinTintColor = [UIColor blueColor];
                 [self.mapView addAnnotation:pin.annotation];
             }
@@ -343,15 +319,10 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Custom" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         //pop out collection view with custom color here!
-        
         if (self.collectionContainerView.frame.origin.x < 0) {
-        
         [UIView animateWithDuration:0.5 animations:^{
-            
             self.collectionContainerView.hidden = NO;
-            
             self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x + 250, self.collectionContainerView.center.y);
-            
         }];
         }
     }]];
@@ -359,7 +330,6 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         PictureChoiceCollectionViewController *pvc = [PictureChoiceCollectionViewController new];
-
         [self presentViewController:pvc animated:YES completion:nil];
         
         //dispatch_async(dispatch_get_main_queue(), ^{});
@@ -376,29 +346,24 @@
 }
 
 - (void)archivesController {
-    
     SnapshotCollectionView *snapshotView = [SnapshotCollectionView new];
     [self.navigationController pushViewController:snapshotView animated:YES];
 }
 
 - (void)onboarding {
-    
     InstructionsViewController *instructions = [InstructionsViewController new];
     [self presentViewController:instructions animated:YES completion:nil];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    
     [self.searchBarView.searchBar becomeFirstResponder];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    
     [self.searchBarView.searchBar resignFirstResponder];
 }
 
 - (void)mapType {
-    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Map Type" message:@"Choose Style" preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Hybrid" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -429,42 +394,30 @@
 }
 
 - (void)setUpSearchBar {
-    
     self.searchBarView = [[SearchBarView alloc] initWithFrame:CGRectMake(0, -80, self.view.frame.size.width, 80)];
     [self.view addSubview:self.searchBarView];
-    
     [self.searchBarView.button addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 
 -(void)popSearchBar {
-    
     if (self.searchBarView.frame.origin.y < 75) {
-        
         [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
         [self.searchBarView.searchBar becomeFirstResponder];
-        
     }
-    
     else {
-        
         [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
         [self.searchBarView.searchBar resignFirstResponder];
     }
 }
 
 - (void)popSearchBar:(UIView *)view distance:(float)distance {
-    
     [UIView animateWithDuration:0.5 animations:^{
-        
         view.center = CGPointMake(view.center.x, view.center.y + distance);
     }];
 }
 
 - (void)popSearchBarBack:(UIView *)view distance:(float)distance {
-    
     [UIView animateWithDuration:0.5 animations:^{
-        
         view.center = CGPointMake(view.center.x, view.center.y - distance);
     }];
 }
@@ -472,7 +425,6 @@
 //Adds pin when tapped
 
 - (void)handleTapPressGesture:(UIGestureRecognizer *)sender {
-    
     CGPoint point = [sender locationInView:self.mapView];
     CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     
@@ -491,18 +443,14 @@
 }
 
 - (void)playClongSound {
-    
     NSURL *urlForClong = [[NSBundle mainBundle] URLForResource:@"clong-1" withExtension:@"mp3"];
-    
     [self.soundController playAudioFileAtURL:urlForClong];
 }
 
 #pragma mark - adding annotations from core data
 
 - (void)setAnnotations {
-    
     NSArray *locations = [LocationController sharedInstance].locations;
-    
     for (Location *location in locations) {
         double latitudeDouble = [location.latitude doubleValue];
         double longitudeDouble = [location.longitude doubleValue];
@@ -518,7 +466,6 @@
 }
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
-    
     self.calloutView.annotation = view.annotation;
     
     [self.calloutView setFrame:CGRectMake(view.center.x, view.center.y, 80, 100)];
@@ -529,7 +476,6 @@
 }
 
 - (void)setUpDismissView {
-    
     self.dismissView = [[DismissView alloc]initWithFrame:CGRectMake(80, 170, self.view.frame.size.width - 160, 70)];
     [self.dismissView.dismissButton addTarget:self action:@selector(dismissTableView) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissView setHidden:YES];
@@ -537,24 +483,18 @@
 }
 
 - (void)dismissTableView {
-    
     [self.tableView removeFromSuperview];
     [self.dismissView setHidden:YES];
 }
 
 - (void)search {
-    
     NSString *searchText = self.searchBarView.searchBar.text;
-    
     if ([searchText isEqual: @""]) {
         return;
     }
-    
     else {
-        
         MKLocalSearchRequest *searchRequest = [[MKLocalSearchRequest alloc] init];
         [searchRequest setNaturalLanguageQuery:[NSString stringWithFormat:@"%@", searchText]];
-        
         MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:searchRequest];
         [localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
             if (!error) {
@@ -571,7 +511,6 @@
 }
 
 - (void)errorMessage {
-    
     UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"No Results" message:@"Search Again" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
     [errorAlert show];
 }
@@ -579,22 +518,18 @@
 #pragma CollectionView for pin colors
 
 - (void)popBack {
-    
     [UIView animateWithDuration:0.5 animations:^{
-        
         self.collectionContainerView.hidden = YES;
-        
         if (self.collectionContainerView.frame.origin.x >= 0) {
-            
             self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x - 250, self.collectionContainerView.center.y);
         }
     }];
 }
 
 #pragma Pop out collection view
+// MOVE TO NEW VC
 
 - (void)setUpCollectionView {
-    
     self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-250, self.view.frame.size.height / 2 - 75, 250, 300)];
     self.collectionContainerView.layer.cornerRadius = 15;
     self.collectionContainerView.backgroundColor = [UIColor clearColor];
@@ -603,12 +538,7 @@
     self.collectionContainerView.layer.masksToBounds = YES;
     self.collectionContainerView.hidden = NO;
     [self.view addSubview:self.collectionContainerView];
-    
-//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.collectionContainerView.bounds];
-//    imageView.layer.masksToBounds = YES;
-//    imageView.image = [UIImage imageNamed:@"popOutBackgroundMS"];
-//    [self.collectionContainerView addSubview:imageView];
-    
+
     self.collectionContainerView.backgroundColor = [UIColor blackColor];
     
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
@@ -636,24 +566,17 @@
 }
 
 - (void)registerCollectionView:(UICollectionView *)collectionView {
-    
     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    
     if (indexPath.row < 8 && indexPath.row != 3) {
-        
         [self configureCell:cell atIndexPath:indexPath andColor:[UIColor blackColor]];
     }
-    
     if (indexPath.row == 3) {
-        
         [self configureCell:cell atIndexPath:indexPath andColor:[UIColor whiteColor]];
     }
-    
     if (indexPath.row == 8) {
         
         cell.layer.cornerRadius = cell.frame.size.height / 2;
@@ -666,12 +589,10 @@
         imageView.layer.masksToBounds = YES;
         [cell addSubview:imageView];
     }
-    
     return cell;
 }
 
 - (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath andColor:(UIColor *)borderColor {
-    
     cell.layer.cornerRadius = cell.frame.size.height / 2;
     cell.layer.borderColor = [borderColor CGColor];
     cell.layer.borderWidth = 1;
@@ -679,23 +600,16 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
     return [self customColors].count;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (self.annType == annImage) {
-        
         UIColor *colorToChangeTo = [self customColors][indexPath.row];
-        
         [self resetPinTint:colorToChangeTo];
     }
-    
     else {
-    
     self.pinTintColor = [self customColors][indexPath.row];
-    
     for (MKPinAnnotationView *pin in self.arrayOfPins) {
         [self.mapView removeAnnotation:pin.annotation];
         pin.pinTintColor = self.pinTintColor;
@@ -705,9 +619,7 @@
 }
 
 - (NSArray *)customColors {
-    
     //change to better colors eventually
-    
     UIColor *yellowColor = [UIColor yellowColor];
     UIColor *orangeColor = [UIColor orangeColor];
     UIColor *cyanColor = [UIColor cyanColor];
@@ -728,11 +640,8 @@
 
 
 - (void)setUpTableView {
-    
     [self.tableView removeFromSuperview];
-    
     CGFloat tableViewHeight;
-    
     if (self.resultPlaces.count < 5) {
         tableViewHeight = 80 * self.resultPlaces.count;
     }
@@ -742,7 +651,6 @@
     }
     
     if (IS_IPHONE_4) {
-        
         if (self.resultPlaces.count < 3) {
             tableViewHeight = 80 * self.resultPlaces.count;
         }
@@ -766,7 +674,6 @@
 }
 
 - (void)registerTableView:(UITableView *)tableView {
-    
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
 
@@ -787,18 +694,15 @@
     cell.detailTextLabel.textColor = [UIColor whiteColor];
     cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.backgroundColor = [UIColor clearColor];
-    
-    
+
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return self.resultPlaces.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     MKMapItem *zoomItem = self.resultPlaces[indexPath.row];
@@ -809,34 +713,25 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     return 80;
 }
 
 
 - (void)removeLocation {
-    
     NSString *lat = [NSString stringWithFormat:@"%f", [self.selectedAnnotation coordinate].latitude];
     NSString *lon = [NSString stringWithFormat:@"%f", [self.selectedAnnotation coordinate].longitude];
-    
     for (Location *location in [LocationController sharedInstance].locations) {
-        
         if ([location.latitude isEqualToString:lat] && [location.longitude isEqualToString:lon]) {
-            
             [[LocationController sharedInstance]removeLocation:location];
-            
             [self.mapView removeAnnotation:self.selectedAnnotation];
         }
     }
-    
     [self.calloutView setHidden:YES];
     [self playWaterSplashSound];
 }
 
 
-
 - (void)clearAll {
-    
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Delete" message:@"Delete All Annotations?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
     [alert show];
 }
@@ -844,17 +739,11 @@
 #pragma mark - clears all
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
     if (buttonIndex == 1) {
-        
         for (Location *location in [LocationController sharedInstance].locations) {
-            
             [[LocationController sharedInstance] removeLocation:location];
-            
         }
-        
         self.arrayOfPins = @[];
-        
         [self.mapView removeAnnotations:self.mapView.annotations];
         [self playBombSound];
     }
@@ -863,68 +752,46 @@
 //TODO: Move methods to sound controller?
 
 - (void)playWaterSplashSound {
-    
     NSURL *urlForWater = [[NSBundle mainBundle] URLForResource:@"water-splash-3" withExtension:@"mp3"];
-    
     [self.soundController playAudioFileAtURL:urlForWater];
 }
 
 - (void)playBombSound {
-    
     NSURL *urlForBomb = [[NSBundle mainBundle] URLForResource:@"bomb" withExtension:@"mp3"];
-    
     [self.soundController playAudioFileAtURL:urlForBomb];
 }
 
 - (void)squareMapView {
-    
     [UIView animateWithDuration:0 animations:^{
-        
         for (UIView *view in self.view.subviews) {
-            
             if (view != self.mapView) {
-                
                 view.alpha = 0;
             }
         }
-        
         float yCoord = (self.view.frame.size.height - self.mapView.frame.size.width) / 2;
         float mapDimensions = self.mapView.frame.size.width;
-        
         self.mapView.frame = CGRectMake(0, yCoord, mapDimensions ,mapDimensions);
     }];
-    
     [UIView animateWithDuration:0 animations:^{
-        
-        
     } completion:^(BOOL finished) {
-        
         [self performSelector:@selector(unsquareMapView) withObject:nil afterDelay:1];
     }];
 }
 
 - (void)unsquareMapView {
-    
     [UIView animateWithDuration:0 animations:^{
-        
         for (UIView *view in self.view.subviews) {
-            
             if (view != self.mapView) {
-                
                 view.alpha = 1;
             }
         }
-        
         self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width,
                                         self.view.frame.size.height - 75);
-        
     }];
 }
 
 - (void)snapScreenshot:(void (^)(UIImage *image))completion {
-    
     //code to snapshot screen since mksnapshotter doesn't get pictures well
-    
     [self squareMapView];
     
     CGRect rect = [self.mapView bounds];
@@ -950,29 +817,20 @@
     
     MKMapSnapshotter *snapshotter = [[MKMapSnapshotter alloc] initWithOptions:options];
     [snapshotter startWithCompletionHandler:^(MKMapSnapshot *snapshot, NSError *error) {
-        
         UIImage *image = snapshot.image;
-        
         CGRect finalImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
-        
         MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
-
         pin.pinTintColor = self.pinTintColor;
         UIImage *pinImage = pin.image;
-        
+
         //create final image
-        
         UIGraphicsBeginImageContextWithOptions(image.size, YES, image.scale);
-        
         [image drawAtPoint:CGPointMake(0, 0)];
         
         //loop through annotations
-        
-        for (id<MKAnnotation>annotation in self.mapView.annotations)
-        {
+        for (id<MKAnnotation>annotation in self.mapView.annotations) {
             CGPoint point = [snapshot pointForCoordinate:annotation.coordinate];
-            if (CGRectContainsPoint(finalImageRect, point)) // this is too conservative, but you get the idea
-            {
+            if (CGRectContainsPoint(finalImageRect, point)) {
                 CGPoint pinCenterOffset = pin.centerOffset;
                 point.x -= pin.bounds.size.width / 2.0;
                 point.y -= pin.bounds.size.height / 2.0;
@@ -1020,22 +878,16 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Save caption" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         NSString *caption = alertController.textFields[0].text;
-        
+
         if (self.annType == pinColor) {
-        
         [self snapshotMapImage:^(UIImage *image) {
-            
             [[SnapshotController sharedInstance] addSnapshotWithImage:image caption:caption];
         }];
-            
         } else if (self.annType == annImage) {
-            
         [self snapScreenshot:^(UIImage *image) {
-            
             [[SnapshotController sharedInstance] addSnapshotWithImage:image caption:caption];
         }];
         }
-        
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -1043,16 +895,12 @@
 }
 
 - (void)playSnapSound {
-    
     NSURL *urlForSnap = [[NSBundle mainBundle] URLForResource:@"snapSound" withExtension:@"mp3"];
-    
     [self.soundController playAudioFileAtURL:urlForSnap];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    
     if (self.annType == pinColor) {
-        
         self.pinAnnotation = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinAnnotation"];
         [self defaultPin];
         self.pinAnnotation.animatesDrop = YES;
@@ -1061,9 +909,7 @@
     }
     
     else if (self.annType == annImage) {
-        
         MKAnnotationView *annView = [[MKAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"identifier"];
-        
         annView.annotation = annotation;
         [self withCustomImage:annView];
         
@@ -1081,24 +927,20 @@
 }
 
 - (BOOL)annotationDataExists {
-    
     return [self imagePath] != nil;
 }
 
 - (NSString *)imagePath {
-    
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"annotationImageData"];
 }
 
 - (void)defaultPin {
-    
     self.pinAnnotation.pinTintColor = self.pinTintColor;
 }
 
 - (void)withCustomImage:(MKAnnotationView *)annotationView {
     
     if ([self annotationDataExists] == YES) {
-        
         UIImage *imageToResize = [UIImage imageWithData:[NSData dataWithContentsOfFile:[self imagePath]]];
         CGSize size = CGSizeMake(150, 150);
         UIGraphicsBeginImageContext(size);

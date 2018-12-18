@@ -87,11 +87,9 @@
 - (void)openURL {
     
     NSURL *urlToOpen = [NSURL URLWithString:self.urlLabel.text];
-    
     UIApplication *app = [UIApplication sharedApplication];
     
     if ([app canOpenURL:urlToOpen]) {
-        
         [app openURL:urlToOpen];
     }
 }
@@ -102,12 +100,10 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:1];
 }
 
 - (void)dismiss {
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

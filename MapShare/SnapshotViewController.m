@@ -19,11 +19,8 @@
 - (void)updateWithSnapshot:(Snapshot *)snapshot {
     
     self.snapshot = snapshot;
-    
     UIImage *image = [UIImage imageWithData:snapshot.snapshot];
-    
     self.imageView.image = image;
-    
 }
 
 - (void)viewDidLoad {
@@ -33,17 +30,12 @@
     imageView.image = [UIImage imageNamed:@"spaceCollectionBG"];
     [self.view addSubview:imageView];
     
-    
     self.view.backgroundColor = [UIColor darkGrayColor];
     
     [self setUpScrollView];
-    
     [self setUpToolBar];
-    
     [self setUpImageView];
-    
     [self setUpButton];
-
 }
 
 - (void)setUpScrollView {
@@ -52,9 +44,7 @@
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height + 250);
     
     [self.view sendSubviewToBack:self.scrollView];
-    
     [self.view addSubview:self.scrollView];
-    
 }
 
 - (void)setUpButton {
@@ -95,9 +85,7 @@
 }
 
 - (void)collectionView {
-    
-    [self.navigationController popViewControllerAnimated:YES]; 
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setUpImageView {
@@ -111,7 +99,6 @@
     [self.scrollView addSubview:self.imageView];
     
     [self updateWithSnapshot:self.snapshot];
-    
 }
 
 - (void)share {

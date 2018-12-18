@@ -50,9 +50,6 @@
         [self addConstraint:height];
         [self addConstraint:width];
 
-        
-        
-        
     }
     
     return self;

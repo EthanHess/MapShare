@@ -26,7 +26,6 @@
 - (NSArray *)pictures {
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
-    
     NSArray *objects = [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
     
     return objects;
@@ -35,28 +34,22 @@
 - (void)addPicture:(UIImage *)image {
     
     NSData *data = [self imageToData:image];
-    
     Picture *picture = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
-    
     picture.picData = data;
     
     [self synchronize]; 
 }
 
 - (void)removePicture:(Picture *)picture {
-    
     [[picture managedObjectContext]deleteObject:picture];
-    
     [self synchronize]; 
 }
 
 - (NSData *)imageToData:(UIImage *)image {
-    
     return [NSData dataWithData:UIImageJPEGRepresentation(image, 1)];
 }
 
 - (void)synchronize {
-    
     [[Stack sharedInstance].managedObjectContext save:NULL];
 }
 

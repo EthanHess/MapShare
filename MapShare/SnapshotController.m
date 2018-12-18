@@ -19,13 +19,11 @@
     });
     
     return sharedInstance;
-    
 }
 
 - (NSArray *)snapshots {
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Snapshot"];
-    
     NSArray *objects = [[Stack sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:NULL];
     
     return objects;
@@ -42,20 +40,14 @@
     snapshot.caption = caption;
     
     [self synchronize];
-    
-    
 }
 
 - (void)removeSnapshots:(Snapshot *)snapshot {
-    
     [snapshot.managedObjectContext deleteObject:snapshot];
-    
     [self synchronize];
-    
 }
 
 - (void)synchronize {
-    
     [[Stack sharedInstance].managedObjectContext save:NULL];
 }
 

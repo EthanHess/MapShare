@@ -19,10 +19,6 @@
     
     if (self) {
         
-//        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.bounds];
-//        imageView.image = [UIImage imageNamed:@"searchBarBackground"];
-//        [self addSubview:imageView]; 
-
         self.backgroundColor = [UIColor blackColor];
         
         self.searchBar = [UISearchBar new];
