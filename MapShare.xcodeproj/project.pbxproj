@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		273B097421D580D80025202B /* ColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 273B097321D580D80025202B /* ColorCell.m */; };
 		2740243921C613DA0066ABC8 /* ColorPopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2740243821C613DA0066ABC8 /* ColorPopUpViewController.m */; };
 		275823791D70F11C00BA78A9 /* PictureChoiceCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275823781D70F11C00BA78A9 /* PictureChoiceCollectionViewController.m */; };
 		275823801D727CB000BA78A9 /* Picture+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758237D1D727CB000BA78A9 /* Picture+CoreDataProperties.m */; };
@@ -58,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		273B097221D580D80025202B /* ColorCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorCell.h; sourceTree = "<group>"; };
+		273B097321D580D80025202B /* ColorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorCell.m; sourceTree = "<group>"; };
 		2740243721C613DA0066ABC8 /* ColorPopUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorPopUpViewController.h; sourceTree = "<group>"; };
 		2740243821C613DA0066ABC8 /* ColorPopUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorPopUpViewController.m; sourceTree = "<group>"; };
 		275823771D70F11C00BA78A9 /* PictureChoiceCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureChoiceCollectionViewController.h; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 				275823781D70F11C00BA78A9 /* PictureChoiceCollectionViewController.m */,
 				2740243721C613DA0066ABC8 /* ColorPopUpViewController.h */,
 				2740243821C613DA0066ABC8 /* ColorPopUpViewController.m */,
+				273B097221D580D80025202B /* ColorCell.h */,
+				273B097321D580D80025202B /* ColorCell.m */,
 				27CAC6F71ADED7AD007B67C4 /* Onboarding */,
 				279B60761D39653C00332582 /* InstructionsViewController.h */,
 				279B60771D39653C00332582 /* InstructionsViewController.m */,
@@ -426,6 +431,7 @@
 				27CDDBB11AE59BD00073AA27 /* Snapshot.m in Sources */,
 				27CAC6E21ADC4E26007B67C4 /* SoundController.m in Sources */,
 				27CAC7451AE21048007B67C4 /* ShareButton.m in Sources */,
+				273B097421D580D80025202B /* ColorCell.m in Sources */,
 				27CAC73C1AE1834D007B67C4 /* SnapshotCollectionView.m in Sources */,
 				27CAC7391AE1818E007B67C4 /* SnapshotController.m in Sources */,
 				275823791D70F11C00BA78A9 /* PictureChoiceCollectionViewController.m in Sources */,

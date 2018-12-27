@@ -7,8 +7,11 @@
 //
 
 #import "ColorPopUpViewController.h"
+#import "ColorCell.h"
 
-@interface ColorPopUpViewController ()
+@interface ColorPopUpViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
 
@@ -23,6 +26,74 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //self.view.backgroundColor = //Transparent
+    [self registerCollectionView];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)registerCollectionView {
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    CGRect collectionFrame = CGRectMake(50, 100, self.view.frame.size.width - 100, self.view.frame.size.height - 200);
+    self.collectionView = [[UICollectionView alloc]initWithFrame:collectionFrame collectionViewLayout:layout];
+    [self.collectionView registerClass:[ColorCell class] forCellWithReuseIdentifier:@"cCell"];
+    self.collectionView.backgroundColor = [UIColor grayColor];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self.view addSubview:self.collectionView];
+}
+
+#pragma Collection VC DS + DEL
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [self customColors].count;
+}
+
+- (NSArray *)customColors {
+    UIColor *yellowColor = [UIColor yellowColor];
+    UIColor *orangeColor = [UIColor orangeColor];
+    UIColor *cyanColor = [UIColor cyanColor];
+    UIColor *blackColor = [UIColor blackColor];
+    UIColor *grayColor = [UIColor grayColor];
+    UIColor *whiteColor = [UIColor whiteColor];
+    UIColor *purpleColor = [UIColor purpleColor];
+    UIColor *brownColor = [UIColor brownColor];
+    
+    UIColor *randomColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
+    
+    NSArray *colorArray = @[yellowColor, orangeColor, cyanColor, blackColor, grayColor, whiteColor, purpleColor, brownColor, randomColor];
+    
+    return colorArray;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    ColorCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cCell" forIndexPath:indexPath];
+    [cell animateWithDuration:indexPath.row andColor:[self customColors][indexPath.row]];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//
+//}
 
 /*
 #pragma mark - Navigation

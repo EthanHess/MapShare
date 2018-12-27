@@ -18,6 +18,7 @@
 #import "LocationManagerController.h"
 #import "PictureChoiceCollectionViewController.h"
 #import <CoreGraphics/CoreGraphics.h>
+#import "ColorPopUpViewController.h"
 
 #define METERS_PER_MILE 23609.344
 
@@ -318,6 +319,8 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Custom" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
+        [self popToCustomCollectionView];
+        
         //pop out collection view with custom color here!
         if (self.collectionContainerView.frame.origin.x < 0) {
         [UIView animateWithDuration:0.5 animations:^{
@@ -343,6 +346,16 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
     
+}
+
+#pragma navigating
+
+- (void)popToCustomCollectionView {
+    ColorPopUpViewController *popUp = [ColorPopUpViewController new];
+    popUp.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    popUp.view.backgroundColor = [UIColor blackColor];
+    popUp.view.alpha = 0.5; //just do color with alpha because we don't want subviews to be transparent
+    [self.navigationController presentViewController:popUp animated:YES completion:nil]; 
 }
 
 - (void)archivesController {
@@ -645,11 +658,9 @@
     if (self.resultPlaces.count < 5) {
         tableViewHeight = 80 * self.resultPlaces.count;
     }
-    else
-    {
+    else {
         tableViewHeight = 80 * 4;
     }
-    
     if (IS_IPHONE_4) {
         if (self.resultPlaces.count < 3) {
             tableViewHeight = 80 * self.resultPlaces.count;
