@@ -35,7 +35,8 @@
     [super viewDidLoad];
     
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    imageView.image = [UIImage imageNamed:@"spaceCollectionBG"];
+    //@"spaceCollectionBG" << old
+    imageView.image = [UIImage imageNamed:@"SnapshotGalleryBG"];
     [self.view addSubview:imageView];
     
     [self setUpNavbar];

@@ -10,30 +10,30 @@
 
 @interface UIColor (UIColorCategory)
 
+//App
 + (UIColor *)backgroundColor;
-
 + (UIColor *)awesome;
-
 + (UIColor *)toolbarBackground;
-
 + (UIColor *)lightBlueColor;
-
-+ (UIColor *)borderColor; 
-
++ (UIColor *)borderColor;
 + (UIColor *)goldColor;
-
 + (UIColor *)darkBlueColor;
-
 + (UIColor *)instructionsBackground;
-
 + (UIColor *)snapYellow;
 
 //+ (UIColor *)snapOrange;
-//
 //+ (UIColor *)snapBlue;
-//
 //+ (UIColor *)snapPurple;
-//
 //+ (UIColor *)snapTan;
+
+//Custom markers
++ (UIColor *)customYellow; //For index path 0 of collection view
++ (UIColor *)customOrange;
++ (UIColor *)customCyan;
++ (UIColor *)customBlack;
++ (UIColor *)customGray;
++ (UIColor *)customWhite;
++ (UIColor *)customPurple;
++ (UIColor *)customBrown;
 
 @end

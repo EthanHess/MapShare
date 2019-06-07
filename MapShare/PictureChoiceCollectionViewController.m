@@ -158,7 +158,6 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
     return [PictureController sharedInstance].pictures.count;
 }
 

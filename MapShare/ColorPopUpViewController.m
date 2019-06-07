@@ -7,6 +7,7 @@
 //
 
 #import "ColorPopUpViewController.h"
+#import "UIColor+UIColorCategory.h" //Custom colors
 #import "ColorCell.h"
 
 @interface ColorPopUpViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -65,14 +66,14 @@
 }
 
 - (NSArray *)customColors {
-    UIColor *yellowColor = [UIColor yellowColor];
-    UIColor *orangeColor = [UIColor orangeColor];
-    UIColor *cyanColor = [UIColor cyanColor];
-    UIColor *blackColor = [UIColor blackColor];
-    UIColor *grayColor = [UIColor grayColor];
-    UIColor *whiteColor = [UIColor whiteColor];
-    UIColor *purpleColor = [UIColor purpleColor];
-    UIColor *brownColor = [UIColor brownColor];
+    UIColor *yellowColor = [UIColor customYellow];
+    UIColor *orangeColor = [UIColor customOrange];
+    UIColor *cyanColor = [UIColor customCyan];
+    UIColor *blackColor = [UIColor customBlack];
+    UIColor *grayColor = [UIColor customGray];
+    UIColor *whiteColor = [UIColor customWhite];
+    UIColor *purpleColor = [UIColor customPurple];
+    UIColor *brownColor = [UIColor customBrown];
     
     UIColor *randomColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
     
@@ -88,12 +89,16 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UIColor *color = [self customColors][indexPath.row];
+    [self.delegate didChooseColor:color]; 
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//
-//}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat dimension = (self.view.frame.size.width / 2) - 100;
+    return CGSizeMake(dimension, dimension);
+}
 
 /*
 #pragma mark - Navigation

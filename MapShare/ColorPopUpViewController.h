@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ColorChosenDelegate <NSObject>
+- (void)didChooseColor:(UIColor *)color;
+@end
+
 @interface ColorPopUpViewController : UIViewController
+
+@property (nonatomic, weak) id <ColorChosenDelegate> delegate;
 
 @end

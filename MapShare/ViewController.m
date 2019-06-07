@@ -24,7 +24,7 @@
 
 #define IS_IPHONE_4 ([UIScreen mainScreen].bounds.size.height == 480.0)
 
-@interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, ColorChosenDelegate>
 
 @property (nonatomic, strong) id <MKAnnotation> selectedAnnotation;
 @property (nonatomic, strong) UITableView *tableView;
@@ -35,7 +35,7 @@
 @property (nonatomic, strong) MKPinAnnotationView *pinAnnotation;
 @property (nonatomic, strong) UIColor *pinTintColor;
 @property (nonatomic, strong) NSArray *arrayOfPins;
-@property (nonatomic, strong) UICollectionView *collectionView;
+//@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIView *collectionContainerView;
 @property (nonatomic, assign) CLLocationCoordinate2D *currentLocation;
 
@@ -82,7 +82,7 @@
     [self setAnnotations];
     [self setUpDismissView];
     [self setUpTableView];
-    [self setUpCollectionView];
+    //[self setUpCollectionView];
     
     [self.view bringSubviewToFront:self.navToolBar];
     [self.calloutView setHidden:YES];
@@ -350,11 +350,24 @@
 
 #pragma navigating
 
+- (void)didChooseColor:(UIColor *)color { //Color popup del. (will replace original)
+    if (self.annType == annImage) {
+        [self resetPinTint:color];
+    } else {
+        self.pinTintColor = color;
+        for (MKPinAnnotationView *pin in self.arrayOfPins) {
+            [self.mapView removeAnnotation:pin.annotation];
+            pin.pinTintColor = self.pinTintColor;
+            [self.mapView addAnnotation:pin.annotation];
+        }
+    }
+}
+
 - (void)popToCustomCollectionView {
     ColorPopUpViewController *popUp = [ColorPopUpViewController new];
+    popUp.delegate = self;
     popUp.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    popUp.view.backgroundColor = [UIColor blackColor];
-    popUp.view.alpha = 0.5; //just do color with alpha because we don't want subviews to be transparent
+    popUp.view.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7];
     [self.navigationController presentViewController:popUp animated:YES completion:nil]; 
 }
 
@@ -528,126 +541,128 @@
     [errorAlert show];
 }
 
-#pragma CollectionView for pin colors
+//TODO remove after test
 
-- (void)popBack {
-    [UIView animateWithDuration:0.5 animations:^{
-        self.collectionContainerView.hidden = YES;
-        if (self.collectionContainerView.frame.origin.x >= 0) {
-            self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x - 250, self.collectionContainerView.center.y);
-        }
-    }];
-}
-
-#pragma Pop out collection view
-// MOVE TO NEW VC
-
-- (void)setUpCollectionView {
-    self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-250, self.view.frame.size.height / 2 - 75, 250, 300)];
-    self.collectionContainerView.layer.cornerRadius = 15;
-    self.collectionContainerView.backgroundColor = [UIColor clearColor];
-    self.collectionContainerView.layer.borderColor = [[UIColor blackColor]CGColor];
-    self.collectionContainerView.layer.borderWidth = 2;
-    self.collectionContainerView.layer.masksToBounds = YES;
-    self.collectionContainerView.hidden = NO;
-    [self.view addSubview:self.collectionContainerView];
-
-    self.collectionContainerView.backgroundColor = [UIColor blackColor];
-    
-    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
-
-    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    backButton.layer.cornerRadius = 25;
-    backButton.layer.borderColor = [[UIColor lightGrayColor]CGColor];
-    backButton.layer.borderWidth = 2;
-    backButton.layer.masksToBounds = YES;
-    [backButton setBackgroundImage:[UIImage imageNamed:@"PopButtonBackground"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
-    [self.collectionContainerView addSubview:backButton];
-    
-    //establish layout
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
-    
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.collectionContainerView.frame.size.width, 250) collectionViewLayout:layout];
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    [self registerCollectionView:self.collectionView];
-    [self.collectionContainerView addSubview:self.collectionView];
-}
-
-- (void)registerCollectionView:(UICollectionView *)collectionView {
-    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    if (indexPath.row < 8 && indexPath.row != 3) {
-        [self configureCell:cell atIndexPath:indexPath andColor:[UIColor blackColor]];
-    }
-    if (indexPath.row == 3) {
-        [self configureCell:cell atIndexPath:indexPath andColor:[UIColor whiteColor]];
-    }
-    if (indexPath.row == 8) {
-        
-        cell.layer.cornerRadius = cell.frame.size.height / 2;
-        cell.layer.borderColor = [[UIColor blackColor]CGColor];
-        cell.layer.masksToBounds = YES;
-        cell.layer.borderWidth = 1;
-        
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:cell.bounds];
-        imageView.image = [UIImage imageNamed:@"randomButton"];
-        imageView.layer.masksToBounds = YES;
-        [cell addSubview:imageView];
-    }
-    return cell;
-}
-
-- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath andColor:(UIColor *)borderColor {
-    cell.layer.cornerRadius = cell.frame.size.height / 2;
-    cell.layer.borderColor = [borderColor CGColor];
-    cell.layer.borderWidth = 1;
-    cell.backgroundColor = [self customColors][indexPath.row];
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self customColors].count;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.annType == annImage) {
-        UIColor *colorToChangeTo = [self customColors][indexPath.row];
-        [self resetPinTint:colorToChangeTo];
-    }
-    else {
-    self.pinTintColor = [self customColors][indexPath.row];
-    for (MKPinAnnotationView *pin in self.arrayOfPins) {
-        [self.mapView removeAnnotation:pin.annotation];
-        pin.pinTintColor = self.pinTintColor;
-        [self.mapView addAnnotation:pin.annotation];
-    }
-    }
-}
-
-- (NSArray *)customColors {
-    //change to better colors eventually
-    UIColor *yellowColor = [UIColor yellowColor];
-    UIColor *orangeColor = [UIColor orangeColor];
-    UIColor *cyanColor = [UIColor cyanColor];
-    UIColor *blackColor = [UIColor blackColor];
-    UIColor *grayColor = [UIColor grayColor];
-    UIColor *whiteColor = [UIColor whiteColor];
-    UIColor *purpleColor = [UIColor purpleColor];
-    UIColor *brownColor = [UIColor brownColor];
-    
-    UIColor *randomColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
-    
-    NSArray *colorArray = @[yellowColor, orangeColor, cyanColor, blackColor, grayColor, whiteColor, purpleColor, brownColor, randomColor];
-    
-    return colorArray;
-}
+//#pragma CollectionView for pin colors
+//
+//- (void)popBack {
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self.collectionContainerView.hidden = YES;
+//        if (self.collectionContainerView.frame.origin.x >= 0) {
+//            self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x - 250, self.collectionContainerView.center.y);
+//        }
+//    }];
+//}
+//
+//#pragma Pop out collection view
+//// MOVE TO NEW VC
+//
+//- (void)setUpCollectionView {
+//    self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-250, self.view.frame.size.height / 2 - 75, 250, 300)];
+//    self.collectionContainerView.layer.cornerRadius = 15;
+//    self.collectionContainerView.backgroundColor = [UIColor clearColor];
+//    self.collectionContainerView.layer.borderColor = [[UIColor blackColor]CGColor];
+//    self.collectionContainerView.layer.borderWidth = 2;
+//    self.collectionContainerView.layer.masksToBounds = YES;
+//    self.collectionContainerView.hidden = NO;
+//    [self.view addSubview:self.collectionContainerView];
+//
+//    self.collectionContainerView.backgroundColor = [UIColor blackColor];
+//
+//    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
+//
+//    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    backButton.layer.cornerRadius = 25;
+//    backButton.layer.borderColor = [[UIColor lightGrayColor]CGColor];
+//    backButton.layer.borderWidth = 2;
+//    backButton.layer.masksToBounds = YES;
+//    [backButton setBackgroundImage:[UIImage imageNamed:@"PopButtonBackground"] forState:UIControlStateNormal];
+//    [backButton addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
+//    [self.collectionContainerView addSubview:backButton];
+//
+//    //establish layout
+//
+//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+//    layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+//
+//    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.collectionContainerView.frame.size.width, 250) collectionViewLayout:layout];
+//    self.collectionView.delegate = self;
+//    self.collectionView.dataSource = self;
+//    self.collectionView.backgroundColor = [UIColor clearColor];
+//    [self registerCollectionView:self.collectionView];
+//    [self.collectionContainerView addSubview:self.collectionView];
+//}
+//
+//- (void)registerCollectionView:(UICollectionView *)collectionView {
+//    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+//}
+//
+//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+//    if (indexPath.row < 8 && indexPath.row != 3) {
+//        [self configureCell:cell atIndexPath:indexPath andColor:[UIColor blackColor]];
+//    }
+//    if (indexPath.row == 3) {
+//        [self configureCell:cell atIndexPath:indexPath andColor:[UIColor whiteColor]];
+//    }
+//    if (indexPath.row == 8) {
+//
+//        cell.layer.cornerRadius = cell.frame.size.height / 2;
+//        cell.layer.borderColor = [[UIColor blackColor]CGColor];
+//        cell.layer.masksToBounds = YES;
+//        cell.layer.borderWidth = 1;
+//
+//        UIImageView *imageView = [[UIImageView alloc]initWithFrame:cell.bounds];
+//        imageView.image = [UIImage imageNamed:@"randomButton"];
+//        imageView.layer.masksToBounds = YES;
+//        [cell addSubview:imageView];
+//    }
+//    return cell;
+//}
+//
+//- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath andColor:(UIColor *)borderColor {
+//    cell.layer.cornerRadius = cell.frame.size.height / 2;
+//    cell.layer.borderColor = [borderColor CGColor];
+//    cell.layer.borderWidth = 1;
+//    cell.backgroundColor = [self customColors][indexPath.row];
+//}
+//
+//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+//    return [self customColors].count;
+//}
+//
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+//    if (self.annType == annImage) {
+//        UIColor *colorToChangeTo = [self customColors][indexPath.row];
+//        [self resetPinTint:colorToChangeTo];
+//    }
+//    else {
+//    self.pinTintColor = [self customColors][indexPath.row];
+//    for (MKPinAnnotationView *pin in self.arrayOfPins) {
+//        [self.mapView removeAnnotation:pin.annotation];
+//        pin.pinTintColor = self.pinTintColor;
+//        [self.mapView addAnnotation:pin.annotation];
+//    }
+//    }
+//}
+//
+//- (NSArray *)customColors {
+//    //change to better colors eventually
+//    UIColor *yellowColor = [UIColor yellowColor];
+//    UIColor *orangeColor = [UIColor orangeColor];
+//    UIColor *cyanColor = [UIColor cyanColor];
+//    UIColor *blackColor = [UIColor blackColor];
+//    UIColor *grayColor = [UIColor grayColor];
+//    UIColor *whiteColor = [UIColor whiteColor];
+//    UIColor *purpleColor = [UIColor purpleColor];
+//    UIColor *brownColor = [UIColor brownColor];
+//
+//    UIColor *randomColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
+//
+//    NSArray *colorArray = @[yellowColor, orangeColor, cyanColor, blackColor, grayColor, whiteColor, purpleColor, brownColor, randomColor];
+//
+//    return colorArray;
+//}
 
 #pragma TableView for MKMapItems (locations)
 
@@ -818,6 +833,7 @@
 
 //doesn't snapshot images well, so this is called for pins only
 
+//This can go to Global utilities class to clear out VC
 - (void)snapshotMapImage:(void (^)(UIImage *image))completion {
     
     MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];

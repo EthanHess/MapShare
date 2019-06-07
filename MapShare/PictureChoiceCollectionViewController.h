@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PictureChoiceCollectionViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface PictureChoiceCollectionViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource> //move to .m?
 
 @end
