@@ -16,6 +16,7 @@
 
 @interface SnapshotCollectionView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
+@property (nonatomic, strong) UIView *toolbarContainer;
 
 @end
 
@@ -39,15 +40,25 @@
     imageView.image = [UIImage imageNamed:@"SnapshotGalleryBG"];
     [self.view addSubview:imageView];
     
-    [self setUpNavbar];
+    [self setUpTopContainer];
     [self setUpCollectionView];
+}
+
+- (void)setUpTopContainer {
+    if (self.toolbarContainer == nil) {
+        self.toolbarContainer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+        self.toolbarContainer.backgroundColor = [UIColor blackColor];
+        self.toolbarContainer.userInteractionEnabled = YES;
+        [self.view addSubview:self.toolbarContainer];
+        [self setUpNavbar];
+    }
 }
 
 - (void)setUpNavbar {
     
-    self.toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
+    self.toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, 75)];
     [self.toolbar setBarTintColor:[UIColor blackColor]];
-    [self.view addSubview:self.toolbar];
+    [self.toolbarContainer addSubview:self.toolbar];
     
     UIImage *arrow = [UIImage imageNamed:@"leftArrow"];
     
@@ -71,11 +82,7 @@
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:layout];
-    
-//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-//    imageView.image = [UIImage imageNamed:@"SnapBack"];
-//    self.collectionView.backgroundView = imageView;
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:layout];
     
     self.collectionView.backgroundColor = [UIColor clearColor];     //TODO: Change to custom
     

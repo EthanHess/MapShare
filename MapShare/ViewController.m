@@ -24,7 +24,7 @@
 
 #define IS_IPHONE_4 ([UIScreen mainScreen].bounds.size.height == 480.0)
 
-@interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, ColorChosenDelegate>
+@interface ViewController () <UISearchBarDelegate, UIAlertViewDelegate, UITableViewDelegate, UITableViewDataSource, ColorChosenDelegate>
 
 @property (nonatomic, strong) id <MKAnnotation> selectedAnnotation;
 @property (nonatomic, strong) UITableView *tableView;
@@ -37,6 +37,8 @@
 @property (nonatomic, strong) NSArray *arrayOfPins;
 //@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIView *collectionContainerView;
+@property (nonatomic, strong) UIView *toolbarContainer;
+
 @property (nonatomic, assign) CLLocationCoordinate2D *currentLocation;
 
 
@@ -45,9 +47,9 @@
 @implementation ViewController
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     [[self navigationController] setNavigationBarHidden:YES];
-    
     [self registerForNotifications]; 
     
     //[LocationManagerController sharedInstance];
@@ -55,9 +57,7 @@
     /*
     
     [[LocationManagerController sharedInstance]getCurrentLocationWithCompletion:^(CLLocationCoordinate2D currentLocation, BOOL success) {
-        
         self.currentLocation = &(currentLocation);
-        
     }];
      
      */
@@ -77,7 +77,7 @@
     
     [self setUpMapView];
     [self setUpToolBar];
-    [self setUpNavigationToolBar];
+    [self setUpTopContainer];
     [self setUpSearchBar];
     [self setAnnotations];
     [self setUpDismissView];
@@ -162,14 +162,24 @@
 
 //Can do outside of VC, takes up a lot of space
 
+//Can subclass + add navbar
+- (void)setUpTopContainer {
+    if (self.toolbarContainer == nil) {
+        self.toolbarContainer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+        self.toolbarContainer.backgroundColor = [UIColor blackColor];
+        [self.view addSubview:self.toolbarContainer];
+        [self setUpNavigationToolBar];
+    }
+}
+
 - (void)setUpNavigationToolBar {
     
     //Can discard this
     UIColor *tintColor = [UIColor whiteColor];
     
-    self.navToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
+    self.navToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, 75)];
     self.navToolBar.barTintColor = [UIColor blackColor];
-    [self.view addSubview:self.navToolBar];
+    [self.toolbarContainer addSubview:self.navToolBar];
     
     UIImage *pencil = [[UIImage imageNamed:@"pencil48"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImage *question = [[UIImage imageNamed:@"question48"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -421,17 +431,17 @@
 
 - (void)setUpSearchBar {
     self.searchBarView = [[SearchBarView alloc] initWithFrame:CGRectMake(0, -80, self.view.frame.size.width, 80)];
-    [self.view addSubview:self.searchBarView];
+    [self.view insertSubview:self.searchBarView belowSubview:self.toolbarContainer];
     [self.searchBarView.button addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)popSearchBar {
-    if (self.searchBarView.frame.origin.y < 75) {
-        [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
+    if (self.searchBarView.frame.origin.y < 150) {
+        [self popSearchBar:self.searchBarView distance:self.searchBarView.frame.size.height + 150];
         [self.searchBarView.searchBar becomeFirstResponder];
     }
     else {
-        [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 75];
+        [self popSearchBarBack:self.searchBarView distance:self.searchBarView.frame.size.height + 150];
         [self.searchBarView.searchBar resignFirstResponder];
     }
 }
@@ -540,129 +550,6 @@
     UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"No Results" message:@"Search Again" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
     [errorAlert show];
 }
-
-//TODO remove after test
-
-//#pragma CollectionView for pin colors
-//
-//- (void)popBack {
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.collectionContainerView.hidden = YES;
-//        if (self.collectionContainerView.frame.origin.x >= 0) {
-//            self.collectionContainerView.center = CGPointMake(self.collectionContainerView.center.x - 250, self.collectionContainerView.center.y);
-//        }
-//    }];
-//}
-//
-//#pragma Pop out collection view
-//// MOVE TO NEW VC
-//
-//- (void)setUpCollectionView {
-//    self.collectionContainerView = [[UIView alloc]initWithFrame:CGRectMake(-250, self.view.frame.size.height / 2 - 75, 250, 300)];
-//    self.collectionContainerView.layer.cornerRadius = 15;
-//    self.collectionContainerView.backgroundColor = [UIColor clearColor];
-//    self.collectionContainerView.layer.borderColor = [[UIColor blackColor]CGColor];
-//    self.collectionContainerView.layer.borderWidth = 2;
-//    self.collectionContainerView.layer.masksToBounds = YES;
-//    self.collectionContainerView.hidden = NO;
-//    [self.view addSubview:self.collectionContainerView];
-//
-//    self.collectionContainerView.backgroundColor = [UIColor blackColor];
-//
-//    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(self.collectionContainerView.frame.size.width / 2 - 25, self.collectionContainerView.frame.size.height - 75, 50, 50)];
-//
-//    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    backButton.layer.cornerRadius = 25;
-//    backButton.layer.borderColor = [[UIColor lightGrayColor]CGColor];
-//    backButton.layer.borderWidth = 2;
-//    backButton.layer.masksToBounds = YES;
-//    [backButton setBackgroundImage:[UIImage imageNamed:@"PopButtonBackground"] forState:UIControlStateNormal];
-//    [backButton addTarget:self action:@selector(popBack) forControlEvents:UIControlEventTouchUpInside];
-//    [self.collectionContainerView addSubview:backButton];
-//
-//    //establish layout
-//
-//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-//    layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
-//
-//    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.collectionContainerView.frame.size.width, 250) collectionViewLayout:layout];
-//    self.collectionView.delegate = self;
-//    self.collectionView.dataSource = self;
-//    self.collectionView.backgroundColor = [UIColor clearColor];
-//    [self registerCollectionView:self.collectionView];
-//    [self.collectionContainerView addSubview:self.collectionView];
-//}
-//
-//- (void)registerCollectionView:(UICollectionView *)collectionView {
-//    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-//}
-//
-//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-//    if (indexPath.row < 8 && indexPath.row != 3) {
-//        [self configureCell:cell atIndexPath:indexPath andColor:[UIColor blackColor]];
-//    }
-//    if (indexPath.row == 3) {
-//        [self configureCell:cell atIndexPath:indexPath andColor:[UIColor whiteColor]];
-//    }
-//    if (indexPath.row == 8) {
-//
-//        cell.layer.cornerRadius = cell.frame.size.height / 2;
-//        cell.layer.borderColor = [[UIColor blackColor]CGColor];
-//        cell.layer.masksToBounds = YES;
-//        cell.layer.borderWidth = 1;
-//
-//        UIImageView *imageView = [[UIImageView alloc]initWithFrame:cell.bounds];
-//        imageView.image = [UIImage imageNamed:@"randomButton"];
-//        imageView.layer.masksToBounds = YES;
-//        [cell addSubview:imageView];
-//    }
-//    return cell;
-//}
-//
-//- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath andColor:(UIColor *)borderColor {
-//    cell.layer.cornerRadius = cell.frame.size.height / 2;
-//    cell.layer.borderColor = [borderColor CGColor];
-//    cell.layer.borderWidth = 1;
-//    cell.backgroundColor = [self customColors][indexPath.row];
-//}
-//
-//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    return [self customColors].count;
-//}
-//
-//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    if (self.annType == annImage) {
-//        UIColor *colorToChangeTo = [self customColors][indexPath.row];
-//        [self resetPinTint:colorToChangeTo];
-//    }
-//    else {
-//    self.pinTintColor = [self customColors][indexPath.row];
-//    for (MKPinAnnotationView *pin in self.arrayOfPins) {
-//        [self.mapView removeAnnotation:pin.annotation];
-//        pin.pinTintColor = self.pinTintColor;
-//        [self.mapView addAnnotation:pin.annotation];
-//    }
-//    }
-//}
-//
-//- (NSArray *)customColors {
-//    //change to better colors eventually
-//    UIColor *yellowColor = [UIColor yellowColor];
-//    UIColor *orangeColor = [UIColor orangeColor];
-//    UIColor *cyanColor = [UIColor cyanColor];
-//    UIColor *blackColor = [UIColor blackColor];
-//    UIColor *grayColor = [UIColor grayColor];
-//    UIColor *whiteColor = [UIColor whiteColor];
-//    UIColor *purpleColor = [UIColor purpleColor];
-//    UIColor *brownColor = [UIColor brownColor];
-//
-//    UIColor *randomColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
-//
-//    NSArray *colorArray = @[yellowColor, orangeColor, cyanColor, blackColor, grayColor, whiteColor, purpleColor, brownColor, randomColor];
-//
-//    return colorArray;
-//}
 
 #pragma TableView for MKMapItems (locations)
 

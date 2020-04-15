@@ -7,6 +7,7 @@
 //
 
 #import "SearchButton.h"
+#import "UIColor+UIColorCategory.h"
 
 @interface SearchButton ()
 
@@ -19,10 +20,10 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
-        [self setBackgroundColor:[UIColor greenColor]];
-        
-        [self setBackgroundImage:[UIImage imageNamed:@"searchButton"] forState:UIControlStateNormal];
+
+        [self setBackgroundColor:[UIColor customCyan]];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self setTitle:@"GO" forState:UIControlStateNormal];
         
         self.layer.masksToBounds = YES;
         

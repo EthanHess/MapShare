@@ -100,7 +100,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self performSelector:@selector(dismiss) withObject:nil afterDelay:1];
+    [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.5];
 }
 
 - (void)dismiss {

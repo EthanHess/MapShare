@@ -12,6 +12,8 @@
 
 @interface SnapshotViewController ()
 
+@property (nonatomic, strong) UIView *toolbarContainer;
+
 @end
 
 @implementation SnapshotViewController
@@ -33,9 +35,20 @@
     self.view.backgroundColor = [UIColor darkGrayColor];
     
     [self setUpScrollView];
-    [self setUpToolBar];
+    [self setUpTopContainer];
     [self setUpImageView];
     [self setUpButton];
+}
+
+
+//Can subclass + add navbar
+- (void)setUpTopContainer {
+    if (self.toolbarContainer == nil) {
+        self.toolbarContainer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+        self.toolbarContainer.backgroundColor = [UIColor blackColor];
+        [self.view addSubview:self.toolbarContainer];
+        [self setUpToolBar];
+    }
 }
 
 - (void)setUpScrollView {
@@ -61,10 +74,9 @@
 
 - (void)setUpToolBar {
     
-    self.toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 75)];
-//    [self.toolbar setBackgroundImage:[UIImage imageNamed:@"abstractBlue"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    self.toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 75, self.view.frame.size.width, 75)];
     self.toolbar.barTintColor = [UIColor blackColor];
-    [self.view addSubview:self.toolbar];
+    [self.toolbarContainer addSubview:self.toolbar];
     
     UIImage *arrow = [UIImage imageNamed:@"leftArrow"];
     

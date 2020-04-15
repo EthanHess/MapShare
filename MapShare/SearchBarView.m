@@ -23,7 +23,7 @@
         
         self.searchBar = [UISearchBar new];
         self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;
-        self.searchBar.delegate = self;
+//        self.searchBar.delegate = self;
         self.searchBar.placeholder = @" Search Location ";
         [self addSubview:self.searchBar];
         

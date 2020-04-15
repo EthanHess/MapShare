@@ -84,7 +84,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ColorCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cCell" forIndexPath:indexPath];
-    [cell animateWithDuration:indexPath.row andColor:[self customColors][indexPath.row]];
+    [cell animateWithDuration:indexPath.row / 2 andColor:[self customColors][indexPath.row]];
     return cell;
 }
 
