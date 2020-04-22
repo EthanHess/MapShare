@@ -29,7 +29,7 @@
         self.dismissButton.translatesAutoresizingMaskIntoConstraints = NO;
         self.dismissButton.layer.cornerRadius = 10;
         [self.dismissButton setTitle:@"Dismiss" forState:UIControlStateNormal];
-        self.dismissButton.titleLabel.font = [UIFont fontWithName:@"Chalkduster" size:22];
+        self.dismissButton.titleLabel.font = [UIFont systemFontOfSize:22];
         [self.dismissButton setBackgroundColor:[UIColor darkGrayColor]];
         [self.dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.dismissButton.layer.cornerRadius = 10;

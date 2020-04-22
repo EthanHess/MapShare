@@ -96,7 +96,6 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     return CGSizeMake((self.view.frame.size.width - 100) ,self.view.frame.size.width - 100);
 }
 
@@ -105,7 +104,6 @@
 }
 
 - (void)registerCollectionView:(UICollectionView *)collectionView {
-    
     [collectionView registerClass:[SnapshotCollectionViewCell class] forCellWithReuseIdentifier:@"CellID"];
 }
 
@@ -158,7 +156,7 @@
     [cell addSubview:imageView];
     
     cell.footerLabel.text = snapshot.caption;
-    cell.footerLabel.font = [UIFont fontWithName:@"Chalkduster" size:20];
+    cell.footerLabel.font = [UIFont systemFontOfSize:12]; 
     cell.footerLabel.textColor = [UIColor whiteColor];
     cell.footerLabel.backgroundColor = [UIColor blackColor];
     cell.layer.cornerRadius = 10;

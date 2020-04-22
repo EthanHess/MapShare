@@ -599,11 +599,11 @@
     
     cell.backgroundColor = [UIColor blackColor];
     cell.textLabel.text = item.name;
-    cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.detailTextLabel.text = item.placemark.title;
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Chalkduster" size:12];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     cell.detailTextLabel.textColor = [UIColor whiteColor];
     cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.backgroundColor = [UIColor clearColor];

@@ -52,6 +52,12 @@
     self.collectionView.backgroundColor = [UIColor grayColor];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    self.collectionView.layer.borderColor = [[UIColor whiteColor]CGColor];
+    self.collectionView.layer.masksToBounds = YES;
+    self.collectionView.layer.cornerRadius = 5;
+    self.collectionView.layer.borderWidth = 1;
+    self.collectionView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"blueStars"]];
+    //self.collectionView.backgroundView.alpha = 0.5;
     [self.view addSubview:self.collectionView];
 }
 
