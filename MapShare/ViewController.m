@@ -518,11 +518,23 @@
     [self.view addSubview:self.dismissView];
 }
 
+//Just set hidden? Why was this written like this?
+//Also don't add tableView - dismiss view, just hide/unhide
 - (void)dismissTableView {
+    [self dimHandlerForPopupTable:NO];
     [self.tableView removeFromSuperview];
     [self.dismissView setHidden:YES];
 }
 
+- (void)dimHandlerForPopupTable:(BOOL)dim {
+    for (UIView *theView in self.view.subviews) {
+        if (![theView isEqual:self.dismissView] && ![theView isEqual:self.tableView]) {
+            theView.alpha = dim ? 0.5 : 1;
+        }
+    }
+}
+
+//TODO autocomplete
 - (void)search {
     NSString *searchText = self.searchBarView.searchBar.text;
     if ([searchText isEqual: @""]) {
@@ -536,6 +548,7 @@
             if (!error) {
                 [self.searchBarView.searchBar resignFirstResponder];
                 self.resultPlaces = [response mapItems];
+                [self dimHandlerForPopupTable:YES];
                 [self setUpTableView];
                 [self.dismissView setHidden:NO];
                 [self.tableView reloadData];
@@ -556,25 +569,27 @@
 
 - (void)setUpTableView {
     [self.tableView removeFromSuperview];
-    CGFloat tableViewHeight;
-    if (self.resultPlaces.count < 5) {
-        tableViewHeight = 80 * self.resultPlaces.count;
-    }
-    else {
-        tableViewHeight = 80 * 4;
-    }
-    if (IS_IPHONE_4) {
-        if (self.resultPlaces.count < 3) {
-            tableViewHeight = 80 * self.resultPlaces.count;
-        }
-        else {
-            tableViewHeight = 80 * 2;
-        }
-    }
+    
+    //TODO adjust
+//    CGFloat tableViewHeight;
+//    if (self.resultPlaces.count < 5) {
+//        tableViewHeight = 80 * self.resultPlaces.count;
+//    }
+//    else {
+//        tableViewHeight = 80 * 4;
+//    }
+//    if (IS_IPHONE_4) {
+//        if (self.resultPlaces.count < 3) {
+//            tableViewHeight = 80 * self.resultPlaces.count;
+//        }
+//        else {
+//            tableViewHeight = 80 * 2;
+//        }
+//    }
 
     self.tableView.backgroundColor = [UIColor blackColor];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(80, 240, self.view.frame.size.width - 160, tableViewHeight)];
+    self.tableView = [[UITableView alloc]initWithFrame:[self tableFrame]];
     self.tableView.layer.cornerRadius = 10;
     self.tableView.layer.borderColor = [[UIColor whiteColor]CGColor];
     self.tableView.layer.borderWidth = 1;
@@ -584,6 +599,10 @@
     [self registerTableView:self.tableView];
     
     [self.view addSubview:self.tableView];
+}
+
+- (CGRect)tableFrame {
+    return CGRectMake(self.view.frame.size.width / 4, self.view.frame.size.height / 3, self.view.frame.size.width / 2, self.view.frame.size.height / 3);
 }
 
 - (void)registerTableView:(UITableView *)tableView {
